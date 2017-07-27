@@ -1,0 +1,10 @@
+language: rust
+rust:
+  - stable
+  - beta
+  - nightly
+  - 1.18.0
+sudo: false
+matrix:
+  allow_failures:
+    - rust: nightly
