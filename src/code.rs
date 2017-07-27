@@ -1,0 +1,562 @@
+
+// AUTO GENERATED CODE - DO NOT EDIT
+
+use std::fmt::{self, Display};
+
+/// Code is the physical position of a key.
+///
+/// The names are based on the US keyboard. If the key
+/// is not present on US keyboards a name from another
+/// layout is used.
+///
+/// Specification:
+/// <https://www.w3.org/TR/2017/CR-uievents-code-20170601/>
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+pub enum Code {
+    /// <code class="keycap">`~</code> on a US keyboard. This is the <code class="keycap">半角/全角/漢字</code> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
+    Backquote,
+    /// Used for both the US <code class="keycap">\|</code> (on the 101-key layout) and also for the key
+    /// located between the <code class="keycap">"</code> and <code class="keycap">Enter</code> keys on row C of the 102-,
+    /// 104- and 106-key layouts.
+    /// Labelled <code class="keycap">#~</code> on a UK (102) keyboard.
+    Backslash,
+    /// <code class="keycap">Backspace</code> or <code class="keycap">⌫</code>.
+    /// Labelled <code class="keycap">Delete</code> on Apple keyboards.
+    Backspace,
+    /// <code class="keycap">[{</code> on a US keyboard.
+    BracketLeft,
+    /// <code class="keycap">]}</code> on a US keyboard.
+    BracketRight,
+    /// <code class="keycap">,&lt;</code> on a US keyboard.
+    Comma,
+    /// <code class="keycap">0)</code> on a US keyboard.
+    Digit0,
+    /// <code class="keycap">1!</code> on a US keyboard.
+    Digit1,
+    /// <code class="keycap">2@</code> on a US keyboard.
+    Digit2,
+    /// <code class="keycap">3#</code> on a US keyboard.
+    Digit3,
+    /// <code class="keycap">4$</code> on a US keyboard.
+    Digit4,
+    /// <code class="keycap">5%</code> on a US keyboard.
+    Digit5,
+    /// <code class="keycap">6^</code> on a US keyboard.
+    Digit6,
+    /// <code class="keycap">7&amp;</code> on a US keyboard.
+    Digit7,
+    /// <code class="keycap">8*</code> on a US keyboard.
+    Digit8,
+    /// <code class="keycap">9(</code> on a US keyboard.
+    Digit9,
+    /// <code class="keycap">=+</code> on a US keyboard.
+    Equal,
+    /// Located between the left <code class="keycap">Shift</code> and <code class="keycap">Z</code> keys.
+    /// Labelled <code class="keycap">\|</code> on a UK keyboard.
+    IntlBackslash,
+    /// Located between the <code class="keycap">/</code> and right <code class="keycap">Shift</code> keys.
+    /// Labelled <code class="keycap">\ろ</code> (<span class="unicode">ro</span>) on a Japanese keyboard.
+    IntlRo,
+    /// Located between the <code class="keycap">=</code> and <code class="keycap">Backspace</code> keys.
+    /// Labelled <code class="keycap">¥</code> (<span class="unicode">yen</span>) on a Japanese keyboard. <code class="keycap">\/</code> on a
+    /// Russian keyboard.
+    IntlYen,
+    /// <code class="keycap">a</code> on a US keyboard.
+    /// Labelled <code class="keycap">q</code> on an AZERTY (e.g., French) keyboard.
+    KeyA,
+    /// <code class="keycap">b</code> on a US keyboard.
+    KeyB,
+    /// <code class="keycap">c</code> on a US keyboard.
+    KeyC,
+    /// <code class="keycap">d</code> on a US keyboard.
+    KeyD,
+    /// <code class="keycap">e</code> on a US keyboard.
+    KeyE,
+    /// <code class="keycap">f</code> on a US keyboard.
+    KeyF,
+    /// <code class="keycap">g</code> on a US keyboard.
+    KeyG,
+    /// <code class="keycap">h</code> on a US keyboard.
+    KeyH,
+    /// <code class="keycap">i</code> on a US keyboard.
+    KeyI,
+    /// <code class="keycap">j</code> on a US keyboard.
+    KeyJ,
+    /// <code class="keycap">k</code> on a US keyboard.
+    KeyK,
+    /// <code class="keycap">l</code> on a US keyboard.
+    KeyL,
+    /// <code class="keycap">m</code> on a US keyboard.
+    KeyM,
+    /// <code class="keycap">n</code> on a US keyboard.
+    KeyN,
+    /// <code class="keycap">o</code> on a US keyboard.
+    KeyO,
+    /// <code class="keycap">p</code> on a US keyboard.
+    KeyP,
+    /// <code class="keycap">q</code> on a US keyboard.
+    /// Labelled <code class="keycap">a</code> on an AZERTY (e.g., French) keyboard.
+    KeyQ,
+    /// <code class="keycap">r</code> on a US keyboard.
+    KeyR,
+    /// <code class="keycap">s</code> on a US keyboard.
+    KeyS,
+    /// <code class="keycap">t</code> on a US keyboard.
+    KeyT,
+    /// <code class="keycap">u</code> on a US keyboard.
+    KeyU,
+    /// <code class="keycap">v</code> on a US keyboard.
+    KeyV,
+    /// <code class="keycap">w</code> on a US keyboard.
+    /// Labelled <code class="keycap">z</code> on an AZERTY (e.g., French) keyboard.
+    KeyW,
+    /// <code class="keycap">x</code> on a US keyboard.
+    KeyX,
+    /// <code class="keycap">y</code> on a US keyboard.
+    /// Labelled <code class="keycap">z</code> on a QWERTZ (e.g., German) keyboard.
+    KeyY,
+    /// <code class="keycap">z</code> on a US keyboard.
+    /// Labelled <code class="keycap">w</code> on an AZERTY (e.g., French) keyboard, and <code class="keycap">y</code> on a
+    /// QWERTZ (e.g., German) keyboard.
+    KeyZ,
+    /// <code class="keycap">-_</code> on a US keyboard.
+    Minus,
+    /// <code class="keycap">.></code> on a US keyboard.
+    Period,
+    /// <code class="keycap">'"</code> on a US keyboard.
+    Quote,
+    /// <code class="keycap">;:</code> on a US keyboard.
+    Semicolon,
+    /// <code class="keycap">/?</code> on a US keyboard.
+    Slash,
+    /// <code class="keycap">Alt</code>, <code class="keycap">Option</code> or <code class="keycap">⌥</code>.
+    AltLeft,
+    /// <code class="keycap">Alt</code>, <code class="keycap">Option</code> or <code class="keycap">⌥</code>.
+    /// This is labelled <code class="keycap">AltGr</code> key on many keyboard layouts.
+    AltRight,
+    /// <code class="keycap">CapsLock</code> or <code class="keycap">⇪</code>
+    CapsLock,
+    /// The application context menu key, which is typically found between the right <code class="keycap">Meta</code> key and the right <code class="keycap">Control</code> key.
+    ContextMenu,
+    /// <code class="keycap">Control</code> or <code class="keycap">⌃</code>
+    ControlLeft,
+    /// <code class="keycap">Control</code> or <code class="keycap">⌃</code>
+    ControlRight,
+    /// <code class="keycap">Enter</code> or <code class="keycap">↵</code>. Labelled <code class="keycap">Return</code> on Apple keyboards.
+    Enter,
+    /// The Windows, <code class="keycap">⌘</code>, <code class="keycap">Command</code> or other OS symbol key.
+    MetaLeft,
+    /// The Windows, <code class="keycap">⌘</code>, <code class="keycap">Command</code> or other OS symbol key.
+    MetaRight,
+    /// <code class="keycap">Shift</code> or <code class="keycap">⇧</code>
+    ShiftLeft,
+    /// <code class="keycap">Shift</code> or <code class="keycap">⇧</code>
+    ShiftRight,
+    /// <code class="keycap"> </code> (space)
+    Space,
+    /// <code class="keycap">Tab</code> or <code class="keycap">⇥</code>
+    Tab,
+    /// Japanese: <code class="keycap">変換</code> (<span class="unicode">henkan</span>)
+    Convert,
+    /// Japanese: <code class="keycap">カタカナ/ひらがな/ローマ字</code> (<span class="unicode">katakana/hiragana/romaji</span>)
+    KanaMode,
+    /// Korean: HangulMode <code class="keycap">한/영</code> (<span class="unicode">han/yeong</span>)<br>Japanese (Mac keyboard): <code class="keycap">かな</code> (<span class="unicode">kana</span>)
+    Lang1,
+    /// Korean: Hanja <code class="keycap">한자</code> (<span class="unicode">hanja</span>)<br>Japanese (Mac keyboard): <code class="keycap">英数</code> (<span class="unicode">eisu</span>)
+    Lang2,
+    /// Japanese (word-processing keyboard): Katakana
+    Lang3,
+    /// Japanese (word-processing keyboard): Hiragana
+    Lang4,
+    /// Japanese (word-processing keyboard): Zenkaku/Hankaku
+    Lang5,
+    /// Japanese: <code class="keycap">無変換</code> (<span class="unicode">muhenkan</span>)
+    NonConvert,
+    /// <code class="keycap">⌦</code>. The forward delete key.
+    /// Note that on Apple keyboards, the key labelled <code class="keycap">Delete</code> on the main part of
+    /// the keyboard should be encoded as <code class="code">"Backspace"</code>.
+    Delete,
+    /// <code class="keycap">Page Down</code>, <code class="keycap">End</code> or <code class="keycap">↘</code>
+    End,
+    /// <code class="keycap">Help</code>. Not present on standard PC keyboards.
+    Help,
+    /// <code class="keycap">Home</code> or <code class="keycap">↖</code>
+    Home,
+    /// <code class="keycap">Insert</code> or <code class="keycap">Ins</code>. Not present on Apple keyboards.
+    Insert,
+    /// <code class="keycap">Page Down</code>, <code class="keycap">PgDn</code> or <code class="keycap">⇟</code>
+    PageDown,
+    /// <code class="keycap">Page Up</code>, <code class="keycap">PgUp</code> or <code class="keycap">⇞</code>
+    PageUp,
+    /// <code class="keycap">↓</code>
+    ArrowDown,
+    /// <code class="keycap">←</code>
+    ArrowLeft,
+    /// <code class="keycap">→</code>
+    ArrowRight,
+    /// <code class="keycap">↑</code>
+    ArrowUp,
+    /// On the Mac, the <code class="code">"NumLock"</code> code should be used for the numpad <code class="keycap">Clear</code> key.
+    NumLock,
+    /// <code class="keycap">0 Ins</code> on a keyboard<br><code class="keycap">0</code> on a phone or remote control
+    Numpad0,
+    /// <code class="keycap">1 End</code> on a keyboard<br><code class="keycap">1</code> or <code class="keycap">1 QZ</code> on a phone or
+    /// remote control
+    Numpad1,
+    /// <code class="keycap">2 ↓</code> on a keyboard<br><code class="keycap">2 ABC</code> on a phone or remote control
+    Numpad2,
+    /// <code class="keycap">3 PgDn</code> on a keyboard<br><code class="keycap">3 DEF</code> on a phone or remote control
+    Numpad3,
+    /// <code class="keycap">4 ←</code> on a keyboard<br><code class="keycap">4 GHI</code> on a phone or remote control
+    Numpad4,
+    /// <code class="keycap">5</code> on a keyboard<br><code class="keycap">5 JKL</code> on a phone or remote control
+    Numpad5,
+    /// <code class="keycap">6 →</code> on a keyboard<br><code class="keycap">6 MNO</code> on a phone or remote control
+    Numpad6,
+    /// <code class="keycap">7 Home</code> on a keyboard<br><code class="keycap">7 PQRS</code> or <code class="keycap">7 PRS</code> on a phone
+    /// or remote control
+    Numpad7,
+    /// <code class="keycap">8 ↑</code> on a keyboard<br><code class="keycap">8 TUV</code> on a phone or remote control
+    Numpad8,
+    /// <code class="keycap">9 PgUp</code> on a keyboard<br><code class="keycap">9 WXYZ</code> or <code class="keycap">9 WXY</code> on a phone
+    /// or remote control
+    Numpad9,
+    /// <code class="keycap">+</code>
+    NumpadAdd,
+    /// Found on the Microsoft Natural Keyboard.
+    NumpadBackspace,
+    /// <code class="keycap">C</code> or <code class="keycap">AC</code> (All Clear). Also for use with numpads that have a <code class="keycap">Clear</code> key that is separate from the <code class="keycap">NumLock</code> key. On the Mac, the numpad <code class="keycap">Clear</code> key should always
+    /// be encoded as <code class="code">"NumLock"</code>.
+    NumpadClear,
+    /// <code class="keycap">CE</code> (Clear Entry)
+    NumpadClearEntry,
+    /// <code class="keycap">,</code> (thousands separator). For locales where the thousands separator
+    /// is a "." (e.g., Brazil), this key may generate a <code class="keycap">.</code>.
+    NumpadComma,
+    /// <code class="keycap">. Del</code>. For locales where the decimal separator is "," (e.g.,
+    /// Brazil), this key may generate a <code class="keycap">,</code>.
+    NumpadDecimal,
+    /// <code class="keycap">/</code>
+    NumpadDivide,
+    NumpadEnter,
+    /// <code class="keycap">=</code>
+    NumpadEqual,
+    /// <code class="keycap">#</code> on a phone or remote control device. This key is typically found
+    /// below the <code class="keycap">9</code> key and to the right of the <code class="keycap">0</code> key.
+    NumpadHash,
+    /// <code class="keycap">M+</code> Add current entry to the value stored in memory.
+    NumpadMemoryAdd,
+    /// <code class="keycap">MC</code> Clear the value stored in memory.
+    NumpadMemoryClear,
+    /// <code class="keycap">MR</code> Replace the current entry with the value stored in memory.
+    NumpadMemoryRecall,
+    /// <code class="keycap">MS</code> Replace the value stored in memory with the current entry.
+    NumpadMemoryStore,
+    /// <code class="keycap">M-</code> Subtract current entry from the value stored in memory.
+    NumpadMemorySubtract,
+    /// <code class="keycap">*</code> on a keyboard. For use with numpads that provide mathematical
+    /// operations (<code class="keycap">+</code>, <code class="keycap">-</code>, <code class="keycap">*</code> and <code class="keycap">/</code>).<br>Use <code class="code">"NumpadStar"</code> for the <code class="keycap">*</code> key on phones and remote controls.
+    NumpadMultiply,
+    /// <code class="keycap">(</code> Found on the Microsoft Natural Keyboard.
+    NumpadParenLeft,
+    /// <code class="keycap">)</code> Found on the Microsoft Natural Keyboard.
+    NumpadParenRight,
+    /// <code class="keycap">*</code> on a phone or remote control device.
+    /// This key is typically found below the <code class="keycap">7</code> key and to the left of
+    /// the <code class="keycap">0</code> key.<br>Use <code class="code">"NumpadMultiply"</code> for the <code class="keycap">*</code> key on
+    /// numeric keypads.
+    NumpadStar,
+    /// <code class="keycap">-</code>
+    NumpadSubtract,
+    /// <code class="keycap">Esc</code> or <code class="keycap">⎋</code>
+    Escape,
+    /// <code class="keycap">F1</code>
+    F1,
+    /// <code class="keycap">F2</code>
+    F2,
+    /// <code class="keycap">F3</code>
+    F3,
+    /// <code class="keycap">F4</code>
+    F4,
+    /// <code class="keycap">F5</code>
+    F5,
+    /// <code class="keycap">F6</code>
+    F6,
+    /// <code class="keycap">F7</code>
+    F7,
+    /// <code class="keycap">F8</code>
+    F8,
+    /// <code class="keycap">F9</code>
+    F9,
+    /// <code class="keycap">F10</code>
+    F10,
+    /// <code class="keycap">F11</code>
+    F11,
+    /// <code class="keycap">F12</code>
+    F12,
+    /// <code class="keycap">Fn</code> This is typically a hardware key that does not generate a separate
+    /// code. Most keyboards do not place this key in the function section, but it is
+    /// included here to keep it with related keys.
+    Fn,
+    /// <code class="keycap">FLock</code> or <code class="keycap">FnLock</code>. Function Lock key. Found on the Microsoft
+    /// Natural Keyboard.
+    FnLock,
+    /// <code class="keycap">PrtScr SysRq</code> or <code class="keycap">Print Screen</code>
+    PrintScreen,
+    /// <code class="keycap">Scroll Lock</code>
+    ScrollLock,
+    /// <code class="keycap">Pause Break</code>
+    Pause,
+    /// Some laptops place this key to the left of the <code class="keycap">↑</code> key.
+    BrowserBack,
+    BrowserFavorites,
+    /// Some laptops place this key to the right of the <code class="keycap">↑</code> key.
+    BrowserForward,
+    BrowserHome,
+    BrowserRefresh,
+    BrowserSearch,
+    BrowserStop,
+    /// <code class="keycap">Eject</code> or <code class="keycap">⏏</code>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section-12">function
+    /// section</a> on some Apple keyboards.
+    Eject,
+    /// Sometimes labelled <code class="keycap">My Computer</code> on the keyboard
+    LaunchApp1,
+    /// Sometimes labelled <code class="keycap">Calculator</code> on the keyboard
+    LaunchApp2,
+    LaunchMail,
+    MediaPlayPause,
+    MediaSelect,
+    MediaStop,
+    MediaTrackNext,
+    MediaTrackPrevious,
+    /// This key is placed in the function section on some Apple keyboards,
+    /// replacing the <code class="keycap">Eject</code> key.
+    Power,
+    Sleep,
+    AudioVolumeDown,
+    AudioVolumeMute,
+    AudioVolumeUp,
+    WakeUp,
+    Hyper,
+    Super,
+    Turbo,
+    Abort,
+    Resume,
+    Suspend,
+    /// Found on Sun’s USB keyboard.
+    Again,
+    /// Found on Sun’s USB keyboard.
+    Copy,
+    /// Found on Sun’s USB keyboard.
+    Cut,
+    /// Found on Sun’s USB keyboard.
+    Find,
+    /// Found on Sun’s USB keyboard.
+    Open,
+    /// Found on Sun’s USB keyboard.
+    Paste,
+    /// Found on Sun’s USB keyboard.
+    Props,
+    /// Found on Sun’s USB keyboard.
+    Select,
+    /// Found on Sun’s USB keyboard.
+    Undo,
+    /// Use for dedicated <code class="keycap">ひらがな</code> key found on some Japanese word processing keyboards.
+    Hiragana,
+    /// Use for dedicated <code class="keycap">カタカナ</code> key found on some Japanese word processing keyboards.
+    Katakana,
+    /// This value code should be used when no other
+    /// value given in this specification is appropriate.
+    Unidentified,
+
+    #[doc(hidden)]
+    __Nonexhaustive,
+}
+    
+
+
+impl Display for Code {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        use self::Code::*;
+        match *self {
+    
+            Backquote => f.write_str("Backquote"),
+            Backslash => f.write_str("Backslash"),
+            Backspace => f.write_str("Backspace"),
+            BracketLeft => f.write_str("BracketLeft"),
+            BracketRight => f.write_str("BracketRight"),
+            Comma => f.write_str("Comma"),
+            Digit0 => f.write_str("Digit0"),
+            Digit1 => f.write_str("Digit1"),
+            Digit2 => f.write_str("Digit2"),
+            Digit3 => f.write_str("Digit3"),
+            Digit4 => f.write_str("Digit4"),
+            Digit5 => f.write_str("Digit5"),
+            Digit6 => f.write_str("Digit6"),
+            Digit7 => f.write_str("Digit7"),
+            Digit8 => f.write_str("Digit8"),
+            Digit9 => f.write_str("Digit9"),
+            Equal => f.write_str("Equal"),
+            IntlBackslash => f.write_str("IntlBackslash"),
+            IntlRo => f.write_str("IntlRo"),
+            IntlYen => f.write_str("IntlYen"),
+            KeyA => f.write_str("KeyA"),
+            KeyB => f.write_str("KeyB"),
+            KeyC => f.write_str("KeyC"),
+            KeyD => f.write_str("KeyD"),
+            KeyE => f.write_str("KeyE"),
+            KeyF => f.write_str("KeyF"),
+            KeyG => f.write_str("KeyG"),
+            KeyH => f.write_str("KeyH"),
+            KeyI => f.write_str("KeyI"),
+            KeyJ => f.write_str("KeyJ"),
+            KeyK => f.write_str("KeyK"),
+            KeyL => f.write_str("KeyL"),
+            KeyM => f.write_str("KeyM"),
+            KeyN => f.write_str("KeyN"),
+            KeyO => f.write_str("KeyO"),
+            KeyP => f.write_str("KeyP"),
+            KeyQ => f.write_str("KeyQ"),
+            KeyR => f.write_str("KeyR"),
+            KeyS => f.write_str("KeyS"),
+            KeyT => f.write_str("KeyT"),
+            KeyU => f.write_str("KeyU"),
+            KeyV => f.write_str("KeyV"),
+            KeyW => f.write_str("KeyW"),
+            KeyX => f.write_str("KeyX"),
+            KeyY => f.write_str("KeyY"),
+            KeyZ => f.write_str("KeyZ"),
+            Minus => f.write_str("Minus"),
+            Period => f.write_str("Period"),
+            Quote => f.write_str("Quote"),
+            Semicolon => f.write_str("Semicolon"),
+            Slash => f.write_str("Slash"),
+            AltLeft => f.write_str("AltLeft"),
+            AltRight => f.write_str("AltRight"),
+            CapsLock => f.write_str("CapsLock"),
+            ContextMenu => f.write_str("ContextMenu"),
+            ControlLeft => f.write_str("ControlLeft"),
+            ControlRight => f.write_str("ControlRight"),
+            Enter => f.write_str("Enter"),
+            MetaLeft => f.write_str("MetaLeft"),
+            MetaRight => f.write_str("MetaRight"),
+            ShiftLeft => f.write_str("ShiftLeft"),
+            ShiftRight => f.write_str("ShiftRight"),
+            Space => f.write_str("Space"),
+            Tab => f.write_str("Tab"),
+            Convert => f.write_str("Convert"),
+            KanaMode => f.write_str("KanaMode"),
+            Lang1 => f.write_str("Lang1"),
+            Lang2 => f.write_str("Lang2"),
+            Lang3 => f.write_str("Lang3"),
+            Lang4 => f.write_str("Lang4"),
+            Lang5 => f.write_str("Lang5"),
+            NonConvert => f.write_str("NonConvert"),
+            Delete => f.write_str("Delete"),
+            End => f.write_str("End"),
+            Help => f.write_str("Help"),
+            Home => f.write_str("Home"),
+            Insert => f.write_str("Insert"),
+            PageDown => f.write_str("PageDown"),
+            PageUp => f.write_str("PageUp"),
+            ArrowDown => f.write_str("ArrowDown"),
+            ArrowLeft => f.write_str("ArrowLeft"),
+            ArrowRight => f.write_str("ArrowRight"),
+            ArrowUp => f.write_str("ArrowUp"),
+            NumLock => f.write_str("NumLock"),
+            Numpad0 => f.write_str("Numpad0"),
+            Numpad1 => f.write_str("Numpad1"),
+            Numpad2 => f.write_str("Numpad2"),
+            Numpad3 => f.write_str("Numpad3"),
+            Numpad4 => f.write_str("Numpad4"),
+            Numpad5 => f.write_str("Numpad5"),
+            Numpad6 => f.write_str("Numpad6"),
+            Numpad7 => f.write_str("Numpad7"),
+            Numpad8 => f.write_str("Numpad8"),
+            Numpad9 => f.write_str("Numpad9"),
+            NumpadAdd => f.write_str("NumpadAdd"),
+            NumpadBackspace => f.write_str("NumpadBackspace"),
+            NumpadClear => f.write_str("NumpadClear"),
+            NumpadClearEntry => f.write_str("NumpadClearEntry"),
+            NumpadComma => f.write_str("NumpadComma"),
+            NumpadDecimal => f.write_str("NumpadDecimal"),
+            NumpadDivide => f.write_str("NumpadDivide"),
+            NumpadEnter => f.write_str("NumpadEnter"),
+            NumpadEqual => f.write_str("NumpadEqual"),
+            NumpadHash => f.write_str("NumpadHash"),
+            NumpadMemoryAdd => f.write_str("NumpadMemoryAdd"),
+            NumpadMemoryClear => f.write_str("NumpadMemoryClear"),
+            NumpadMemoryRecall => f.write_str("NumpadMemoryRecall"),
+            NumpadMemoryStore => f.write_str("NumpadMemoryStore"),
+            NumpadMemorySubtract => f.write_str("NumpadMemorySubtract"),
+            NumpadMultiply => f.write_str("NumpadMultiply"),
+            NumpadParenLeft => f.write_str("NumpadParenLeft"),
+            NumpadParenRight => f.write_str("NumpadParenRight"),
+            NumpadStar => f.write_str("NumpadStar"),
+            NumpadSubtract => f.write_str("NumpadSubtract"),
+            Escape => f.write_str("Escape"),
+            F1 => f.write_str("F1"),
+            F2 => f.write_str("F2"),
+            F3 => f.write_str("F3"),
+            F4 => f.write_str("F4"),
+            F5 => f.write_str("F5"),
+            F6 => f.write_str("F6"),
+            F7 => f.write_str("F7"),
+            F8 => f.write_str("F8"),
+            F9 => f.write_str("F9"),
+            F10 => f.write_str("F10"),
+            F11 => f.write_str("F11"),
+            F12 => f.write_str("F12"),
+            Fn => f.write_str("Fn"),
+            FnLock => f.write_str("FnLock"),
+            PrintScreen => f.write_str("PrintScreen"),
+            ScrollLock => f.write_str("ScrollLock"),
+            Pause => f.write_str("Pause"),
+            BrowserBack => f.write_str("BrowserBack"),
+            BrowserFavorites => f.write_str("BrowserFavorites"),
+            BrowserForward => f.write_str("BrowserForward"),
+            BrowserHome => f.write_str("BrowserHome"),
+            BrowserRefresh => f.write_str("BrowserRefresh"),
+            BrowserSearch => f.write_str("BrowserSearch"),
+            BrowserStop => f.write_str("BrowserStop"),
+            Eject => f.write_str("Eject"),
+            LaunchApp1 => f.write_str("LaunchApp1"),
+            LaunchApp2 => f.write_str("LaunchApp2"),
+            LaunchMail => f.write_str("LaunchMail"),
+            MediaPlayPause => f.write_str("MediaPlayPause"),
+            MediaSelect => f.write_str("MediaSelect"),
+            MediaStop => f.write_str("MediaStop"),
+            MediaTrackNext => f.write_str("MediaTrackNext"),
+            MediaTrackPrevious => f.write_str("MediaTrackPrevious"),
+            Power => f.write_str("Power"),
+            Sleep => f.write_str("Sleep"),
+            AudioVolumeDown => f.write_str("AudioVolumeDown"),
+            AudioVolumeMute => f.write_str("AudioVolumeMute"),
+            AudioVolumeUp => f.write_str("AudioVolumeUp"),
+            WakeUp => f.write_str("WakeUp"),
+            Hyper => f.write_str("Hyper"),
+            Super => f.write_str("Super"),
+            Turbo => f.write_str("Turbo"),
+            Abort => f.write_str("Abort"),
+            Resume => f.write_str("Resume"),
+            Suspend => f.write_str("Suspend"),
+            Again => f.write_str("Again"),
+            Copy => f.write_str("Copy"),
+            Cut => f.write_str("Cut"),
+            Find => f.write_str("Find"),
+            Open => f.write_str("Open"),
+            Paste => f.write_str("Paste"),
+            Props => f.write_str("Props"),
+            Select => f.write_str("Select"),
+            Undo => f.write_str("Undo"),
+            Hiragana => f.write_str("Hiragana"),
+            Katakana => f.write_str("Katakana"),
+            Unidentified => f.write_str("Unidentified"),
+
+            __Nonexhaustive => unreachable!(),
+        }
+    }
+} 
+
+    

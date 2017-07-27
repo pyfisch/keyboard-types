@@ -1,0 +1,108 @@
+import re
+
+def handle_enum_entries(text, file):
+    display = []
+    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
+        doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
+        doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
+        for line in doc.split('\n'):
+            line = line.strip()
+            if not line:
+                continue
+            print("    /// {}".format(line), file=file)
+        display.append(match[0])
+        print("    {},".format(match[0]), file=file)
+    return display
+
+def print_display_entries(display, file):
+    for key in display:
+        print("            {0} => f.write_str(\"{0}\"),".format(key), file=file)
+
+
+def convert_key(text, file):
+    print("""
+// AUTO GENERATED CODE - DO NOT EDIT
+
+use std::fmt::{self, Display};
+
+/// Key represents the meaning of a keypress.
+///
+/// Specification:
+/// <https://www.w3.org/TR/2017/CR-uievents-key-20170601/>
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum Key {
+    /// A key string that corresponds to the character typed by the user,
+    /// taking into account the user’s current locale setting, modifier state,
+    /// and any system-level keyboard mapping overrides that are in effect.
+    Character(String),
+    """, file=file)
+    display = handle_enum_entries(text, file)
+    print("""
+    #[doc(hidden)]
+    __Nonexhaustive,
+}
+    """, file=file)
+
+    print("""
+
+impl Display for Key {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        use self::Key::*;
+        match *self {
+            Character(ref s) => write!(f, "{}", s),
+    """, file=file)
+    print_display_entries(display, file)
+    print("""
+            __Nonexhaustive => unreachable!(),
+        }
+    }
+} 
+
+    """, file=file)
+
+def convert_code(text, file):
+    print("""
+// AUTO GENERATED CODE - DO NOT EDIT
+
+use std::fmt::{self, Display};
+
+/// Code is the physical position of a key.
+///
+/// The names are based on the US keyboard. If the key
+/// is not present on US keyboards a name from another
+/// layout is used.
+///
+/// Specification:
+/// <https://www.w3.org/TR/2017/CR-uievents-code-20170601/>
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+pub enum Code {""", file=file)
+    display = handle_enum_entries(text, file)
+    print("""
+    #[doc(hidden)]
+    __Nonexhaustive,
+}
+    """, file=file)
+
+    print("""
+
+impl Display for Code {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        use self::Code::*;
+        match *self {
+    """, file=file)
+    print_display_entries(display, file)
+    print("""
+            __Nonexhaustive => unreachable!(),
+        }
+    }
+} 
+
+    """, file=file)
+
+if __name__ == '__main__':
+    with open('uievents-key.html') as input:
+        with open('src/key.rs', 'w') as output:
+            convert_key(input.read(), output)
+    with open('uievents-code.html') as input:
+        with open('src/code.rs', 'w') as output:
+            convert_code(input.read(), output)
