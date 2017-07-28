@@ -21,7 +21,7 @@ mod location;
 mod modifiers;
 
 /// Describes the state the key is in.
-#[derive(Copy, Clone, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum State {
     /// Key is pressed.
@@ -34,7 +34,7 @@ pub enum State {
     Up,
 }
 
-#[derive(Clone, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct KeyEvent {
     pub state: State,
