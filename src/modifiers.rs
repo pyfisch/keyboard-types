@@ -1,8 +1,15 @@
+//! Modifier key data.
+//!
+//! Modifier keys like Shift and Control alter the character value
+//! and are used in keyboard shortcuts.
+//!
+//! Use the constants to match for combinations of the modifier keys.
+
 bitflags! {
     /// Pressed modifier keys.
     ///
     /// Specification:
-    /// <https://www.w3.org/TR/uievents-key/#keys-modifier>
+    /// <https://w3c.github.io/uievents-key/#keys-modifier>
     #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
     pub struct Modifiers: u32 {
         const ALT = 0x01;
