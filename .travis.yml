@@ -10,5 +10,5 @@ matrix:
     - rust: nightly
 script:
   - cargo build --verbose
-  - cargo build --features heap_size,serde --verbose
+  - cargo build --features "heap_size serde" --verbose
   - cargo test --verbose
