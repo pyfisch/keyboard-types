@@ -8,22 +8,19 @@ pub use code::Code;
 pub use key::Key;
 pub use location::Location;
 pub use modifiers::Modifiers;
+pub use shortcuts::ShortcutMatcher;
 
 #[macro_use]
 extern crate bitflags;
-#[cfg(feature = "heap_size")]
-#[macro_use]
-extern crate heapsize;
 #[cfg(feature = "serde")]
 #[macro_use]
 extern crate serde;
 
 mod code;
-#[cfg(feature = "heap_size")]
-mod heap_size;
 mod key;
 mod location;
-pub mod modifiers;
+mod modifiers;
+mod shortcuts;
 
 /// Describes the state the key is in.
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
