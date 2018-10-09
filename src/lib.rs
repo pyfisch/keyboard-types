@@ -88,3 +88,53 @@ pub struct CompositionEvent {
     /// Current composition data. May be empty.
     pub data: String,
 }
+
+impl Key {
+    /// Determine a *keyCode* value for a key.
+    /// 
+    /// The *keyCode* is an implementation specific legacy property of DOM keyboard events.
+    /// 
+    /// Specification: <https://w3c.github.io/uievents/#legacy-key-models>
+    pub fn legacy_keycode(&self) -> u32 {
+        match self {
+            // See: https://w3c.github.io/uievents/#fixed-virtual-key-codes
+            Key::Backspace => 8,
+            Key::Tab => 9,
+            Key::Enter => 13,
+            Key::Shift => 16,
+            Key::Control => 17,
+            Key::Alt => 18,
+            Key::CapsLock => 20,
+            Key::Escape => 27,
+            Key::PageUp => 33,
+            Key::PageDown => 34,
+            Key::End => 35,
+            Key::Home => 36,
+            Key::ArrowLeft => 37,
+            Key::ArrowUp => 38,
+            Key::ArrowRight => 39,
+            Key::ArrowDown => 40,
+            Key::Delete => 46,
+            Key::Character(ref c) if c.len() == 1 => match c.chars().next().unwrap() {
+                ' ' => 32,
+                x @'0'...'9' => x as u32,
+                x @ 'a'...'z' => x.to_ascii_uppercase() as u32,
+                x @ 'A'...'Z' => x as u32,
+                // See: https://w3c.github.io/uievents/#optionally-fixed-virtual-key-codes
+                ';' | ':' => 186,
+                '=' | '+' => 187,
+                ',' | '<' => 188,
+                '-' | '_' => 189,
+                '.' | '>' => 190,
+                '/' | '?' => 191,
+                '`' | '~' => 192,
+                '[' | '{' => 219,
+                '\\' | '|' => 220,
+                ']' | '}' => 221,
+                '\'' | '\"' => 222,
+                _ => 0,
+            },
+            _ => 0,
+        }
+    }
+}

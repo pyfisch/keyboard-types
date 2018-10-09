@@ -11,9 +11,10 @@ use {Key, KeyState, KeyboardEvent, Modifiers};
 /// act on the shortcut. This is also true for the release of the
 /// C key as else only key release events would be forwarded.
 ///
-/// ASCII letters are compared ignoring case. If modifiers other than
-/// those needed for the shortcut are pressed the shortcut is not
-/// matched.
+/// ASCII letters are compared ignoring case. Only takes
+/// the shift, control, alt and meta modifiers into account.
+/// If other modifiers beside those expected are found
+/// the shortcut is not matched.
 pub struct ShortcutMatcher<T> {
     state: KeyState,
     key: Key,
@@ -24,7 +25,8 @@ pub struct ShortcutMatcher<T> {
 
 impl<T> ShortcutMatcher<T> {
     /// Create a new shortcut matcher.
-    pub fn new(state: KeyState, key: Key, modifiers: Modifiers) -> ShortcutMatcher<T> {
+    pub fn new(state: KeyState, key: Key, mut modifiers: Modifiers) -> ShortcutMatcher<T> {
+        modifiers &= Modifiers::SHIFT | Modifiers::CONTROL | Modifiers::ALT | Modifiers::META;
         ShortcutMatcher {
             state,
             key,

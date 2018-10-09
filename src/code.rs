@@ -10,7 +10,7 @@ use std::fmt::{self, Display};
 /// layout is used.
 ///
 /// Specification:
-/// <https://www.w3.org/TR/2017/CR-uievents-code-20170601/>
+/// <https://w3c.github.io/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Code {
@@ -21,9 +21,6 @@ pub enum Code {
     /// 104- and 106-key layouts.
     /// Labelled <code class="keycap">#~</code> on a UK (102) keyboard.
     Backslash,
-    /// <code class="keycap">Backspace</code> or <code class="keycap">⌫</code>.
-    /// Labelled <code class="keycap">Delete</code> on Apple keyboards.
-    Backspace,
     /// <code class="keycap">[{</code> on a US keyboard.
     BracketLeft,
     /// <code class="keycap">]}</code> on a US keyboard.
@@ -135,6 +132,9 @@ pub enum Code {
     /// <code class="keycap">Alt</code>, <code class="keycap">Option</code> or <code class="keycap">⌥</code>.
     /// This is labelled <code class="keycap">AltGr</code> key on many keyboard layouts.
     AltRight,
+    /// <code class="keycap">Backspace</code> or <code class="keycap">⌫</code>.
+    /// Labelled <code class="keycap">Delete</code> on Apple keyboards.
+    Backspace,
     /// <code class="keycap">CapsLock</code> or <code class="keycap">⇪</code>
     CapsLock,
     /// The application context menu key, which is typically found between the right <code class="keycap">Meta</code> key and the right <code class="keycap">Control</code> key.
@@ -317,7 +317,7 @@ pub enum Code {
     BrowserRefresh,
     BrowserSearch,
     BrowserStop,
-    /// <code class="keycap">Eject</code> or <code class="keycap">⏏</code>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section-12">function
+    /// <code class="keycap">Eject</code> or <code class="keycap">⏏</code>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section①①">function
     /// section</a> on some Apple keyboards.
     Eject,
     /// Sometimes labelled <code class="keycap">My Computer</code> on the keyboard
@@ -383,7 +383,6 @@ impl Display for Code {
     
             Backquote => f.write_str("Backquote"),
             Backslash => f.write_str("Backslash"),
-            Backspace => f.write_str("Backspace"),
             BracketLeft => f.write_str("BracketLeft"),
             BracketRight => f.write_str("BracketRight"),
             Comma => f.write_str("Comma"),
@@ -434,6 +433,7 @@ impl Display for Code {
             Slash => f.write_str("Slash"),
             AltLeft => f.write_str("AltLeft"),
             AltRight => f.write_str("AltRight"),
+            Backspace => f.write_str("Backspace"),
             CapsLock => f.write_str("CapsLock"),
             ContextMenu => f.write_str("ContextMenu"),
             ControlLeft => f.write_str("ControlLeft"),

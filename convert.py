@@ -1,4 +1,5 @@
 import re
+import requests
 
 def handle_enum_entries(text, file):
     display = []
@@ -28,8 +29,9 @@ use std::fmt::{self, Display};
 /// Key represents the meaning of a keypress.
 ///
 /// Specification:
-/// <https://www.w3.org/TR/2017/CR-uievents-key-20170601/>
+/// <https://w3c.github.io/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,
     /// taking into account the user’s current locale setting, modifier state,
@@ -73,8 +75,9 @@ use std::fmt::{self, Display};
 /// layout is used.
 ///
 /// Specification:
-/// <https://www.w3.org/TR/2017/CR-uievents-code-20170601/>
+/// <https://w3c.github.io/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Code {""", file=file)
     display = handle_enum_entries(text, file)
     print("""
@@ -100,9 +103,9 @@ impl Display for Code {
     """, file=file)
 
 if __name__ == '__main__':
-    with open('uievents-key.html') as input:
-        with open('src/key.rs', 'w') as output:
-            convert_key(input.read(), output)
-    with open('uievents-code.html') as input:
-        with open('src/code.rs', 'w') as output:
-            convert_code(input.read(), output)
+    input = requests.get('https://w3c.github.io/uievents-key/').text
+    with open('src/key.rs', 'w') as output:
+        convert_key(input, output)
+    input = requests.get('https://w3c.github.io/uievents-code/').text
+    with open('src/code.rs', 'w') as output:
+        convert_code(input, output)

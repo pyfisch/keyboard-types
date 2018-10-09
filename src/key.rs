@@ -6,7 +6,7 @@ use std::fmt::{self, Display};
 /// Key represents the meaning of a keypress.
 ///
 /// Specification:
-/// <https://www.w3.org/TR/2017/CR-uievents-key-20170601/>
+/// <https://w3c.github.io/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
