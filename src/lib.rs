@@ -4,6 +4,8 @@
 //! but this crate should be useful for anyone implementing keyboard
 //! input in a cross-platform way.
 
+use std::fmt;
+
 pub use code::Code;
 pub use key::Key;
 pub use location::Location;
@@ -37,7 +39,7 @@ pub enum KeyState {
 }
 
 /// Keyboard events are issued for all pressed and released keys.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct KeyboardEvent {
     /// Whether the key is pressed or released.
@@ -89,12 +91,36 @@ pub struct CompositionEvent {
     pub data: String,
 }
 
+impl fmt::Display for KeyState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            KeyState::Down => f.write_str("keydown"),
+            KeyState::Up => f.write_str("keyup"),
+        }
+    }
+}
+
 impl Key {
+    /// Determine a *charCode* value for a key with a character value.
+    ///
+    /// For all other keys the value is zero.
+    /// The *charCode* is an implementation specific legacy property of DOM keyboard events.
+    ///
+    /// Specification: <https://w3c.github.io/uievents/#dom-keyboardevent-charcode>
+    pub fn legacy_charcode(&self) -> u32 {
+        // Spec: event.charCode = event.key.charCodeAt(0)
+        // otherwise 0
+        match self {
+            Key::Character(ref c) => c.chars().next().unwrap_or('\0') as u32,
+            _ => 0,
+        }
+    }
+
     /// Determine a *keyCode* value for a key.
-    /// 
+    ///
     /// The *keyCode* is an implementation specific legacy property of DOM keyboard events.
-    /// 
-    /// Specification: <https://w3c.github.io/uievents/#legacy-key-models>
+    ///
+    /// Specification: <https://w3c.github.io/uievents/#dom-keyboardevent-keycode>
     pub fn legacy_keycode(&self) -> u32 {
         match self {
             // See: https://w3c.github.io/uievents/#fixed-virtual-key-codes
@@ -117,7 +143,7 @@ impl Key {
             Key::Delete => 46,
             Key::Character(ref c) if c.len() == 1 => match c.chars().next().unwrap() {
                 ' ' => 32,
-                x @'0'...'9' => x as u32,
+                x @ '0'...'9' => x as u32,
                 x @ 'a'...'z' => x.to_ascii_uppercase() as u32,
                 x @ 'A'...'Z' => x as u32,
                 // See: https://w3c.github.io/uievents/#optionally-fixed-virtual-key-codes
@@ -136,5 +162,29 @@ impl Key {
             },
             _ => 0,
         }
+    }
+}
+
+impl Default for KeyState {
+    fn default() -> KeyState {
+        KeyState::Down
+    }
+}
+
+impl Default for Key {
+    fn default() -> Key {
+        Key::Unidentified
+    }
+}
+
+impl Default for Code {
+    fn default() -> Code {
+        Code::Unidentified
+    }
+}
+
+impl Default for Location {
+    fn default() -> Location {
+        Location::Standard
     }
 }

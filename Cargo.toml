@@ -1,6 +1,6 @@
 [package]
 name = "keyboard-types"
-version = "0.4.1-servo"
+version = "0.4.2-servo"
 authors = ["Pyfisch <pyfisch@gmail.com>"]
 description = "Contains types to define keyboard related events."
 readme = "README.md"

@@ -10,6 +10,7 @@ bitflags! {
     ///
     /// Specification:
     /// <https://w3c.github.io/uievents-key/#keys-modifier>
+    #[derive(Default)]
     #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
     pub struct Modifiers: u32 {
         const ALT = 0x01;
