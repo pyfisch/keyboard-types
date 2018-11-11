@@ -17,15 +17,19 @@ extern crate bitflags;
 #[cfg(feature = "serde")]
 #[macro_use]
 extern crate serde;
+#[cfg(feature="webdriver")]
+extern crate unicode_segmentation;
 
 mod code;
 mod key;
 mod location;
 mod modifiers;
 mod shortcuts;
+#[cfg(feature="webdriver")]
+pub mod webdriver;
 
 /// Describes the state the key is in.
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
     /// Key is pressed.
@@ -39,7 +43,7 @@ pub enum KeyState {
 }
 
 /// Keyboard events are issued for all pressed and released keys.
-#[derive(Clone, Debug, Default, Eq, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct KeyboardEvent {
     /// Whether the key is pressed or released.
@@ -60,7 +64,7 @@ pub struct KeyboardEvent {
 }
 
 /// Describes the state of a composition session.
-#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum CompositionState {
     /// In JS: "compositionstart" event.
@@ -82,7 +86,7 @@ pub enum CompositionState {
 /// A composition session is always started by a "compositionstart"
 /// event followed my zero or more "compositionupdate" events
 /// and terminated by a single "compositionend" event.
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CompositionEvent {
     /// Describes the event kind.
@@ -141,7 +145,7 @@ impl Key {
             Key::ArrowRight => 39,
             Key::ArrowDown => 40,
             Key::Delete => 46,
-            Key::Character(ref c) if c.len() == 1 => match c.chars().next().unwrap() {
+            Key::Character(ref c) if c.len() == 1 => match first_char(c) {
                 ' ' => 32,
                 x @ '0'...'9' => x as u32,
                 x @ 'a'...'z' => x.to_ascii_uppercase() as u32,
@@ -187,4 +191,12 @@ impl Default for Location {
     fn default() -> Location {
         Location::Standard
     }
+}
+
+/// Return the first codepoint of a string.
+///
+/// # Panics
+/// Panics if the string is empty.
+fn first_char(s: &str) -> char {
+    s.chars().next().expect("empty string")
 }

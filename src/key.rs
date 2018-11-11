@@ -7,7 +7,7 @@ use std::fmt::{self, Display};
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Clone, Debug, Eq, PartialEq)]
+#[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,

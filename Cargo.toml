@@ -1,17 +1,22 @@
 [package]
 name = "keyboard-types"
-version = "0.4.2-servo"
+version = "0.4.3"
 authors = ["Pyfisch <pyfisch@gmail.com>"]
 description = "Contains types to define keyboard related events."
 readme = "README.md"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/pyfisch/keyboard-types"
 documentation = "https://docs.rs/crate/keyboard-types"
-keywords = ["keyboard", "input", "event"]
+keywords = ["keyboard", "input", "event", "webdriver"]
+
+[features]
+default = ["serde", "webdriver"]
+webdriver = ["unicode-segmentation"]
 
 [dependencies]
 bitflags = "1.0.0"
 serde = { version = "1.0.0", optional = true, features = ["derive"] }
+unicode-segmentation = { version = "1.2.0", optional = true }
 
 [badges]
 travis-ci = { repository = "pyfisch/keyboard-types" }

@@ -73,7 +73,7 @@ impl<T> ShortcutMatcher<T> {
     /// .shortcut(Modifiers::CONTROL, 'L', do_something)
     /// // Multiple modifiers are combined with bitwise OR (`|`) to form a new mask.
     /// .shortcut(Modifiers::CONTROL | Modifiers::SHIFT, 'X', do_something)
-    /// // If none of the previous shortcuts matched the event forward it.
+    /// // If none of the previous shortcuts matched forward the event.
     /// .otherwise(forward_event);
     /// ```
     pub fn shortcut<K, F>(mut self, modifiers: Modifiers, key: K, f: F) -> ShortcutMatcher<T>
@@ -173,7 +173,7 @@ impl MatchKey for char {
                 let mut buf = [0; 4];
                 text.eq_ignore_ascii_case(self.encode_utf8(&mut buf))
             }
-            _ => return false,
+            _ => false,
         }
     }
 }
