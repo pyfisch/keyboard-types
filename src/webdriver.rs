@@ -46,9 +46,9 @@ use std::iter::FromIterator;
 
 use unicode_segmentation::UnicodeSegmentation;
 
+use first_char;
 use {Code, Key, KeyState, KeyboardEvent, Location, Modifiers};
 use {CompositionEvent, CompositionState};
-use first_char;
 
 // Spec: https://w3c.github.io/webdriver/#keyboard-actions
 // normalised (sic) as in british spelling

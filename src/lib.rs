@@ -17,7 +17,7 @@ extern crate bitflags;
 #[cfg(feature = "serde")]
 #[macro_use]
 extern crate serde;
-#[cfg(feature="webdriver")]
+#[cfg(feature = "webdriver")]
 extern crate unicode_segmentation;
 
 mod code;
@@ -25,7 +25,7 @@ mod key;
 mod location;
 mod modifiers;
 mod shortcuts;
-#[cfg(feature="webdriver")]
+#[cfg(feature = "webdriver")]
 pub mod webdriver;
 
 /// Describes the state the key is in.
@@ -76,6 +76,16 @@ pub enum CompositionState {
     /// In a text editor in this state the data
     /// should be added to the input.
     End,
+}
+
+impl fmt::Display for CompositionState {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            CompositionState::Start => f.write_str("compositionstart"),
+            CompositionState::Update => f.write_str("compositionupdate"),
+            CompositionState::End => f.write_str("compositionend"),
+        }
+    }
 }
 
 /// Event to expose input methods to program logic.
