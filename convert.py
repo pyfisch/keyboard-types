@@ -19,12 +19,16 @@ def print_display_entries(display, file):
     for key in display:
         print("            {0} => f.write_str(\"{0}\"),".format(key), file=file)
 
+def print_from_str_entries(display, file):
+    for key in display:
+        print("            \"{0}\" => Ok({0}),".format(key), file=file)
 
 def convert_key(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 
 use std::fmt::{self, Display};
+use std::str::FromStr;
 
 /// Key represents the meaning of a keypress.
 ///
@@ -58,7 +62,31 @@ impl Display for Key {
             __Nonexhaustive => unreachable!(),
         }
     }
-} 
+}
+
+impl FromStr for Key {
+    type Err = UnrecognizedKeyError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use Key::*;
+        match s {
+            ch if ch.chars().take(2).count() == 1 => Ok(Character(ch.to_string())),""", file=file)
+    print_from_str_entries(display, file)
+    print("""
+            _ => Err(UnrecognizedKeyError),
+        }
+    }
+}
+
+/// Parse from string error, returned when string does not match to any Key variant.
+#[derive(Clone, Debug)]
+pub struct UnrecognizedKeyError;
+
+impl fmt::Display for UnrecognizedKeyError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Unrecognized key")
+    }
+}
 
     """, file=file)
 
