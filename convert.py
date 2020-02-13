@@ -29,6 +29,7 @@ def convert_key(text, file):
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
+use std::error::Error;
 
 /// Key represents the meaning of a keypress.
 ///
@@ -87,6 +88,8 @@ impl fmt::Display for UnrecognizedKeyError {
         write!(f, "Unrecognized key")
     }
 }
+
+impl Error for UnrecognizedKeyError {}
 
     """, file=file)
 
