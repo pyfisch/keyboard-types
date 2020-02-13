@@ -147,9 +147,9 @@ impl Key {
             Key::Delete => 46,
             Key::Character(ref c) if c.len() == 1 => match first_char(c) {
                 ' ' => 32,
-                x @ '0'...'9' => x as u32,
-                x @ 'a'...'z' => x.to_ascii_uppercase() as u32,
-                x @ 'A'...'Z' => x as u32,
+                x @ '0'..='9' => x as u32,
+                x @ 'a'..='z' => x.to_ascii_uppercase() as u32,
+                x @ 'A'..='Z' => x as u32,
                 // See: https://w3c.github.io/uievents/#optionally-fixed-virtual-key-codes
                 ';' | ':' => 186,
                 '=' | '+' => 187,

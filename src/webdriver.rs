@@ -249,18 +249,18 @@ fn is_shifted_character(raw_key: char) -> bool {
         | '+' | '>' | '_' | '\"' | ':' | '?' | '\u{E00D}' | '\u{E05C}' | '\u{E056}'
         | '\u{E05B}' | '\u{E055}' | '\u{E058}' | '\u{E05A}' | '\u{E057}' | '\u{E059}'
         | '\u{E054}' | '\u{E05D}' => true,
-        'A'...'Z' => true,
+        'A'..='Z' => true,
         _ => false,
     }
 }
 
 fn key_location(raw_key: char) -> Location {
     match raw_key {
-        '\u{E007}'...'\u{E00A}' => Location::Left,
-        '\u{E01A}'...'\u{E029}' => Location::Numpad,
+        '\u{E007}'..='\u{E00A}' => Location::Left,
+        '\u{E01A}'..='\u{E029}' => Location::Numpad,
         '\u{E03D}' => Location::Left,
-        '\u{E050}'...'\u{E053}' => Location::Right,
-        '\u{E054}'...'\u{E05D}' => Location::Numpad,
+        '\u{E050}'..='\u{E053}' => Location::Right,
+        '\u{E054}'..='\u{E05D}' => Location::Numpad,
         _ => Location::Standard,
     }
 }
