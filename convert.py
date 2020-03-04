@@ -19,12 +19,17 @@ def print_display_entries(display, file):
     for key in display:
         print("            {0} => f.write_str(\"{0}\"),".format(key), file=file)
 
+def print_from_str_entries(display, file):
+    for key in display:
+        print("            \"{0}\" => Ok({0}),".format(key), file=file)
 
 def convert_key(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 
 use std::fmt::{self, Display};
+use std::str::FromStr;
+use std::error::Error;
 
 /// Key represents the meaning of a keypress.
 ///
@@ -58,8 +63,53 @@ impl Display for Key {
             __Nonexhaustive => unreachable!(),
         }
     }
-} 
+}
 
+impl FromStr for Key {
+    type Err = UnrecognizedKeyError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use Key::*;
+        match s {
+            s if is_key_string(s) => Ok(Character(s.to_string())),""", file=file)
+    print_from_str_entries(display, file)
+    print("""
+            _ => Err(UnrecognizedKeyError),
+        }
+    }
+}
+
+/// Parse from string error, returned when string does not match to any Key variant.
+#[derive(Clone, Debug)]
+pub struct UnrecognizedKeyError;
+
+impl fmt::Display for UnrecognizedKeyError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Unrecognized key")
+    }
+}
+
+impl Error for UnrecognizedKeyError {}
+
+/// Check if string can be used as a `Key::Character` _keystring_.
+///
+/// This check is simple and is meant to prevents common mistakes like mistyped keynames
+/// (e.g. `Ennter`) from being recognized as characters.
+fn is_key_string(s: &str) -> bool {
+    s.chars().all(|c| !c.is_control()) && s.chars().skip(1).all(|c| !c.is_ascii())
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn is_key_string() {
+        assert!(is_key_string("A"));
+        assert!(!is_key_string("AA"));
+        assert!(!is_key_string("\t"));
+    }
+}
     """, file=file)
 
 def convert_code(text, file):
