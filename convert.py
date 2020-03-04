@@ -71,7 +71,7 @@ impl FromStr for Key {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         use Key::*;
         match s {
-            ch if ch.chars().take(2).count() == 1 => Ok(Character(ch.to_string())),""", file=file)
+            s if is_key_string(s) => Ok(Character(s.to_string())),""", file=file)
     print_from_str_entries(display, file)
     print("""
             _ => Err(UnrecognizedKeyError),
@@ -91,6 +91,25 @@ impl fmt::Display for UnrecognizedKeyError {
 
 impl Error for UnrecognizedKeyError {}
 
+/// Check if string can be used as a `Key::Character` _keystring_.
+///
+/// This check is simple and is meant to prevents common mistakes like mistyped keynames
+/// (e.g. `Ennter`) from being recognized as characters.
+fn is_key_string(s: &str) -> bool {
+    s.chars().all(|c| !c.is_control()) && s.chars().skip(1).all(|c| !c.is_ascii())
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn is_key_string() {
+        assert!(is_key_string("A"));
+        assert!(!is_key_string("AA"));
+        assert!(!is_key_string("\t"));
+    }
+}
     """, file=file)
 
 def convert_code(text, file):
