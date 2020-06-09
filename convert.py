@@ -15,6 +15,14 @@ def handle_enum_entries(text, file):
         print("    {},".format(match[0]), file=file)
     return display
 
+def print_variant_name_entries(display, file):
+    for key in display:
+        print("        \"{0}\",".format(key), file=file)
+
+def print_discriminant_entries(display, file):
+    for i, key in enumerate(display, 1):
+        print("            {0} => {1},".format(key, i), file=file)
+
 def print_display_entries(display, file):
     for key in display:
         print("            {0} => f.write_str(\"{0}\"),".format(key), file=file)
@@ -22,6 +30,10 @@ def print_display_entries(display, file):
 def print_from_str_entries(display, file):
     for key in display:
         print("            \"{0}\" => Ok({0}),".format(key), file=file)
+
+def print_deserialize_variant_entries(display, file):
+    for i, key in enumerate(display, 1):
+        print("                    {0} => Some(KeyVariant::Other({1})),".format(i, key), file=file)
 
 def convert_key(text, file):
     print("""
@@ -36,7 +48,6 @@ use std::error::Error;
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,
     /// taking into account the user’s current locale setting, modifier state,
@@ -48,20 +59,32 @@ pub enum Key {
     #[doc(hidden)]
     __Nonexhaustive,
 }
-    """, file=file)
 
+impl Key {
+    const VARIANTS: &'static [&'static str] = &[
+        "Character",
+    """, file=file)
+    print_variant_name_entries(display, file)
     print("""
-
-impl Display for Key {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Key::*;
-        match *self {
-            Character(ref s) => write!(f, "{}", s),
+    ];
+    fn discriminant(&self) -> u16 {
+        use Key::*;
+        match self {
+            Character(_) => 0,
     """, file=file)
-    print_display_entries(display, file)
+    print_discriminant_entries(display, file)
     print("""
             __Nonexhaustive => unreachable!(),
         }
+    }
+}
+
+impl Display for Key {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        f.write_str(match self {
+            Key::Character(s) => s,
+            _ => Key::VARIANTS[self.discriminant() as usize],
+        })
     }
 }
 
@@ -76,6 +99,114 @@ impl FromStr for Key {
     print("""
             _ => Err(UnrecognizedKeyError),
         }
+    }
+}
+
+#[cfg(feature = "serde")]
+impl serde::Serialize for Key {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        if let Key::Character(string) = self {
+            serializer.serialize_newtype_variant("Key", 0, "Character", string)
+        } else {
+            let index = self.discriminant();
+            let variant = Self::VARIANTS[index as usize];
+            serializer.serialize_unit_variant("Key", index as u32, variant)
+        }
+    }
+}
+
+#[cfg(feature = "serde")]
+impl<'de> serde::Deserialize<'de> for Key {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use Key::*;
+        enum KeyVariant {
+            Character,
+            Other(Key),
+        }
+        impl KeyVariant {
+            fn from_discriminant(discriminant: u64) -> Option<Self> {
+                match discriminant {
+                    0 => Some(KeyVariant::Character),
+    """, file=file)
+    print_deserialize_variant_entries(display, file)
+    print("""
+                    _ => None,
+                }
+            }
+            fn from_str(variant_name: &str) -> Option<Self> {
+                if variant_name == "Character" {
+                    Some(KeyVariant::Character)
+                } else {
+                    Key::from_str(variant_name).ok().map(KeyVariant::Other)
+                }
+            }
+        }
+        struct KeyVariantVisitor;
+        impl<'de> serde::de::Visitor<'de> for KeyVariantVisitor {
+            type Value = KeyVariant;
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("enum Key")
+            }
+            fn visit_u64<E>(self, discriminant: u64) -> Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                KeyVariant::from_discriminant(discriminant).ok_or_else(|| {
+                    serde::de::Error::invalid_value(
+                        serde::de::Unexpected::Unsigned(discriminant),
+                        &"variant index 0 <= i < """, file=file, end="")
+    print(1 + len(display), file=file, end="")
+    print("""\",
+                    )
+                })
+            }
+            fn visit_str<E>(self, variant_name: &str) -> Result<Self::Value, E>
+            where
+                E: serde::de::Error,
+            {
+                KeyVariant::from_str(variant_name).ok_or_else(|| {
+                    serde::de::Error::unknown_variant(variant_name, Key::VARIANTS)
+                })
+            }
+        }
+        impl<'de> serde::Deserialize<'de> for KeyVariant {
+            fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_identifier(KeyVariantVisitor)
+            }
+        }
+        struct KeyVisitor;
+        impl<'de> serde::de::Visitor<'de> for KeyVisitor {
+            type Value = Key;
+            fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+                formatter.write_str("enum Key")
+            }
+            fn visit_enum<E>(self, data: E) -> Result<Self::Value, E::Error>
+            where
+                E: serde::de::EnumAccess<'de>,
+            {
+                use serde::de::VariantAccess;
+                let (variant, visitor) = data.variant()?;
+                match variant {
+                    KeyVariant::Character => {
+                        visitor.newtype_variant().map(Key::Character)
+                    }
+                    KeyVariant::Other(key) => {
+                        visitor.unit_variant()?;
+                        Ok(key)
+                    }
+                }
+            }
+        }
+        deserializer.deserialize_enum("Key", Key::VARIANTS, KeyVisitor)
     }
 }
 
@@ -104,7 +235,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn is_key_string() {
+    fn test_is_key_string() {
         assert!(is_key_string("A"));
         assert!(!is_key_string("AA"));
         assert!(!is_key_string("\t"));
