@@ -104,7 +104,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn is_key_string() {
+    fn test_is_key_string() {
         assert!(is_key_string("A"));
         assert!(!is_key_string("AA"));
         assert!(!is_key_string("\t"));
