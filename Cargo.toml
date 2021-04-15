@@ -1,12 +1,11 @@
 [package]
 name = "keyboard-types"
-version = "0.5.0"
-authors = ["Pyfisch <pyfisch@gmail.com>"]
+version = "0.6.0"
+authors = ["Pyfisch <pyfisch@posteo.org>"]
 description = "Contains types to define keyboard related events."
 readme = "README.md"
 license = "MIT/Apache-2.0"
 repository = "https://github.com/pyfisch/keyboard-types"
-documentation = "https://docs.rs/crate/keyboard-types"
 keywords = ["keyboard", "input", "event", "webdriver"]
 
 [features]
