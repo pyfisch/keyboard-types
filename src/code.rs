@@ -372,10 +372,7 @@ pub enum Code {
     /// value given in this specification is appropriate.
     Unidentified,
 
-    #[doc(hidden)]
-    __Nonexhaustive,
 }
-    
 
 
 impl Display for Code {
@@ -556,7 +553,6 @@ impl Display for Code {
             Katakana => f.write_str("Katakana"),
             Unidentified => f.write_str("Unidentified"),
 
-            __Nonexhaustive => unreachable!(),
         }
     }
 }

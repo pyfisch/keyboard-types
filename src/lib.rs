@@ -6,8 +6,8 @@
 
 use std::fmt;
 
-pub use code::Code;
-pub use key::Key;
+pub use code::{Code, UnrecognizedCodeError};
+pub use key::{Key, UnrecognizedKeyError};
 pub use location::Location;
 pub use modifiers::Modifiers;
 pub use shortcuts::ShortcutMatcher;

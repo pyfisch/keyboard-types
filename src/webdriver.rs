@@ -42,7 +42,6 @@
 //! Specification: https://w3c.github.io/webdriver/
 
 use std::collections::HashSet;
-use std::iter::FromIterator;
 
 use unicode_segmentation::UnicodeSegmentation;
 
@@ -244,14 +243,12 @@ fn code(raw_key: char) -> Code {
 }
 
 fn is_shifted_character(raw_key: char) -> bool {
-    match raw_key {
+    matches!(raw_key,
         '~' | '|' | '{' | '}' | '<' | ')' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '('
         | '+' | '>' | '_' | '\"' | ':' | '?' | '\u{E00D}' | '\u{E05C}' | '\u{E056}'
         | '\u{E05B}' | '\u{E055}' | '\u{E058}' | '\u{E05A}' | '\u{E057}' | '\u{E059}'
-        | '\u{E054}' | '\u{E05D}' => true,
-        'A'..='Z' => true,
-        _ => false,
-    }
+        | '\u{E054}' | '\u{E05D}' | 'A'..='Z'
+	)
 }
 
 fn key_location(raw_key: char) -> Location {
@@ -346,8 +343,8 @@ impl KeyInputState {
     }
 
     fn clear(&mut self, undo_actions: &mut HashSet<char>, result: &mut Vec<Event>) {
-        let mut actions = Vec::from_iter(undo_actions.drain());
-        actions.sort();
+        let mut actions: Vec<_> = undo_actions.drain().collect();
+        actions.sort_unstable();
         for action in actions {
             result.push(self.dispatch_keyup(action).unwrap().into())
         }
@@ -403,7 +400,7 @@ pub fn send_keys(text: &str) -> Vec<Event> {
             return false;
         }
         // values from https://www.w3.org/TR/uievents-key/#keys-modifier
-        match normalised_key_value(first_char(text)) {
+        matches!(normalised_key_value(first_char(text)),
             Key::Alt
             | Key::AltGraph
             | Key::CapsLock
@@ -417,9 +414,8 @@ pub fn send_keys(text: &str) -> Vec<Event> {
             | Key::Symbol
             | Key::SymbolLock
             | Key::Hyper
-            | Key::Super => true,
-            _ => false,
-        }
+            | Key::Super
+		)
     }
 
     /// Spec: https://w3c.github.io/webdriver/#dfn-typeable

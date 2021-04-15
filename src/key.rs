@@ -11,6 +11,7 @@ use std::error::Error;
 /// <https://w3c.github.io/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[non_exhaustive]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,
     /// taking into account the user’s current locale setting, modifier state,
@@ -617,10 +618,7 @@ pub enum Key {
     /// Toggle between full-screen and scaled content, or alter magnification level. (<code class="vk"><code class="vk">VK_ZOOM</code></code>, <code class="android"><code class="android">KEYCODE_TV_ZOOM_MODE</code></code>)
     ZoomToggle,
 
-    #[doc(hidden)]
-    __Nonexhaustive,
 }
-    
 
 
 impl Display for Key {
@@ -914,7 +912,6 @@ impl Display for Key {
             Wink => f.write_str("Wink"),
             ZoomToggle => f.write_str("ZoomToggle"),
 
-            __Nonexhaustive => unreachable!(),
         }
     }
 }
