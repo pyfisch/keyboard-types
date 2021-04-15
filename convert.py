@@ -117,6 +117,8 @@ def convert_code(text, file):
 // AUTO GENERATED CODE - DO NOT EDIT
 
 use std::fmt::{self, Display};
+use std::str::FromStr;
+use std::error::Error;
 
 /// Code is the physical position of a key.
 ///
@@ -148,8 +150,32 @@ impl Display for Code {
             __Nonexhaustive => unreachable!(),
         }
     }
+}
+
+impl FromStr for Code {
+    type Err = UnrecognizedCodeError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use Code::*;
+        match s {""", file=file)
+    print_from_str_entries(display, file)
+    print("""
+            _ => Err(UnrecognizedCodeError),
+        }
+    }
 } 
 
+/// Parse from string error, returned when string does not match to any Code variant.
+#[derive(Clone, Debug)]
+pub struct UnrecognizedCodeError;
+
+impl fmt::Display for UnrecognizedCodeError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Unrecognized code")
+    }
+}
+
+impl Error for UnrecognizedCodeError {}
     """, file=file)
 
 if __name__ == '__main__':
