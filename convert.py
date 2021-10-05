@@ -1,27 +1,47 @@
 import re
 import requests
 
-def handle_enum_entries(text, file):
+
+def parse(text):
     display = []
     for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
         doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
         doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
+        doc_comment = ""
         for line in doc.split('\n'):
             line = line.strip()
             if not line:
                 continue
-            print("    /// {}".format(line), file=file)
-        display.append(match[0])
-        print("    {},".format(match[0]), file=file)
+            doc_comment += "    /// {}\n".format(line)
+        display.append([match[0], doc_comment, []])
     return display
 
+
+def emit_enum_entries(display, file):
+    for [key, doc_comment, alternatives] in display:
+        print("{}    {},".format(doc_comment, key), file=file)
+
+
 def print_display_entries(display, file):
-    for key in display:
-        print("            {0} => f.write_str(\"{0}\"),".format(key), file=file)
+    for [key, doc_comment, alternatives] in display:
+        print("            {0} => f.write_str(\"{0}\"),".format(
+            key), file=file)
+
 
 def print_from_str_entries(display, file):
-    for key in display:
-        print("            \"{0}\" => Ok({0}),".format(key), file=file)
+    for [key, doc_comment, alternatives] in display:
+        print("            \"{0}\"".format(key), file=file, end='')
+        for alternative in alternatives:
+            print(" | \"{0}\"".format(alternative), file=file, end='')
+        print(" => Ok({0}),".format(key), file=file)
+
+
+def add_alternative_for(display, key, alternative):
+    for [found_key, doc_comment, alternatives] in display:
+        if found_key != key:
+            continue
+        alternatives.append(alternative)
+
 
 def convert_key(text, file):
     print("""
@@ -44,8 +64,9 @@ pub enum Key {
     /// and any system-level keyboard mapping overrides that are in effect.
     Character(String),
     """, file=file)
-    display = handle_enum_entries(text, file)
-    print("\n}", file=file)
+    display = parse(text)
+    emit_enum_entries(display, file)
+    print("}", file=file)
 
     print("""
 
@@ -108,6 +129,7 @@ mod test {
 }
     """, file=file)
 
+
 def convert_code(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
@@ -127,8 +149,51 @@ use std::error::Error;
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Code {""", file=file)
-    display = handle_enum_entries(text, file)
-    print("\n}", file=file)
+    display = parse(text)
+
+    for i in range(13, 25):
+        display.append([
+            'F{}'.format(i),
+            '    /// <code class="keycap">F{}</code>\n'.format(i),
+            []
+        ])
+
+    for chromium_only in [
+        'BrightnessDown',
+        'BrightnessUp',
+        'DisplayToggleIntExt',
+        'KeyboardLayoutSelect',
+        'LaunchAssistant',
+        'LaunchControlPanel',
+        'LaunchScreenSaver',
+        'MailForward',
+        'MailReply',
+        'MailSend',
+        'MediaFastForward',
+        'MediaPause',
+        'MediaPlay',
+        'MediaRecord',
+        'MediaRewind',
+        'PrivacyScreenToggle',
+        'SelectTask',
+        'ShowAllWindows',
+        'ZoomToggle',
+    ]:
+        display.append([
+            chromium_only,
+            '    /// Non-standard code value supported by Chromium.\n',
+            []
+        ])
+
+    add_alternative_for(display, 'MetaLeft', 'OSLeft')
+    add_alternative_for(display, 'MetaRight', 'OSRight')
+    add_alternative_for(display, 'AudioVolumeDown', 'VolumeDown')
+    add_alternative_for(display, 'AudioVolumeMute', 'VolumeMute')
+    add_alternative_for(display, 'AudioVolumeUp', 'VolumeUp')
+    add_alternative_for(display, 'MediaSelect', 'LaunchMediaPlayer')
+
+    emit_enum_entries(display, file)
+    print("}", file=file)
 
     print("""
 
@@ -154,7 +219,7 @@ impl FromStr for Code {
             _ => Err(UnrecognizedCodeError),
         }
     }
-} 
+}
 
 /// Parse from string error, returned when string does not match to any Code variant.
 #[derive(Clone, Debug)]
@@ -169,10 +234,11 @@ impl fmt::Display for UnrecognizedCodeError {
 impl Error for UnrecognizedCodeError {}
     """, file=file)
 
+
 if __name__ == '__main__':
     input = requests.get('https://w3c.github.io/uievents-key/').text
-    with open('src/key.rs', 'w') as output:
+    with open('src/key.rs', 'w', encoding='utf-8') as output:
         convert_key(input, output)
     input = requests.get('https://w3c.github.io/uievents-code/').text
-    with open('src/code.rs', 'w') as output:
+    with open('src/code.rs', 'w', encoding='utf-8') as output:
         convert_code(input, output)
