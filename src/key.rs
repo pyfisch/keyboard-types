@@ -17,7 +17,7 @@ pub enum Key {
     /// taking into account the user’s current locale setting, modifier state,
     /// and any system-level keyboard mapping overrides that are in effect.
     Character(String),
-    
+
     /// This key value is used when an implementation is unable to
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
@@ -617,7 +617,6 @@ pub enum Key {
     Wink,
     /// Toggle between full-screen and scaled content, or alter magnification level. (<code class="vk"><code class="vk">VK_ZOOM</code></code>, <code class="android"><code class="android">KEYCODE_TV_ZOOM_MODE</code></code>)
     ZoomToggle,
-
 }
 
 
@@ -626,7 +625,7 @@ impl Display for Key {
         use self::Key::*;
         match *self {
             Character(ref s) => write!(f, "{}", s),
-    
+
             Unidentified => f.write_str("Unidentified"),
             Alt => f.write_str("Alt"),
             AltGraph => f.write_str("AltGraph"),
@@ -1244,4 +1243,4 @@ mod test {
         assert!(!is_key_string("	"));
     }
 }
-    
+

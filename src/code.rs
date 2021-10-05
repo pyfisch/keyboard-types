@@ -371,7 +371,68 @@ pub enum Code {
     /// This value code should be used when no other
     /// value given in this specification is appropriate.
     Unidentified,
-
+    /// <code class="keycap">F13</code>
+    F13,
+    /// <code class="keycap">F14</code>
+    F14,
+    /// <code class="keycap">F15</code>
+    F15,
+    /// <code class="keycap">F16</code>
+    F16,
+    /// <code class="keycap">F17</code>
+    F17,
+    /// <code class="keycap">F18</code>
+    F18,
+    /// <code class="keycap">F19</code>
+    F19,
+    /// <code class="keycap">F20</code>
+    F20,
+    /// <code class="keycap">F21</code>
+    F21,
+    /// <code class="keycap">F22</code>
+    F22,
+    /// <code class="keycap">F23</code>
+    F23,
+    /// <code class="keycap">F24</code>
+    F24,
+    /// Non-standard code value supported by Chromium.
+    BrightnessDown,
+    /// Non-standard code value supported by Chromium.
+    BrightnessUp,
+    /// Non-standard code value supported by Chromium.
+    DisplayToggleIntExt,
+    /// Non-standard code value supported by Chromium.
+    KeyboardLayoutSelect,
+    /// Non-standard code value supported by Chromium.
+    LaunchAssistant,
+    /// Non-standard code value supported by Chromium.
+    LaunchControlPanel,
+    /// Non-standard code value supported by Chromium.
+    LaunchScreenSaver,
+    /// Non-standard code value supported by Chromium.
+    MailForward,
+    /// Non-standard code value supported by Chromium.
+    MailReply,
+    /// Non-standard code value supported by Chromium.
+    MailSend,
+    /// Non-standard code value supported by Chromium.
+    MediaFastForward,
+    /// Non-standard code value supported by Chromium.
+    MediaPause,
+    /// Non-standard code value supported by Chromium.
+    MediaPlay,
+    /// Non-standard code value supported by Chromium.
+    MediaRecord,
+    /// Non-standard code value supported by Chromium.
+    MediaRewind,
+    /// Non-standard code value supported by Chromium.
+    PrivacyScreenToggle,
+    /// Non-standard code value supported by Chromium.
+    SelectTask,
+    /// Non-standard code value supported by Chromium.
+    ShowAllWindows,
+    /// Non-standard code value supported by Chromium.
+    ZoomToggle,
 }
 
 
@@ -379,7 +440,7 @@ impl Display for Code {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::Code::*;
         match *self {
-    
+
             Backquote => f.write_str("Backquote"),
             Backslash => f.write_str("Backslash"),
             BracketLeft => f.write_str("BracketLeft"),
@@ -552,6 +613,37 @@ impl Display for Code {
             Hiragana => f.write_str("Hiragana"),
             Katakana => f.write_str("Katakana"),
             Unidentified => f.write_str("Unidentified"),
+            F13 => f.write_str("F13"),
+            F14 => f.write_str("F14"),
+            F15 => f.write_str("F15"),
+            F16 => f.write_str("F16"),
+            F17 => f.write_str("F17"),
+            F18 => f.write_str("F18"),
+            F19 => f.write_str("F19"),
+            F20 => f.write_str("F20"),
+            F21 => f.write_str("F21"),
+            F22 => f.write_str("F22"),
+            F23 => f.write_str("F23"),
+            F24 => f.write_str("F24"),
+            BrightnessDown => f.write_str("BrightnessDown"),
+            BrightnessUp => f.write_str("BrightnessUp"),
+            DisplayToggleIntExt => f.write_str("DisplayToggleIntExt"),
+            KeyboardLayoutSelect => f.write_str("KeyboardLayoutSelect"),
+            LaunchAssistant => f.write_str("LaunchAssistant"),
+            LaunchControlPanel => f.write_str("LaunchControlPanel"),
+            LaunchScreenSaver => f.write_str("LaunchScreenSaver"),
+            MailForward => f.write_str("MailForward"),
+            MailReply => f.write_str("MailReply"),
+            MailSend => f.write_str("MailSend"),
+            MediaFastForward => f.write_str("MediaFastForward"),
+            MediaPause => f.write_str("MediaPause"),
+            MediaPlay => f.write_str("MediaPlay"),
+            MediaRecord => f.write_str("MediaRecord"),
+            MediaRewind => f.write_str("MediaRewind"),
+            PrivacyScreenToggle => f.write_str("PrivacyScreenToggle"),
+            SelectTask => f.write_str("SelectTask"),
+            ShowAllWindows => f.write_str("ShowAllWindows"),
+            ZoomToggle => f.write_str("ZoomToggle"),
 
         }
     }
@@ -621,8 +713,8 @@ impl FromStr for Code {
             "ControlLeft" => Ok(ControlLeft),
             "ControlRight" => Ok(ControlRight),
             "Enter" => Ok(Enter),
-            "MetaLeft" => Ok(MetaLeft),
-            "MetaRight" => Ok(MetaRight),
+            "MetaLeft" | "OSLeft" => Ok(MetaLeft),
+            "MetaRight" | "OSRight" => Ok(MetaRight),
             "ShiftLeft" => Ok(ShiftLeft),
             "ShiftRight" => Ok(ShiftRight),
             "Space" => Ok(Space),
@@ -707,15 +799,15 @@ impl FromStr for Code {
             "LaunchApp2" => Ok(LaunchApp2),
             "LaunchMail" => Ok(LaunchMail),
             "MediaPlayPause" => Ok(MediaPlayPause),
-            "MediaSelect" => Ok(MediaSelect),
+            "MediaSelect" | "LaunchMediaPlayer" => Ok(MediaSelect),
             "MediaStop" => Ok(MediaStop),
             "MediaTrackNext" => Ok(MediaTrackNext),
             "MediaTrackPrevious" => Ok(MediaTrackPrevious),
             "Power" => Ok(Power),
             "Sleep" => Ok(Sleep),
-            "AudioVolumeDown" => Ok(AudioVolumeDown),
-            "AudioVolumeMute" => Ok(AudioVolumeMute),
-            "AudioVolumeUp" => Ok(AudioVolumeUp),
+            "AudioVolumeDown" | "VolumeDown" => Ok(AudioVolumeDown),
+            "AudioVolumeMute" | "VolumeMute" => Ok(AudioVolumeMute),
+            "AudioVolumeUp" | "VolumeUp" => Ok(AudioVolumeUp),
             "WakeUp" => Ok(WakeUp),
             "Hyper" => Ok(Hyper),
             "Super" => Ok(Super),
@@ -735,11 +827,42 @@ impl FromStr for Code {
             "Hiragana" => Ok(Hiragana),
             "Katakana" => Ok(Katakana),
             "Unidentified" => Ok(Unidentified),
+            "F13" => Ok(F13),
+            "F14" => Ok(F14),
+            "F15" => Ok(F15),
+            "F16" => Ok(F16),
+            "F17" => Ok(F17),
+            "F18" => Ok(F18),
+            "F19" => Ok(F19),
+            "F20" => Ok(F20),
+            "F21" => Ok(F21),
+            "F22" => Ok(F22),
+            "F23" => Ok(F23),
+            "F24" => Ok(F24),
+            "BrightnessDown" => Ok(BrightnessDown),
+            "BrightnessUp" => Ok(BrightnessUp),
+            "DisplayToggleIntExt" => Ok(DisplayToggleIntExt),
+            "KeyboardLayoutSelect" => Ok(KeyboardLayoutSelect),
+            "LaunchAssistant" => Ok(LaunchAssistant),
+            "LaunchControlPanel" => Ok(LaunchControlPanel),
+            "LaunchScreenSaver" => Ok(LaunchScreenSaver),
+            "MailForward" => Ok(MailForward),
+            "MailReply" => Ok(MailReply),
+            "MailSend" => Ok(MailSend),
+            "MediaFastForward" => Ok(MediaFastForward),
+            "MediaPause" => Ok(MediaPause),
+            "MediaPlay" => Ok(MediaPlay),
+            "MediaRecord" => Ok(MediaRecord),
+            "MediaRewind" => Ok(MediaRewind),
+            "PrivacyScreenToggle" => Ok(PrivacyScreenToggle),
+            "SelectTask" => Ok(SelectTask),
+            "ShowAllWindows" => Ok(ShowAllWindows),
+            "ZoomToggle" => Ok(ZoomToggle),
 
             _ => Err(UnrecognizedCodeError),
         }
     }
-} 
+}
 
 /// Parse from string error, returned when string does not match to any Code variant.
 #[derive(Clone, Debug)]
@@ -752,4 +875,4 @@ impl fmt::Display for UnrecognizedCodeError {
 }
 
 impl Error for UnrecognizedCodeError {}
-    
+
