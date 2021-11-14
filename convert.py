@@ -4,7 +4,7 @@ import requests
 
 def parse(text):
     display = []
-    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
+    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
         doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
         doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
         doc_comment = ""
@@ -65,6 +65,14 @@ pub enum Key {
     Character(String),
     """, file=file)
     display = parse(text)
+
+    for i in range(13, 25):
+        display.append([
+            'F{}'.format(i),
+            '    /// The F{0} key, a general purpose function key, as index {0}.\n'.format(i),
+            []
+        ])
+
     emit_enum_entries(display, file)
     print("}", file=file)
 
@@ -158,7 +166,7 @@ pub enum Code {""", file=file)
             []
         ])
 
-    for chromium_only in [
+    chromium_key_codes = [
         'BrightnessDown',
         'BrightnessUp',
         'DisplayToggleIntExt',
@@ -174,11 +182,14 @@ pub enum Code {""", file=file)
         'MediaPlay',
         'MediaRecord',
         'MediaRewind',
+        'MicrophoneMuteToggle',
         'PrivacyScreenToggle',
         'SelectTask',
         'ShowAllWindows',
         'ZoomToggle',
-    ]:
+    ]
+
+    for chromium_only in chromium_key_codes:
         display.append([
             chromium_only,
             '    /// Non-standard code value supported by Chromium.\n',

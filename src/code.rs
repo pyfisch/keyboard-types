@@ -426,6 +426,8 @@ pub enum Code {
     /// Non-standard code value supported by Chromium.
     MediaRewind,
     /// Non-standard code value supported by Chromium.
+    MicrophoneMuteToggle,
+    /// Non-standard code value supported by Chromium.
     PrivacyScreenToggle,
     /// Non-standard code value supported by Chromium.
     SelectTask,
@@ -440,7 +442,7 @@ impl Display for Code {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::Code::*;
         match *self {
-
+    
             Backquote => f.write_str("Backquote"),
             Backslash => f.write_str("Backslash"),
             BracketLeft => f.write_str("BracketLeft"),
@@ -640,6 +642,7 @@ impl Display for Code {
             MediaPlay => f.write_str("MediaPlay"),
             MediaRecord => f.write_str("MediaRecord"),
             MediaRewind => f.write_str("MediaRewind"),
+            MicrophoneMuteToggle => f.write_str("MicrophoneMuteToggle"),
             PrivacyScreenToggle => f.write_str("PrivacyScreenToggle"),
             SelectTask => f.write_str("SelectTask"),
             ShowAllWindows => f.write_str("ShowAllWindows"),
@@ -854,6 +857,7 @@ impl FromStr for Code {
             "MediaPlay" => Ok(MediaPlay),
             "MediaRecord" => Ok(MediaRecord),
             "MediaRewind" => Ok(MediaRewind),
+            "MicrophoneMuteToggle" => Ok(MicrophoneMuteToggle),
             "PrivacyScreenToggle" => Ok(PrivacyScreenToggle),
             "SelectTask" => Ok(SelectTask),
             "ShowAllWindows" => Ok(ShowAllWindows),
@@ -875,4 +879,4 @@ impl fmt::Display for UnrecognizedCodeError {
 }
 
 impl Error for UnrecognizedCodeError {}
-
+    
