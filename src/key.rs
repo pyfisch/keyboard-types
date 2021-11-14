@@ -17,7 +17,7 @@ pub enum Key {
     /// taking into account the user’s current locale setting, modifier state,
     /// and any system-level keyboard mapping overrides that are in effect.
     Character(String),
-
+    
     /// This key value is used when an implementation is unable to
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
@@ -617,6 +617,30 @@ pub enum Key {
     Wink,
     /// Toggle between full-screen and scaled content, or alter magnification level. (<code class="vk"><code class="vk">VK_ZOOM</code></code>, <code class="android"><code class="android">KEYCODE_TV_ZOOM_MODE</code></code>)
     ZoomToggle,
+    /// The F13 key, a general purpose function key, as index 13.
+    F13,
+    /// The F14 key, a general purpose function key, as index 14.
+    F14,
+    /// The F15 key, a general purpose function key, as index 15.
+    F15,
+    /// The F16 key, a general purpose function key, as index 16.
+    F16,
+    /// The F17 key, a general purpose function key, as index 17.
+    F17,
+    /// The F18 key, a general purpose function key, as index 18.
+    F18,
+    /// The F19 key, a general purpose function key, as index 19.
+    F19,
+    /// The F20 key, a general purpose function key, as index 20.
+    F20,
+    /// The F21 key, a general purpose function key, as index 21.
+    F21,
+    /// The F22 key, a general purpose function key, as index 22.
+    F22,
+    /// The F23 key, a general purpose function key, as index 23.
+    F23,
+    /// The F24 key, a general purpose function key, as index 24.
+    F24,
 }
 
 
@@ -625,7 +649,7 @@ impl Display for Key {
         use self::Key::*;
         match *self {
             Character(ref s) => write!(f, "{}", s),
-
+    
             Unidentified => f.write_str("Unidentified"),
             Alt => f.write_str("Alt"),
             AltGraph => f.write_str("AltGraph"),
@@ -910,6 +934,18 @@ impl Display for Key {
             VideoModeNext => f.write_str("VideoModeNext"),
             Wink => f.write_str("Wink"),
             ZoomToggle => f.write_str("ZoomToggle"),
+            F13 => f.write_str("F13"),
+            F14 => f.write_str("F14"),
+            F15 => f.write_str("F15"),
+            F16 => f.write_str("F16"),
+            F17 => f.write_str("F17"),
+            F18 => f.write_str("F18"),
+            F19 => f.write_str("F19"),
+            F20 => f.write_str("F20"),
+            F21 => f.write_str("F21"),
+            F22 => f.write_str("F22"),
+            F23 => f.write_str("F23"),
+            F24 => f.write_str("F24"),
 
         }
     }
@@ -1206,6 +1242,18 @@ impl FromStr for Key {
             "VideoModeNext" => Ok(VideoModeNext),
             "Wink" => Ok(Wink),
             "ZoomToggle" => Ok(ZoomToggle),
+            "F13" => Ok(F13),
+            "F14" => Ok(F14),
+            "F15" => Ok(F15),
+            "F16" => Ok(F16),
+            "F17" => Ok(F17),
+            "F18" => Ok(F18),
+            "F19" => Ok(F19),
+            "F20" => Ok(F20),
+            "F21" => Ok(F21),
+            "F22" => Ok(F22),
+            "F23" => Ok(F23),
+            "F24" => Ok(F24),
 
             _ => Err(UnrecognizedKeyError),
         }
@@ -1243,4 +1291,4 @@ mod test {
         assert!(!is_key_string("	"));
     }
 }
-
+    
