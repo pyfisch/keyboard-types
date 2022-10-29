@@ -41,7 +41,10 @@
 //!
 //! Specification: https://w3c.github.io/webdriver/
 
+use std::borrow::ToOwned;
 use std::collections::HashSet;
+use std::string::{String, ToString};
+use std::vec::Vec;
 
 use unicode_segmentation::UnicodeSegmentation;
 

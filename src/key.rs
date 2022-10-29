@@ -1,8 +1,12 @@
 
 // AUTO GENERATED CODE - DO NOT EDIT
 
-use std::fmt::{self, Display};
-use std::str::FromStr;
+use core::fmt::{self, Display};
+use core::str::FromStr;
+
+use alloc::string::{String, ToString};
+
+#[cfg(feature = "std")]
 use std::error::Error;
 
 /// Key represents the meaning of a keypress.
@@ -1270,6 +1274,7 @@ impl fmt::Display for UnrecognizedKeyError {
     }
 }
 
+#[cfg(feature = "std")]
 impl Error for UnrecognizedKeyError {}
 
 /// Check if string can be used as a `Key::Character` _keystring_.

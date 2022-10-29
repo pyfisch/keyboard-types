@@ -9,8 +9,9 @@ repository = "https://github.com/pyfisch/keyboard-types"
 keywords = ["keyboard", "input", "event", "webdriver"]
 
 [features]
-default = ["serde", "webdriver"]
-webdriver = ["unicode-segmentation"]
+default = ["serde", "webdriver", "std"]
+std = []
+webdriver = ["unicode-segmentation", "std"]
 
 [dependencies]
 bitflags = "1.0.0"

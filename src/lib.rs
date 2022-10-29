@@ -4,7 +4,15 @@
 //! but this crate should be useful for anyone implementing keyboard
 //! input in a cross-platform way.
 
-use std::fmt;
+#![no_std]
+
+extern crate alloc;
+
+#[cfg(feature = "std")]
+extern crate std;
+
+use alloc::string::String;
+use core::fmt;
 
 pub use code::{Code, UnrecognizedCodeError};
 pub use key::{Key, UnrecognizedKeyError};
