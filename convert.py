@@ -156,6 +156,7 @@ use std::error::Error;
 /// <https://w3c.github.io/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[non_exhaustive]
 pub enum Code {""", file=file)
     display = parse(text)
 
