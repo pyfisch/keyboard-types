@@ -16,6 +16,3 @@ webdriver = ["unicode-segmentation"]
 bitflags = "1.0.0"
 serde = { version = "1.0.0", optional = true, features = ["derive"] }
 unicode-segmentation = { version = "1.2.0", optional = true }
-
-[badges]
-travis-ci = { repository = "pyfisch/keyboard-types" }
