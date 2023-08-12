@@ -3,28 +3,25 @@ on: [push, pull_request]
 name: Continuous integration
 
 jobs:
-  check:
+  check-test-clippy:
     name: Check
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        toolchain:
+          - stable
+          - "1.56"
     steps:
       - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-      - run: cargo check --all-targets
-
-  test:
-    name: Test Suite
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
-      - run: cargo test
-
-  clippy:
-    name: Clippy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@master
         with:
+          toolchain: ${{ matrix.toolchain }}
           components: clippy
+      # Default features
+      - run: cargo check --all-targets
+      - run: cargo test
       - run: cargo clippy --all-targets -- -D warnings
+      # No default features
+      - run: cargo check --all-targets --no-default-features
+      - run: cargo test --no-default-features
+      - run: cargo clippy --all-targets --no-default-features -- -D warnings
