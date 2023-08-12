@@ -6,19 +6,11 @@
 
 use std::fmt;
 
-pub use code::{Code, UnrecognizedCodeError};
-pub use key::{Key, UnrecognizedKeyError};
-pub use location::Location;
-pub use modifiers::Modifiers;
-pub use shortcuts::ShortcutMatcher;
-
-#[macro_use]
-extern crate bitflags;
-#[cfg(feature = "serde")]
-#[macro_use]
-extern crate serde;
-#[cfg(feature = "webdriver")]
-extern crate unicode_segmentation;
+pub use crate::code::{Code, UnrecognizedCodeError};
+pub use crate::key::{Key, UnrecognizedKeyError};
+pub use crate::location::Location;
+pub use crate::modifiers::Modifiers;
+pub use crate::shortcuts::ShortcutMatcher;
 
 mod code;
 mod key;
@@ -27,6 +19,9 @@ mod modifiers;
 mod shortcuts;
 #[cfg(feature = "webdriver")]
 pub mod webdriver;
+
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 
 /// Describes the state the key is in.
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]

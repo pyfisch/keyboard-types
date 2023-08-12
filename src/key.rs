@@ -10,7 +10,7 @@ use std::error::Error;
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,
@@ -955,7 +955,7 @@ impl FromStr for Key {
     type Err = UnrecognizedKeyError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use Key::*;
+        use crate::Key::*;
         match s {
             s if is_key_string(s) => Ok(Character(s.to_string())),
             "Unidentified" => Ok(Unidentified),
