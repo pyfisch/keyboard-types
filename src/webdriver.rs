@@ -45,9 +45,9 @@ use std::collections::HashSet;
 
 use unicode_segmentation::UnicodeSegmentation;
 
-use first_char;
-use {Code, Key, KeyState, KeyboardEvent, Location, Modifiers};
-use {CompositionEvent, CompositionState};
+use crate::first_char;
+use crate::{Code, Key, KeyState, KeyboardEvent, Location, Modifiers};
+use crate::{CompositionEvent, CompositionState};
 
 // Spec: <https://w3c.github.io/webdriver/#keyboard-actions>
 // normalised (sic) as in british spelling
@@ -276,7 +276,7 @@ fn get_modifier(key: &Key) -> Modifiers {
 ///
 /// Spec: <https://w3c.github.io/webdriver/#dfn-key-input-state>
 #[derive(Clone, Debug, Default)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct KeyInputState {
     pressed: HashSet<Key>,
     modifiers: Modifiers,
@@ -373,7 +373,7 @@ impl KeyInputState {
 ///
 /// Returned by the `send_keys` function.
 #[derive(Clone, Eq, PartialEq, Hash, Debug)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Event {
     Keyboard(KeyboardEvent),
     Composition(CompositionEvent),

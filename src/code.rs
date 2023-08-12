@@ -14,7 +14,7 @@ use std::error::Error;
 /// Specification:
 /// <https://w3c.github.io/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {
     /// <code class="keycap">`~</code> on a US keyboard. This is the <code class="keycap">半角/全角/漢字</code> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
@@ -657,7 +657,7 @@ impl FromStr for Code {
     type Err = UnrecognizedCodeError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use Code::*;
+        use crate::Code::*;
         match s {
             "Backquote" => Ok(Backquote),
             "Backslash" => Ok(Backslash),

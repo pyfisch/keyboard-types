@@ -5,13 +5,13 @@
 //!
 //! Use the constants to match for combinations of the modifier keys.
 
-bitflags! {
+bitflags::bitflags! {
     /// Pressed modifier keys.
     ///
     /// Specification:
     /// <https://w3c.github.io/uievents-key/#keys-modifier>
     #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
-    #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
+    #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
     pub struct Modifiers: u32 {
         const ALT = 0x01;
         const ALT_GRAPH = 0x2;

@@ -1,4 +1,4 @@
-use {Key, KeyState, KeyboardEvent, Modifiers};
+use crate::{Key, KeyState, KeyboardEvent, Modifiers};
 
 /// Match keyboard shortcuts and excute actions.
 ///
