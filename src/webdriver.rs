@@ -243,12 +243,41 @@ fn code(raw_key: char) -> Code {
 }
 
 fn is_shifted_character(raw_key: char) -> bool {
-    matches!(raw_key,
-        '~' | '|' | '{' | '}' | '<' | ')' | '!' | '@' | '#' | '$' | '%' | '^' | '&' | '*' | '('
-        | '+' | '>' | '_' | '\"' | ':' | '?' | '\u{E00D}' | '\u{E05C}' | '\u{E056}'
-        | '\u{E05B}' | '\u{E055}' | '\u{E058}' | '\u{E05A}' | '\u{E057}' | '\u{E059}'
-        | '\u{E054}' | '\u{E05D}' | 'A'..='Z'
-	)
+    matches!(
+        raw_key,
+        '~' | '|'
+            | '{'
+            | '}'
+            | '<'
+            | ')'
+            | '!'
+            | '@'
+            | '#'
+            | '$'
+            | '%'
+            | '^'
+            | '&'
+            | '*'
+            | '('
+            | '+'
+            | '>'
+            | '_'
+            | '\"'
+            | ':'
+            | '?'
+            | '\u{E00D}'
+            | '\u{E05C}'
+            | '\u{E056}'
+            | '\u{E05B}'
+            | '\u{E055}'
+            | '\u{E058}'
+            | '\u{E05A}'
+            | '\u{E057}'
+            | '\u{E059}'
+            | '\u{E054}'
+            | '\u{E05D}'
+            | 'A'..='Z'
+    )
 }
 
 fn key_location(raw_key: char) -> Location {
@@ -400,22 +429,23 @@ pub fn send_keys(text: &str) -> Vec<Event> {
             return false;
         }
         // values from <https://www.w3.org/TR/uievents-key/#keys-modifier>
-        matches!(normalised_key_value(first_char(text)),
+        matches!(
+            normalised_key_value(first_char(text)),
             Key::Alt
-            | Key::AltGraph
-            | Key::CapsLock
-            | Key::Control
-            | Key::Fn
-            | Key::FnLock
-            | Key::Meta
-            | Key::NumLock
-            | Key::ScrollLock
-            | Key::Shift
-            | Key::Symbol
-            | Key::SymbolLock
-            | Key::Hyper
-            | Key::Super
-		)
+                | Key::AltGraph
+                | Key::CapsLock
+                | Key::Control
+                | Key::Fn
+                | Key::FnLock
+                | Key::Meta
+                | Key::NumLock
+                | Key::ScrollLock
+                | Key::Shift
+                | Key::Symbol
+                | Key::SymbolLock
+                | Key::Hyper
+                | Key::Super
+        )
     }
 
     /// Spec: <https://w3c.github.io/webdriver/#dfn-typeable>
@@ -447,19 +477,22 @@ pub fn send_keys(text: &str) -> Vec<Event> {
                     CompositionEvent {
                         state: CompositionState::Start,
                         data: String::new(),
-                    }.into(),
+                    }
+                    .into(),
                 );
                 result.push(
                     CompositionEvent {
                         state: CompositionState::Update,
                         data: s.to_owned(),
-                    }.into(),
+                    }
+                    .into(),
                 );
                 result.push(
                     CompositionEvent {
                         state: CompositionState::End,
                         data: s.to_owned(),
-                    }.into(),
+                    }
+                    .into(),
                 );
             }
         }
