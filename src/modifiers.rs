@@ -29,3 +29,25 @@ bitflags! {
         const SUPER = 0x2000;
     }
 }
+
+impl Modifiers {
+    /// Return `true` if a shift key is pressed.
+    pub fn shift(&self) -> bool {
+        self.contains(Modifiers::SHIFT)
+    }
+
+    /// Return `true` if a control key is pressed.
+    pub fn ctrl(&self) -> bool {
+        self.contains(Modifiers::CONTROL)
+    }
+
+    /// Return `true` if an alt key is pressed.
+    pub fn alt(&self) -> bool {
+        self.contains(Modifiers::ALT)
+    }
+
+    /// Return `true` if a meta key is pressed.
+    pub fn meta(&self) -> bool {
+        self.contains(Modifiers::META)
+    }
+}
