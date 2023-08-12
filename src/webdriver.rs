@@ -39,7 +39,7 @@
 //! println!("{:#?}", events);
 //! ```
 //!
-//! Specification: https://w3c.github.io/webdriver/
+//! Specification: <https://w3c.github.io/webdriver/>
 
 use std::collections::HashSet;
 
@@ -49,7 +49,7 @@ use first_char;
 use {Code, Key, KeyState, KeyboardEvent, Location, Modifiers};
 use {CompositionEvent, CompositionState};
 
-// Spec: https://w3c.github.io/webdriver/#keyboard-actions
+// Spec: <https://w3c.github.io/webdriver/#keyboard-actions>
 // normalised (sic) as in british spelling
 fn normalised_key_value(raw_key: char) -> Key {
     match raw_key {
@@ -128,7 +128,7 @@ fn normalised_key_value(raw_key: char) -> Key {
     }
 }
 
-/// Spec: https://w3c.github.io/webdriver/#dfn-code
+/// Spec: <https://w3c.github.io/webdriver/#dfn-code>
 fn code(raw_key: char) -> Code {
     match raw_key {
         '`' | '~' => Code::Backquote,
@@ -274,7 +274,7 @@ fn get_modifier(key: &Key) -> Modifiers {
 
 /// Store pressed keys and modifiers.
 ///
-/// Spec: https://w3c.github.io/webdriver/#dfn-key-input-state
+/// Spec: <https://w3c.github.io/webdriver/#dfn-key-input-state>
 #[derive(Clone, Debug, Default)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct KeyInputState {
@@ -298,7 +298,7 @@ impl KeyInputState {
     /// by adding the `raw_key` value with a `keyUp` action to a list
     /// before executing this function.
     ///
-    /// Specification: https://w3c.github.io/webdriver/#dfn-dispatch-a-keydown-action
+    /// Specification: <https://w3c.github.io/webdriver/#dfn-dispatch-a-keydown-action>
     pub fn dispatch_keydown(&mut self, raw_key: char) -> KeyboardEvent {
         let key = normalised_key_value(raw_key);
         let repeat = self.pressed.contains(&key);
@@ -321,7 +321,7 @@ impl KeyInputState {
     ///
     /// Updates state. Returns `None` if the key is not listed as pressed.
     ///
-    /// Specification: https://w3c.github.io/webdriver/#dfn-dispatch-a-keyup-action
+    /// Specification: <https://w3c.github.io/webdriver/#dfn-dispatch-a-keyup-action>
     pub fn dispatch_keyup(&mut self, raw_key: char) -> Option<KeyboardEvent> {
         let key = normalised_key_value(raw_key);
         if !self.pressed.contains(&key) {
@@ -393,13 +393,13 @@ impl From<CompositionEvent> for Event {
 
 /// Compute the events resulting from a WebDriver *Element Send Keys* command.
 ///
-/// Spec: https://w3c.github.io/webdriver/#element-send-keys
+/// Spec: <https://w3c.github.io/webdriver/#element-send-keys>
 pub fn send_keys(text: &str) -> Vec<Event> {
     fn is_modifier(text: &str) -> bool {
         if text.chars().count() != 1 {
             return false;
         }
-        // values from https://www.w3.org/TR/uievents-key/#keys-modifier
+        // values from <https://www.w3.org/TR/uievents-key/#keys-modifier>
         matches!(normalised_key_value(first_char(text)),
             Key::Alt
             | Key::AltGraph
@@ -418,7 +418,7 @@ pub fn send_keys(text: &str) -> Vec<Event> {
 		)
     }
 
-    /// Spec: https://w3c.github.io/webdriver/#dfn-typeable
+    /// Spec: <https://w3c.github.io/webdriver/#dfn-typeable>
     fn is_typeable(text: &str) -> bool {
         text.chars().count() == 1
     }
