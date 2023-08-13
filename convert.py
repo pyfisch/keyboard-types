@@ -46,6 +46,7 @@ def add_alternative_for(display, key, alternative):
 def convert_key(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
+#![cfg_attr(rustfmt, rustfmt_skip)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -141,6 +142,7 @@ mod test {
 def convert_code(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
+#![cfg_attr(rustfmt, rustfmt_skip)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
