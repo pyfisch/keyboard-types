@@ -1,5 +1,6 @@
 
 // AUTO GENERATED CODE - DO NOT EDIT
+#![cfg_attr(rustfmt, rustfmt_skip)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;

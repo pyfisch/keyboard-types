@@ -1,5 +1,6 @@
 
 // AUTO GENERATED CODE - DO NOT EDIT
+#![cfg_attr(rustfmt, rustfmt_skip)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -180,7 +181,7 @@ pub enum Code {
     /// Note that on Apple keyboards, the key labelled <code class="keycap">Delete</code> on the main part of
     /// the keyboard should be encoded as <code class="code">"Backspace"</code>.
     Delete,
-    /// <code class="keycap">Page Down</code>, <code class="keycap">End</code> or <code class="keycap">↘</code>
+    /// <code class="keycap">End</code> or <code class="keycap">↘</code>
     End,
     /// <code class="keycap">Help</code>. Not present on standard PC keyboards.
     Help,
