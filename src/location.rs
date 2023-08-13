@@ -17,6 +17,6 @@ pub enum Location {
     /// The key activation originated on the numeric keypad or with a virtual
     /// key corresponding to the numeric keypad (when there is more than one
     /// possible location for this key). Note that the NumLock key should
-    /// always be encoded with a location of DOM_KEY_LOCATION_STANDARD.
+    /// always be encoded with a location of `Location::Standard`.
     Numpad = 0x03,
 }

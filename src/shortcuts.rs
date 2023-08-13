@@ -141,7 +141,7 @@ impl<T> ShortcutMatcher<T> {
 
     /// Execute the function is no keyboard shortcut matched.
     ///
-    /// Note that the passed function is exectued on both
+    /// Note that the passed function is executed on both
     /// keydown and keyup unlike the shortcuts which only
     /// run on keydown.
     pub fn otherwise<F>(self, f: F) -> Option<T>
