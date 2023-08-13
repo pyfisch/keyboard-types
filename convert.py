@@ -5,6 +5,9 @@ import requests
 def parse(text):
     display = []
     for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
+        # Skip F keys here
+        if re.match("^F\d+$", match[0]):
+            continue
         doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
         doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
         doc_comment = ""
@@ -67,7 +70,7 @@ pub enum Key {
     """, file=file)
     display = parse(text)
 
-    for i in range(13, 25):
+    for i in range(1, 36):
         display.append([
             'F{}'.format(i),
             '    /// The F{0} key, a general purpose function key, as index {0}.\n'.format(i),
@@ -162,7 +165,7 @@ use std::error::Error;
 pub enum Code {""", file=file)
     display = parse(text)
 
-    for i in range(13, 25):
+    for i in range(1, 36):
         display.append([
             'F{}'.format(i),
             '    /// <code class="keycap">F{}</code>\n'.format(i),
