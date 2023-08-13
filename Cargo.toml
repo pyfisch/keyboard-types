@@ -7,7 +7,7 @@ readme = "README.md"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/pyfisch/keyboard-types"
 keywords = ["keyboard", "input", "event", "webdriver"]
-edition = "2018"
+edition = "2021"
 rust-version = "1.60"
 
 [features]
