@@ -4,6 +4,8 @@
 //! but this crate should be useful for anyone implementing keyboard
 //! input in a cross-platform way.
 
+#![warn(clippy::doc_markdown)]
+
 use std::fmt;
 
 pub use crate::code::{Code, UnrecognizedCodeError};
@@ -54,7 +56,7 @@ pub struct KeyboardEvent {
     /// True if the key is currently auto-repeated.
     pub repeat: bool,
     /// Events with this flag should be ignored in a text editor
-    /// and instead composition events should be used.
+    /// and instead [composition events](CompositionEvent) should be used.
     pub is_composing: bool,
 }
 
@@ -88,9 +90,9 @@ impl fmt::Display for CompositionState {
 /// Provides information about entered sequences from
 /// dead key combinations and IMEs.
 ///
-/// A composition session is always started by a "compositionstart"
-/// event followed my zero or more "compositionupdate" events
-/// and terminated by a single "compositionend" event.
+/// A composition session is always started by a [`CompositionState::Start`]
+/// event followed my zero or more [`CompositionState::Update`] events
+/// and terminated by a single [`CompositionState::End`] event.
 #[derive(Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CompositionEvent {

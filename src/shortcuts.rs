@@ -1,6 +1,6 @@
 use crate::{Key, KeyState, KeyboardEvent, Modifiers};
 
-/// Match keyboard shortcuts and excute actions.
+/// Match keyboard shortcuts and execute actions.
 ///
 /// Every shortcut consists of a list of modifier keys pressed and a
 /// single non-modifier key pressed.

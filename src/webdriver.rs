@@ -1,8 +1,8 @@
 //! Keyboard related WebDriver functionality.
 //!
-//! The low-level `dispatch_keydown` and `dispatch_keyup` API
-//! creates keyboard events from WebDriver codes. It is used
-//! in the *Perform Actions* API.
+//! The low-level [`KeyInputState::dispatch_keydown`] and
+//! [`KeyInputState::dispatch_keyup`] API creates keyboard events
+//! from WebDriver codes. It is used in the *Perform Actions* API.
 //!
 //! ```rust
 //! # extern crate keyboard_types;
@@ -24,9 +24,9 @@
 //! keyboard_event = state.dispatch_keyup('a').expect("key is released");
 //! ```
 //!
-//! The higher level `send_keys` function is used for the *Element Send Keys*
-//! WebDriver API. It accepts a string and returns a sequence of `KeyboardEvent`
-//! and `CompositionEvent` values.
+//! The higher level [`send_keys`] function is used for the *Element Send Keys*
+//! WebDriver API. It accepts a string and returns a sequence of [`KeyboardEvent`]
+//! and [`CompositionEvent`] values.
 //!
 //! ```rust
 //! # extern crate keyboard_types;
@@ -398,9 +398,9 @@ impl KeyInputState {
     }
 }
 
-/// Either a `KeyboardEvent` or a `CompositionEvent`.
+/// Either a [`KeyboardEvent`] or a [`CompositionEvent`].
 ///
-/// Returned by the `send_keys` function.
+/// Returned by the [`send_keys`] function.
 #[derive(Clone, Eq, PartialEq, Hash, Debug)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Event {
