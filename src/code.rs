@@ -13,7 +13,7 @@ use std::error::Error;
 /// layout is used.
 ///
 /// Specification:
-/// <https://w3c.github.io/uievents-code/>
+/// <https://www.w3.org/TR/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]

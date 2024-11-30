@@ -58,7 +58,7 @@ use std::error::Error;
 /// Key represents the meaning of a keypress.
 ///
 /// Specification:
-/// <https://w3c.github.io/uievents-key/>
+/// <https://www.w3.org/TR/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
@@ -158,7 +158,7 @@ use std::error::Error;
 /// layout is used.
 ///
 /// Specification:
-/// <https://w3c.github.io/uievents-code/>
+/// <https://www.w3.org/TR/uievents-code/>
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
@@ -253,9 +253,9 @@ impl Error for UnrecognizedCodeError {}
 
 
 if __name__ == '__main__':
-    input = requests.get('https://w3c.github.io/uievents-key/').text
+    input = requests.get('https://www.w3.org/TR/uievents-key/').text
     with open('src/key.rs', 'w', encoding='utf-8') as output:
         convert_key(input, output)
-    input = requests.get('https://w3c.github.io/uievents-code/').text
+    input = requests.get('https://www.w3.org/TR/uievents-code/').text
     with open('src/code.rs', 'w', encoding='utf-8') as output:
         convert_code(input, output)

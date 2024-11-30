@@ -9,7 +9,7 @@ bitflags::bitflags! {
     /// Pressed modifier keys.
     ///
     /// Specification:
-    /// <https://w3c.github.io/uievents-key/#keys-modifier>
+    /// <https://www.w3.org/TR/uievents/#keys-modifier>
     #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
     #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
     pub struct Modifiers: u32 {

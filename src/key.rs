@@ -9,7 +9,7 @@ use std::error::Error;
 /// Key represents the meaning of a keypress.
 ///
 /// Specification:
-/// <https://w3c.github.io/uievents-key/>
+/// <https://www.w3.org/TR/uievents-key/>
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]

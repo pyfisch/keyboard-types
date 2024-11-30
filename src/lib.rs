@@ -117,7 +117,7 @@ impl Key {
     /// For all other keys the value is zero.
     /// The *charCode* is an implementation specific legacy property of DOM keyboard events.
     ///
-    /// Specification: <https://w3c.github.io/uievents/#dom-keyboardevent-charcode>
+    /// Specification: <https://www.w3.org/TR/uievents/#dom-keyboardevent-charcode>
     pub fn legacy_charcode(&self) -> u32 {
         // Spec: event.charCode = event.key.charCodeAt(0)
         // otherwise 0
@@ -131,10 +131,10 @@ impl Key {
     ///
     /// The *keyCode* is an implementation specific legacy property of DOM keyboard events.
     ///
-    /// Specification: <https://w3c.github.io/uievents/#dom-keyboardevent-keycode>
+    /// Specification: <https://www.w3.org/TR/uievents/#dom-keyboardevent-keycode>
     pub fn legacy_keycode(&self) -> u32 {
         match self {
-            // See: https://w3c.github.io/uievents/#fixed-virtual-key-codes
+            // See: https://www.w3.org/TR/uievents/#fixed-virtual-key-codes
             Key::Backspace => 8,
             Key::Tab => 9,
             Key::Enter => 13,
@@ -157,7 +157,7 @@ impl Key {
                 x @ '0'..='9' => x as u32,
                 x @ 'a'..='z' => x.to_ascii_uppercase() as u32,
                 x @ 'A'..='Z' => x as u32,
-                // See: https://w3c.github.io/uievents/#optionally-fixed-virtual-key-codes
+                // See: https://www.w3.org/TR/uievents/#optionally-fixed-virtual-key-codes
                 ';' | ':' => 186,
                 '=' | '+' => 187,
                 ',' | '<' => 188,
