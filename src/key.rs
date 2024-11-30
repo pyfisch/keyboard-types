@@ -163,7 +163,7 @@ pub enum Key {
     Standby,
     /// The WakeUp key. (<code class="android">KEYCODE_WAKEUP</code>)
     WakeUp,
-    /// The All Candidates key, to initate the multi-candidate mode.
+    /// The All Candidates key, to initiate the multi-candidate mode.
     AllCandidates,
     /// The Alphanumeric key.
     Alphanumeric,
@@ -176,7 +176,7 @@ pub enum Key {
     /// The Convert key, to convert the current input method sequence.
     Convert,
     /// A dead key combining key. It may be any combining key from any keyboard layout. For example, on a
-    /// PC/AT French keyboard, using a French mapping and without any modifier activiated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
+    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
     Dead,
     /// The Final Mode <code class="keycap">Final</code> key used on some Asian keyboards, to enable the final mode for IMEs.
     FinalMode,
