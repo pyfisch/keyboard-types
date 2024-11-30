@@ -4,9 +4,9 @@ import requests
 
 def parse(text):
     display = []
-    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*\n.*<td>(((.*?)\n)+?)\s+(<tr>|</table>)", text):
+    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*\n.*<td>(((.*?)\n?)+?)\s+(<tr>|</table>)", text):
         # Skip F keys here
-        if re.match("^F\d+$", match[0]):
+        if re.match(r"^F\d+$", match[0]):
             continue
         doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
         doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
