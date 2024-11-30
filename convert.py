@@ -15,6 +15,8 @@ def parse(text):
             line = line.strip()
             if not line:
                 continue
+            # Use the semantic `<kbd>` element instead.
+            line = re.sub(r"<code class=\"keycap\">(.*?)</code>", r"<kbd>\1</kbd>", line)
             doc_comment += "    /// {}\n".format(line)
         display.append([match[0], doc_comment, []])
     return display
@@ -168,7 +170,7 @@ pub enum Code {""", file=file)
     for i in range(1, 36):
         display.append([
             'F{}'.format(i),
-            '    /// <code class="keycap">F{}</code>\n'.format(i),
+            '    /// <kbd>F{}</kbd>\n'.format(i),
             []
         ])
 

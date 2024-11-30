@@ -23,44 +23,44 @@ pub enum Key {
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
     Unidentified,
-    /// The <code class="keycap">Alt</code> (Alternative) key.<br> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br> This key value is also used for the Apple <code class="keycap">Option</code> key.
+    /// The <kbd>Alt</kbd> (Alternative) key.<br> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br> This key value is also used for the Apple <kbd>Option</kbd> key.
     Alt,
-    /// The Alternate Graphics (<code class="keycap">AltGr</code> or <code class="keycap">AltGraph</code>) key.
-    /// This key is used enable the ISO Level 3 shift modifier (the standard <code class="keycap">Shift</code> key is the level 2 modifier).
+    /// The Alternate Graphics (<kbd>AltGr</kbd> or <kbd>AltGraph</kbd>) key.
+    /// This key is used enable the ISO Level 3 shift modifier (the standard <kbd>Shift</kbd> key is the level 2 modifier).
     /// See [ISO9995-1].
     AltGraph,
-    /// The <code class="keycap">Caps Lock</code> (Capital) key.
+    /// The <kbd>Caps Lock</kbd> (Capital) key.
     /// Toggle capital character lock function for interpreting subsequent keyboard input event.
     CapsLock,
-    /// The <code class="keycap">Control</code> or <code class="keycap">Ctrl</code> key, to enable control modifier function for interpreting concurrent or subsequent keyboard input.
+    /// The <kbd>Control</kbd> or <kbd>Ctrl</kbd> key, to enable control modifier function for interpreting concurrent or subsequent keyboard input.
     Control,
-    /// The Function switch <code class="keycap">Fn</code> key.<br> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
+    /// The Function switch <kbd>Fn</kbd> key.<br> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
     /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
     Fn,
-    /// The Function-Lock (<code class="keycap">FnLock</code> or <code class="keycap">F-Lock</code>) key.
+    /// The Function-Lock (<kbd>FnLock</kbd> or <kbd>F-Lock</kbd>) key.
     /// Activating this key switches the mode of the keyboard to changes some keys' values to an alternate character or function.
     /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
     FnLock,
-    /// The <code class="keycap">Meta</code> key, to enable meta modifier function for interpreting concurrent or subsequent keyboard input.
-    /// This key value is used for the <q>Windows Logo</q> key and the Apple <code class="keycap">Command</code> or <code class="keycap">⌘</code> key.
+    /// The <kbd>Meta</kbd> key, to enable meta modifier function for interpreting concurrent or subsequent keyboard input.
+    /// This key value is used for the <q>Windows Logo</q> key and the Apple <kbd>Command</kbd> or <kbd>⌘</kbd> key.
     Meta,
-    /// The <code class="keycap">NumLock</code> or Number Lock key, to toggle numpad mode function for interpreting subsequent keyboard input.
+    /// The <kbd>NumLock</kbd> or Number Lock key, to toggle numpad mode function for interpreting subsequent keyboard input.
     NumLock,
-    /// The <code class="keycap">Scroll Lock</code> key, to toggle between scrolling and cursor movement modes.
+    /// The <kbd>Scroll Lock</kbd> key, to toggle between scrolling and cursor movement modes.
     ScrollLock,
-    /// The <code class="keycap">Shift</code> key, to enable shift modifier function for interpreting concurrent or subsequent keyboard input.
+    /// The <kbd>Shift</kbd> key, to enable shift modifier function for interpreting concurrent or subsequent keyboard input.
     Shift,
     /// The Symbol modifier key (used on some virtual keyboards).
     Symbol,
     /// The Symbol Lock key.
     SymbolLock,
-    /// The <code class="keycap">Hyper</code> key.
+    /// The <kbd>Hyper</kbd> key.
     Hyper,
-    /// The <code class="keycap">Super</code> key.
+    /// The <kbd>Super</kbd> key.
     Super,
-    /// The <code class="keycap">Enter</code> or <code class="keycap">↵</code> key, to activate current selection or accept current input.<br> This key value is also used for the <code class="keycap">Return</code> (Macintosh numpad) key.<br> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
+    /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
     Enter,
-    /// The Horizontal Tabulation <code class="keycap">Tab</code> key.
+    /// The Horizontal Tabulation <kbd>Tab</kbd> key.
     Tab,
     /// The down arrow key, to navigate or traverse downward. (<code class="android">KEYCODE_DPAD_DOWN</code>)
     ArrowDown,
@@ -72,13 +72,13 @@ pub enum Key {
     ArrowUp,
     /// The End key, used with keyboard entry to go to the end of content (<code class="android">KEYCODE_MOVE_END</code>).
     End,
-    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <code class="keycap">Home</code> key (which goes to the phone’s main screen), use <code class="key">"GoHome"</code>.
+    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use <code class="key">"GoHome"</code>.
     Home,
     /// The Page Down key, to scroll down or display next page of content.
     PageDown,
     /// The Page Up key, to scroll up or display previous page of content.
     PageUp,
-    /// The Backspace key. This key value is also used for the key labeled <code class="keycap">Delete</code> on MacOS keyboards.
+    /// The Backspace key. This key value is also used for the key labeled <kbd>Delete</kbd> on MacOS keyboards.
     Backspace,
     /// Remove the currently selected input.
     Clear,
@@ -89,7 +89,7 @@ pub enum Key {
     /// Cut the current selection. (<code class="appcommand">APPCOMMAND_CUT</code>)
     Cut,
     /// The Delete (Del) Key.
-    /// This key value is also used for the key labeled <code class="keycap">Delete</code> on MacOS keyboards when modified by the <code class="keycap">Fn</code> key.
+    /// This key value is also used for the key labeled <kbd>Delete</kbd> on MacOS keyboards when modified by the <kbd>Fn</kbd> key.
     Delete,
     /// The Erase to End of Field key.
     /// This key deletes all characters from the current cursor position to the end of the current field.
@@ -113,9 +113,9 @@ pub enum Key {
     /// The Cancel key.
     Cancel,
     /// Show the application’s context menu.
-    /// This key is commonly found between the right <code class="keycap">Meta</code> key and the right <code class="keycap">Control</code> key.
+    /// This key is commonly found between the right <kbd>Meta</kbd> key and the right <kbd>Control</kbd> key.
     ContextMenu,
-    /// The <code class="keycap">Esc</code> key. This key was originally used to initiate an escape sequence, but is
+    /// The <kbd>Esc</kbd> key. This key was originally used to initiate an escape sequence, but is
     /// now more generally used to exit or "escape" the current context, such as closing a dialog
     /// or exiting full screen mode.
     Escape,
@@ -126,10 +126,10 @@ pub enum Key {
     /// Open a help dialog or toggle display of help information. (<code class="appcommand"><code class="appcommand">APPCOMMAND_HELP</code></code>, <code class="android"><code class="android">KEYCODE_HELP</code></code>)
     Help,
     /// Pause the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <code class="keycap">Pause</code> button on media controllers. Use <code class="key">"MediaPause"</code> instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Pause</kbd> button on media controllers. Use <code class="key">"MediaPause"</code> instead.</p>
     Pause,
     /// Play or resume the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <code class="keycap">Play</code> button on media controllers. Use <code class="key">"MediaPlay"</code> instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Play</kbd> button on media controllers. Use <code class="key">"MediaPlay"</code> instead.</p>
     Play,
     /// The properties (Props) key.
     Props,
@@ -150,16 +150,16 @@ pub enum Key {
     /// Toggle power state. (<code class="android">KEYCODE_POWER</code>)
     /// <p class="note" role="note">Note: Some devices might not expose this key to the operating environment.</p>
     Power,
-    /// The <code class="keycap">PowerOff</code> key. Sometime called <code class="keycap">PowerDown</code>.
+    /// The <kbd>PowerOff</kbd> key. Sometime called <kbd>PowerDown</kbd>.
     PowerOff,
-    /// The <code class="keycap">Print Screen</code> or <code class="keycap">SnapShot</code> key, to initiate print-screen function.
+    /// The <kbd>Print Screen</kbd> or <kbd>SnapShot</kbd> key, to initiate print-screen function.
     PrintScreen,
     /// The Hibernate key.
     /// This key saves the current state of the computer to disk so that it can be restored. The computer will then shutdown.
     Hibernate,
     /// The Standby key.
     /// This key turns off the display and places the computer into a low-power mode without completely shutting down.
-    /// It is sometimes labelled <code class="keycap">Suspend</code> or <code class="keycap">Sleep</code> key. (<code class="android"><code class="android">KEYCODE_SLEEP</code></code>)
+    /// It is sometimes labelled <kbd>Suspend</kbd> or <kbd>Sleep</kbd> key. (<code class="android"><code class="android">KEYCODE_SLEEP</code></code>)
     Standby,
     /// The WakeUp key. (<code class="android">KEYCODE_WAKEUP</code>)
     WakeUp,
@@ -178,7 +178,7 @@ pub enum Key {
     /// A dead key combining key. It may be any combining key from any keyboard layout. For example, on a
     /// PC/AT French keyboard, using a French mapping and without any modifier activiated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
     Dead,
-    /// The Final Mode <code class="keycap">Final</code> key used on some Asian keyboards, to enable the final mode for IMEs.
+    /// The Final Mode <kbd>Final</kbd> key used on some Asian keyboards, to enable the final mode for IMEs.
     FinalMode,
     /// Switch to the first character group. (ISO/IEC 9995)
     GroupFirst,
@@ -281,11 +281,11 @@ pub enum Key {
     Save,
     /// Spellcheck the current document or selection. (<code class="appcommand">APPCOMMAND_SPELL_CHECK</code>)
     SpellCheck,
-    /// The <code class="keycap">11</code> key found on media numpads that
-    /// have buttons from <code class="keycap">1</code> ... <code class="keycap">12</code>.
+    /// The <kbd>11</kbd> key found on media numpads that
+    /// have buttons from <kbd>1</kbd> ... <kbd>12</kbd>.
     Key11,
-    /// The <code class="keycap">12</code> key found on media numpads that
-    /// have buttons from <code class="keycap">1</code> ... <code class="keycap">12</code>.
+    /// The <kbd>12</kbd> key found on media numpads that
+    /// have buttons from <kbd>1</kbd> ... <kbd>12</kbd>.
     Key12,
     /// Adjust audio balance leftward. (<code class="vk">VK_AUDIO_BALANCE_LEFT</code>)
     AudioBalanceLeft,

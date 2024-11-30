@@ -18,156 +18,156 @@ use std::error::Error;
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {
-    /// <code class="keycap">`~</code> on a US keyboard. This is the <code class="keycap">半角/全角/漢字</code> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
+    /// <kbd>`~</kbd> on a US keyboard. This is the <kbd>半角/全角/漢字</kbd> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
     Backquote,
-    /// Used for both the US <code class="keycap">\|</code> (on the 101-key layout) and also for the key
-    /// located between the <code class="keycap">"</code> and <code class="keycap">Enter</code> keys on row C of the 102-,
+    /// Used for both the US <kbd>\|</kbd> (on the 101-key layout) and also for the key
+    /// located between the <kbd>"</kbd> and <kbd>Enter</kbd> keys on row C of the 102-,
     /// 104- and 106-key layouts.
-    /// Labelled <code class="keycap">#~</code> on a UK (102) keyboard.
+    /// Labelled <kbd>#~</kbd> on a UK (102) keyboard.
     Backslash,
-    /// <code class="keycap">[{</code> on a US keyboard.
+    /// <kbd>[{</kbd> on a US keyboard.
     BracketLeft,
-    /// <code class="keycap">]}</code> on a US keyboard.
+    /// <kbd>]}</kbd> on a US keyboard.
     BracketRight,
-    /// <code class="keycap">,&lt;</code> on a US keyboard.
+    /// <kbd>,&lt;</kbd> on a US keyboard.
     Comma,
-    /// <code class="keycap">0)</code> on a US keyboard.
+    /// <kbd>0)</kbd> on a US keyboard.
     Digit0,
-    /// <code class="keycap">1!</code> on a US keyboard.
+    /// <kbd>1!</kbd> on a US keyboard.
     Digit1,
-    /// <code class="keycap">2@</code> on a US keyboard.
+    /// <kbd>2@</kbd> on a US keyboard.
     Digit2,
-    /// <code class="keycap">3#</code> on a US keyboard.
+    /// <kbd>3#</kbd> on a US keyboard.
     Digit3,
-    /// <code class="keycap">4$</code> on a US keyboard.
+    /// <kbd>4$</kbd> on a US keyboard.
     Digit4,
-    /// <code class="keycap">5%</code> on a US keyboard.
+    /// <kbd>5%</kbd> on a US keyboard.
     Digit5,
-    /// <code class="keycap">6^</code> on a US keyboard.
+    /// <kbd>6^</kbd> on a US keyboard.
     Digit6,
-    /// <code class="keycap">7&amp;</code> on a US keyboard.
+    /// <kbd>7&amp;</kbd> on a US keyboard.
     Digit7,
-    /// <code class="keycap">8*</code> on a US keyboard.
+    /// <kbd>8*</kbd> on a US keyboard.
     Digit8,
-    /// <code class="keycap">9(</code> on a US keyboard.
+    /// <kbd>9(</kbd> on a US keyboard.
     Digit9,
-    /// <code class="keycap">=+</code> on a US keyboard.
+    /// <kbd>=+</kbd> on a US keyboard.
     Equal,
-    /// Located between the left <code class="keycap">Shift</code> and <code class="keycap">Z</code> keys.
-    /// Labelled <code class="keycap">\|</code> on a UK keyboard.
+    /// Located between the left <kbd>Shift</kbd> and <kbd>Z</kbd> keys.
+    /// Labelled <kbd>\|</kbd> on a UK keyboard.
     IntlBackslash,
-    /// Located between the <code class="keycap">/</code> and right <code class="keycap">Shift</code> keys.
-    /// Labelled <code class="keycap">\ろ</code> (<span class="unicode">ro</span>) on a Japanese keyboard.
+    /// Located between the <kbd>/</kbd> and right <kbd>Shift</kbd> keys.
+    /// Labelled <kbd>\ろ</kbd> (<span class="unicode">ro</span>) on a Japanese keyboard.
     IntlRo,
-    /// Located between the <code class="keycap">=</code> and <code class="keycap">Backspace</code> keys.
-    /// Labelled <code class="keycap">¥</code> (<span class="unicode">yen</span>) on a Japanese keyboard. <code class="keycap">\/</code> on a
+    /// Located between the <kbd>=</kbd> and <kbd>Backspace</kbd> keys.
+    /// Labelled <kbd>¥</kbd> (<span class="unicode">yen</span>) on a Japanese keyboard. <kbd>\/</kbd> on a
     /// Russian keyboard.
     IntlYen,
-    /// <code class="keycap">a</code> on a US keyboard.
-    /// Labelled <code class="keycap">q</code> on an AZERTY (e.g., French) keyboard.
+    /// <kbd>a</kbd> on a US keyboard.
+    /// Labelled <kbd>q</kbd> on an AZERTY (e.g., French) keyboard.
     KeyA,
-    /// <code class="keycap">b</code> on a US keyboard.
+    /// <kbd>b</kbd> on a US keyboard.
     KeyB,
-    /// <code class="keycap">c</code> on a US keyboard.
+    /// <kbd>c</kbd> on a US keyboard.
     KeyC,
-    /// <code class="keycap">d</code> on a US keyboard.
+    /// <kbd>d</kbd> on a US keyboard.
     KeyD,
-    /// <code class="keycap">e</code> on a US keyboard.
+    /// <kbd>e</kbd> on a US keyboard.
     KeyE,
-    /// <code class="keycap">f</code> on a US keyboard.
+    /// <kbd>f</kbd> on a US keyboard.
     KeyF,
-    /// <code class="keycap">g</code> on a US keyboard.
+    /// <kbd>g</kbd> on a US keyboard.
     KeyG,
-    /// <code class="keycap">h</code> on a US keyboard.
+    /// <kbd>h</kbd> on a US keyboard.
     KeyH,
-    /// <code class="keycap">i</code> on a US keyboard.
+    /// <kbd>i</kbd> on a US keyboard.
     KeyI,
-    /// <code class="keycap">j</code> on a US keyboard.
+    /// <kbd>j</kbd> on a US keyboard.
     KeyJ,
-    /// <code class="keycap">k</code> on a US keyboard.
+    /// <kbd>k</kbd> on a US keyboard.
     KeyK,
-    /// <code class="keycap">l</code> on a US keyboard.
+    /// <kbd>l</kbd> on a US keyboard.
     KeyL,
-    /// <code class="keycap">m</code> on a US keyboard.
+    /// <kbd>m</kbd> on a US keyboard.
     KeyM,
-    /// <code class="keycap">n</code> on a US keyboard.
+    /// <kbd>n</kbd> on a US keyboard.
     KeyN,
-    /// <code class="keycap">o</code> on a US keyboard.
+    /// <kbd>o</kbd> on a US keyboard.
     KeyO,
-    /// <code class="keycap">p</code> on a US keyboard.
+    /// <kbd>p</kbd> on a US keyboard.
     KeyP,
-    /// <code class="keycap">q</code> on a US keyboard.
-    /// Labelled <code class="keycap">a</code> on an AZERTY (e.g., French) keyboard.
+    /// <kbd>q</kbd> on a US keyboard.
+    /// Labelled <kbd>a</kbd> on an AZERTY (e.g., French) keyboard.
     KeyQ,
-    /// <code class="keycap">r</code> on a US keyboard.
+    /// <kbd>r</kbd> on a US keyboard.
     KeyR,
-    /// <code class="keycap">s</code> on a US keyboard.
+    /// <kbd>s</kbd> on a US keyboard.
     KeyS,
-    /// <code class="keycap">t</code> on a US keyboard.
+    /// <kbd>t</kbd> on a US keyboard.
     KeyT,
-    /// <code class="keycap">u</code> on a US keyboard.
+    /// <kbd>u</kbd> on a US keyboard.
     KeyU,
-    /// <code class="keycap">v</code> on a US keyboard.
+    /// <kbd>v</kbd> on a US keyboard.
     KeyV,
-    /// <code class="keycap">w</code> on a US keyboard.
-    /// Labelled <code class="keycap">z</code> on an AZERTY (e.g., French) keyboard.
+    /// <kbd>w</kbd> on a US keyboard.
+    /// Labelled <kbd>z</kbd> on an AZERTY (e.g., French) keyboard.
     KeyW,
-    /// <code class="keycap">x</code> on a US keyboard.
+    /// <kbd>x</kbd> on a US keyboard.
     KeyX,
-    /// <code class="keycap">y</code> on a US keyboard.
-    /// Labelled <code class="keycap">z</code> on a QWERTZ (e.g., German) keyboard.
+    /// <kbd>y</kbd> on a US keyboard.
+    /// Labelled <kbd>z</kbd> on a QWERTZ (e.g., German) keyboard.
     KeyY,
-    /// <code class="keycap">z</code> on a US keyboard.
-    /// Labelled <code class="keycap">w</code> on an AZERTY (e.g., French) keyboard, and <code class="keycap">y</code> on a
+    /// <kbd>z</kbd> on a US keyboard.
+    /// Labelled <kbd>w</kbd> on an AZERTY (e.g., French) keyboard, and <kbd>y</kbd> on a
     /// QWERTZ (e.g., German) keyboard.
     KeyZ,
-    /// <code class="keycap">-_</code> on a US keyboard.
+    /// <kbd>-_</kbd> on a US keyboard.
     Minus,
-    /// <code class="keycap">.></code> on a US keyboard.
+    /// <kbd>.></kbd> on a US keyboard.
     Period,
-    /// <code class="keycap">'"</code> on a US keyboard.
+    /// <kbd>'"</kbd> on a US keyboard.
     Quote,
-    /// <code class="keycap">;:</code> on a US keyboard.
+    /// <kbd>;:</kbd> on a US keyboard.
     Semicolon,
-    /// <code class="keycap">/?</code> on a US keyboard.
+    /// <kbd>/?</kbd> on a US keyboard.
     Slash,
-    /// <code class="keycap">Alt</code>, <code class="keycap">Option</code> or <code class="keycap">⌥</code>.
+    /// <kbd>Alt</kbd>, <kbd>Option</kbd> or <kbd>⌥</kbd>.
     AltLeft,
-    /// <code class="keycap">Alt</code>, <code class="keycap">Option</code> or <code class="keycap">⌥</code>.
-    /// This is labelled <code class="keycap">AltGr</code> key on many keyboard layouts.
+    /// <kbd>Alt</kbd>, <kbd>Option</kbd> or <kbd>⌥</kbd>.
+    /// This is labelled <kbd>AltGr</kbd> key on many keyboard layouts.
     AltRight,
-    /// <code class="keycap">Backspace</code> or <code class="keycap">⌫</code>.
-    /// Labelled <code class="keycap">Delete</code> on Apple keyboards.
+    /// <kbd>Backspace</kbd> or <kbd>⌫</kbd>.
+    /// Labelled <kbd>Delete</kbd> on Apple keyboards.
     Backspace,
-    /// <code class="keycap">CapsLock</code> or <code class="keycap">⇪</code>
+    /// <kbd>CapsLock</kbd> or <kbd>⇪</kbd>
     CapsLock,
-    /// The application context menu key, which is typically found between the right <code class="keycap">Meta</code> key and the right <code class="keycap">Control</code> key.
+    /// The application context menu key, which is typically found between the right <kbd>Meta</kbd> key and the right <kbd>Control</kbd> key.
     ContextMenu,
-    /// <code class="keycap">Control</code> or <code class="keycap">⌃</code>
+    /// <kbd>Control</kbd> or <kbd>⌃</kbd>
     ControlLeft,
-    /// <code class="keycap">Control</code> or <code class="keycap">⌃</code>
+    /// <kbd>Control</kbd> or <kbd>⌃</kbd>
     ControlRight,
-    /// <code class="keycap">Enter</code> or <code class="keycap">↵</code>. Labelled <code class="keycap">Return</code> on Apple keyboards.
+    /// <kbd>Enter</kbd> or <kbd>↵</kbd>. Labelled <kbd>Return</kbd> on Apple keyboards.
     Enter,
-    /// The Windows, <code class="keycap">⌘</code>, <code class="keycap">Command</code> or other OS symbol key.
+    /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
     MetaLeft,
-    /// The Windows, <code class="keycap">⌘</code>, <code class="keycap">Command</code> or other OS symbol key.
+    /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
     MetaRight,
-    /// <code class="keycap">Shift</code> or <code class="keycap">⇧</code>
+    /// <kbd>Shift</kbd> or <kbd>⇧</kbd>
     ShiftLeft,
-    /// <code class="keycap">Shift</code> or <code class="keycap">⇧</code>
+    /// <kbd>Shift</kbd> or <kbd>⇧</kbd>
     ShiftRight,
-    /// <code class="keycap"> </code> (space)
+    /// <kbd> </kbd> (space)
     Space,
-    /// <code class="keycap">Tab</code> or <code class="keycap">⇥</code>
+    /// <kbd>Tab</kbd> or <kbd>⇥</kbd>
     Tab,
-    /// Japanese: <code class="keycap">変換</code> (<span class="unicode">henkan</span>)
+    /// Japanese: <kbd>変換</kbd> (<span class="unicode">henkan</span>)
     Convert,
-    /// Japanese: <code class="keycap">カタカナ/ひらがな/ローマ字</code> (<span class="unicode">katakana/hiragana/romaji</span>)
+    /// Japanese: <kbd>カタカナ/ひらがな/ローマ字</kbd> (<span class="unicode">katakana/hiragana/romaji</span>)
     KanaMode,
-    /// Korean: HangulMode <code class="keycap">한/영</code> (<span class="unicode">han/yeong</span>)<br>Japanese (Mac keyboard): <code class="keycap">かな</code> (<span class="unicode">kana</span>)
+    /// Korean: HangulMode <kbd>한/영</kbd> (<span class="unicode">han/yeong</span>)<br>Japanese (Mac keyboard): <kbd>かな</kbd> (<span class="unicode">kana</span>)
     Lang1,
-    /// Korean: Hanja <code class="keycap">한자</code> (<span class="unicode">hanja</span>)<br>Japanese (Mac keyboard): <code class="keycap">英数</code> (<span class="unicode">eisu</span>)
+    /// Korean: Hanja <kbd>한자</kbd> (<span class="unicode">hanja</span>)<br>Japanese (Mac keyboard): <kbd>英数</kbd> (<span class="unicode">eisu</span>)
     Lang2,
     /// Japanese (word-processing keyboard): Katakana
     Lang3,
@@ -175,134 +175,134 @@ pub enum Code {
     Lang4,
     /// Japanese (word-processing keyboard): Zenkaku/Hankaku
     Lang5,
-    /// Japanese: <code class="keycap">無変換</code> (<span class="unicode">muhenkan</span>)
+    /// Japanese: <kbd>無変換</kbd> (<span class="unicode">muhenkan</span>)
     NonConvert,
-    /// <code class="keycap">⌦</code>. The forward delete key.
-    /// Note that on Apple keyboards, the key labelled <code class="keycap">Delete</code> on the main part of
+    /// <kbd>⌦</kbd>. The forward delete key.
+    /// Note that on Apple keyboards, the key labelled <kbd>Delete</kbd> on the main part of
     /// the keyboard should be encoded as <code class="code">"Backspace"</code>.
     Delete,
-    /// <code class="keycap">End</code> or <code class="keycap">↘</code>
+    /// <kbd>End</kbd> or <kbd>↘</kbd>
     End,
-    /// <code class="keycap">Help</code>. Not present on standard PC keyboards.
+    /// <kbd>Help</kbd>. Not present on standard PC keyboards.
     Help,
-    /// <code class="keycap">Home</code> or <code class="keycap">↖</code>
+    /// <kbd>Home</kbd> or <kbd>↖</kbd>
     Home,
-    /// <code class="keycap">Insert</code> or <code class="keycap">Ins</code>. Not present on Apple keyboards.
+    /// <kbd>Insert</kbd> or <kbd>Ins</kbd>. Not present on Apple keyboards.
     Insert,
-    /// <code class="keycap">Page Down</code>, <code class="keycap">PgDn</code> or <code class="keycap">⇟</code>
+    /// <kbd>Page Down</kbd>, <kbd>PgDn</kbd> or <kbd>⇟</kbd>
     PageDown,
-    /// <code class="keycap">Page Up</code>, <code class="keycap">PgUp</code> or <code class="keycap">⇞</code>
+    /// <kbd>Page Up</kbd>, <kbd>PgUp</kbd> or <kbd>⇞</kbd>
     PageUp,
-    /// <code class="keycap">↓</code>
+    /// <kbd>↓</kbd>
     ArrowDown,
-    /// <code class="keycap">←</code>
+    /// <kbd>←</kbd>
     ArrowLeft,
-    /// <code class="keycap">→</code>
+    /// <kbd>→</kbd>
     ArrowRight,
-    /// <code class="keycap">↑</code>
+    /// <kbd>↑</kbd>
     ArrowUp,
-    /// On the Mac, the <code class="code">"NumLock"</code> code should be used for the numpad <code class="keycap">Clear</code> key.
+    /// On the Mac, the <code class="code">"NumLock"</code> code should be used for the numpad <kbd>Clear</kbd> key.
     NumLock,
-    /// <code class="keycap">0 Ins</code> on a keyboard<br><code class="keycap">0</code> on a phone or remote control
+    /// <kbd>0 Ins</kbd> on a keyboard<br><kbd>0</kbd> on a phone or remote control
     Numpad0,
-    /// <code class="keycap">1 End</code> on a keyboard<br><code class="keycap">1</code> or <code class="keycap">1 QZ</code> on a phone or
+    /// <kbd>1 End</kbd> on a keyboard<br><kbd>1</kbd> or <kbd>1 QZ</kbd> on a phone or
     /// remote control
     Numpad1,
-    /// <code class="keycap">2 ↓</code> on a keyboard<br><code class="keycap">2 ABC</code> on a phone or remote control
+    /// <kbd>2 ↓</kbd> on a keyboard<br><kbd>2 ABC</kbd> on a phone or remote control
     Numpad2,
-    /// <code class="keycap">3 PgDn</code> on a keyboard<br><code class="keycap">3 DEF</code> on a phone or remote control
+    /// <kbd>3 PgDn</kbd> on a keyboard<br><kbd>3 DEF</kbd> on a phone or remote control
     Numpad3,
-    /// <code class="keycap">4 ←</code> on a keyboard<br><code class="keycap">4 GHI</code> on a phone or remote control
+    /// <kbd>4 ←</kbd> on a keyboard<br><kbd>4 GHI</kbd> on a phone or remote control
     Numpad4,
-    /// <code class="keycap">5</code> on a keyboard<br><code class="keycap">5 JKL</code> on a phone or remote control
+    /// <kbd>5</kbd> on a keyboard<br><kbd>5 JKL</kbd> on a phone or remote control
     Numpad5,
-    /// <code class="keycap">6 →</code> on a keyboard<br><code class="keycap">6 MNO</code> on a phone or remote control
+    /// <kbd>6 →</kbd> on a keyboard<br><kbd>6 MNO</kbd> on a phone or remote control
     Numpad6,
-    /// <code class="keycap">7 Home</code> on a keyboard<br><code class="keycap">7 PQRS</code> or <code class="keycap">7 PRS</code> on a phone
+    /// <kbd>7 Home</kbd> on a keyboard<br><kbd>7 PQRS</kbd> or <kbd>7 PRS</kbd> on a phone
     /// or remote control
     Numpad7,
-    /// <code class="keycap">8 ↑</code> on a keyboard<br><code class="keycap">8 TUV</code> on a phone or remote control
+    /// <kbd>8 ↑</kbd> on a keyboard<br><kbd>8 TUV</kbd> on a phone or remote control
     Numpad8,
-    /// <code class="keycap">9 PgUp</code> on a keyboard<br><code class="keycap">9 WXYZ</code> or <code class="keycap">9 WXY</code> on a phone
+    /// <kbd>9 PgUp</kbd> on a keyboard<br><kbd>9 WXYZ</kbd> or <kbd>9 WXY</kbd> on a phone
     /// or remote control
     Numpad9,
-    /// <code class="keycap">+</code>
+    /// <kbd>+</kbd>
     NumpadAdd,
     /// Found on the Microsoft Natural Keyboard.
     NumpadBackspace,
-    /// <code class="keycap">C</code> or <code class="keycap">AC</code> (All Clear). Also for use with numpads that have a <code class="keycap">Clear</code> key that is separate from the <code class="keycap">NumLock</code> key. On the Mac, the numpad <code class="keycap">Clear</code> key should always
+    /// <kbd>C</kbd> or <kbd>AC</kbd> (All Clear). Also for use with numpads that have a <kbd>Clear</kbd> key that is separate from the <kbd>NumLock</kbd> key. On the Mac, the numpad <kbd>Clear</kbd> key should always
     /// be encoded as <code class="code">"NumLock"</code>.
     NumpadClear,
-    /// <code class="keycap">CE</code> (Clear Entry)
+    /// <kbd>CE</kbd> (Clear Entry)
     NumpadClearEntry,
-    /// <code class="keycap">,</code> (thousands separator). For locales where the thousands separator
-    /// is a "." (e.g., Brazil), this key may generate a <code class="keycap">.</code>.
+    /// <kbd>,</kbd> (thousands separator). For locales where the thousands separator
+    /// is a "." (e.g., Brazil), this key may generate a <kbd>.</kbd>.
     NumpadComma,
-    /// <code class="keycap">. Del</code>. For locales where the decimal separator is "," (e.g.,
-    /// Brazil), this key may generate a <code class="keycap">,</code>.
+    /// <kbd>. Del</kbd>. For locales where the decimal separator is "," (e.g.,
+    /// Brazil), this key may generate a <kbd>,</kbd>.
     NumpadDecimal,
-    /// <code class="keycap">/</code>
+    /// <kbd>/</kbd>
     NumpadDivide,
     NumpadEnter,
-    /// <code class="keycap">=</code>
+    /// <kbd>=</kbd>
     NumpadEqual,
-    /// <code class="keycap">#</code> on a phone or remote control device. This key is typically found
-    /// below the <code class="keycap">9</code> key and to the right of the <code class="keycap">0</code> key.
+    /// <kbd>#</kbd> on a phone or remote control device. This key is typically found
+    /// below the <kbd>9</kbd> key and to the right of the <kbd>0</kbd> key.
     NumpadHash,
-    /// <code class="keycap">M+</code> Add current entry to the value stored in memory.
+    /// <kbd>M+</kbd> Add current entry to the value stored in memory.
     NumpadMemoryAdd,
-    /// <code class="keycap">MC</code> Clear the value stored in memory.
+    /// <kbd>MC</kbd> Clear the value stored in memory.
     NumpadMemoryClear,
-    /// <code class="keycap">MR</code> Replace the current entry with the value stored in memory.
+    /// <kbd>MR</kbd> Replace the current entry with the value stored in memory.
     NumpadMemoryRecall,
-    /// <code class="keycap">MS</code> Replace the value stored in memory with the current entry.
+    /// <kbd>MS</kbd> Replace the value stored in memory with the current entry.
     NumpadMemoryStore,
-    /// <code class="keycap">M-</code> Subtract current entry from the value stored in memory.
+    /// <kbd>M-</kbd> Subtract current entry from the value stored in memory.
     NumpadMemorySubtract,
-    /// <code class="keycap">*</code> on a keyboard. For use with numpads that provide mathematical
-    /// operations (<code class="keycap">+</code>, <code class="keycap">-</code>, <code class="keycap">*</code> and <code class="keycap">/</code>).<br>Use <code class="code">"NumpadStar"</code> for the <code class="keycap">*</code> key on phones and remote controls.
+    /// <kbd>*</kbd> on a keyboard. For use with numpads that provide mathematical
+    /// operations (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd> and <kbd>/</kbd>).<br>Use <code class="code">"NumpadStar"</code> for the <kbd>*</kbd> key on phones and remote controls.
     NumpadMultiply,
-    /// <code class="keycap">(</code> Found on the Microsoft Natural Keyboard.
+    /// <kbd>(</kbd> Found on the Microsoft Natural Keyboard.
     NumpadParenLeft,
-    /// <code class="keycap">)</code> Found on the Microsoft Natural Keyboard.
+    /// <kbd>)</kbd> Found on the Microsoft Natural Keyboard.
     NumpadParenRight,
-    /// <code class="keycap">*</code> on a phone or remote control device.
-    /// This key is typically found below the <code class="keycap">7</code> key and to the left of
-    /// the <code class="keycap">0</code> key.<br>Use <code class="code">"NumpadMultiply"</code> for the <code class="keycap">*</code> key on
+    /// <kbd>*</kbd> on a phone or remote control device.
+    /// This key is typically found below the <kbd>7</kbd> key and to the left of
+    /// the <kbd>0</kbd> key.<br>Use <code class="code">"NumpadMultiply"</code> for the <kbd>*</kbd> key on
     /// numeric keypads.
     NumpadStar,
-    /// <code class="keycap">-</code>
+    /// <kbd>-</kbd>
     NumpadSubtract,
-    /// <code class="keycap">Esc</code> or <code class="keycap">⎋</code>
+    /// <kbd>Esc</kbd> or <kbd>⎋</kbd>
     Escape,
-    /// <code class="keycap">Fn</code> This is typically a hardware key that does not generate a separate
+    /// <kbd>Fn</kbd> This is typically a hardware key that does not generate a separate
     /// code. Most keyboards do not place this key in the function section, but it is
     /// included here to keep it with related keys.
     Fn,
-    /// <code class="keycap">FLock</code> or <code class="keycap">FnLock</code>. Function Lock key. Found on the Microsoft
+    /// <kbd>FLock</kbd> or <kbd>FnLock</kbd>. Function Lock key. Found on the Microsoft
     /// Natural Keyboard.
     FnLock,
-    /// <code class="keycap">PrtScr SysRq</code> or <code class="keycap">Print Screen</code>
+    /// <kbd>PrtScr SysRq</kbd> or <kbd>Print Screen</kbd>
     PrintScreen,
-    /// <code class="keycap">Scroll Lock</code>
+    /// <kbd>Scroll Lock</kbd>
     ScrollLock,
-    /// <code class="keycap">Pause Break</code>
+    /// <kbd>Pause Break</kbd>
     Pause,
-    /// Some laptops place this key to the left of the <code class="keycap">↑</code> key.
+    /// Some laptops place this key to the left of the <kbd>↑</kbd> key.
     BrowserBack,
     BrowserFavorites,
-    /// Some laptops place this key to the right of the <code class="keycap">↑</code> key.
+    /// Some laptops place this key to the right of the <kbd>↑</kbd> key.
     BrowserForward,
     BrowserHome,
     BrowserRefresh,
     BrowserSearch,
     BrowserStop,
-    /// <code class="keycap">Eject</code> or <code class="keycap">⏏</code>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section①①">function
+    /// <kbd>Eject</kbd> or <kbd>⏏</kbd>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section①①">function
     /// section</a> on some Apple keyboards.
     Eject,
-    /// Sometimes labelled <code class="keycap">My Computer</code> on the keyboard
+    /// Sometimes labelled <kbd>My Computer</kbd> on the keyboard
     LaunchApp1,
-    /// Sometimes labelled <code class="keycap">Calculator</code> on the keyboard
+    /// Sometimes labelled <kbd>Calculator</kbd> on the keyboard
     LaunchApp2,
     LaunchMail,
     MediaPlayPause,
@@ -311,7 +311,7 @@ pub enum Code {
     MediaTrackNext,
     MediaTrackPrevious,
     /// This key is placed in the function section on some Apple keyboards,
-    /// replacing the <code class="keycap">Eject</code> key.
+    /// replacing the <kbd>Eject</kbd> key.
     Power,
     Sleep,
     AudioVolumeDown,
@@ -342,82 +342,82 @@ pub enum Code {
     Select,
     /// Found on Sun’s USB keyboard.
     Undo,
-    /// Use for dedicated <code class="keycap">ひらがな</code> key found on some Japanese word processing keyboards.
+    /// Use for dedicated <kbd>ひらがな</kbd> key found on some Japanese word processing keyboards.
     Hiragana,
-    /// Use for dedicated <code class="keycap">カタカナ</code> key found on some Japanese word processing keyboards.
+    /// Use for dedicated <kbd>カタカナ</kbd> key found on some Japanese word processing keyboards.
     Katakana,
     /// This value code should be used when no other
     /// value given in this specification is appropriate.
     Unidentified,
-    /// <code class="keycap">F1</code>
+    /// <kbd>F1</kbd>
     F1,
-    /// <code class="keycap">F2</code>
+    /// <kbd>F2</kbd>
     F2,
-    /// <code class="keycap">F3</code>
+    /// <kbd>F3</kbd>
     F3,
-    /// <code class="keycap">F4</code>
+    /// <kbd>F4</kbd>
     F4,
-    /// <code class="keycap">F5</code>
+    /// <kbd>F5</kbd>
     F5,
-    /// <code class="keycap">F6</code>
+    /// <kbd>F6</kbd>
     F6,
-    /// <code class="keycap">F7</code>
+    /// <kbd>F7</kbd>
     F7,
-    /// <code class="keycap">F8</code>
+    /// <kbd>F8</kbd>
     F8,
-    /// <code class="keycap">F9</code>
+    /// <kbd>F9</kbd>
     F9,
-    /// <code class="keycap">F10</code>
+    /// <kbd>F10</kbd>
     F10,
-    /// <code class="keycap">F11</code>
+    /// <kbd>F11</kbd>
     F11,
-    /// <code class="keycap">F12</code>
+    /// <kbd>F12</kbd>
     F12,
-    /// <code class="keycap">F13</code>
+    /// <kbd>F13</kbd>
     F13,
-    /// <code class="keycap">F14</code>
+    /// <kbd>F14</kbd>
     F14,
-    /// <code class="keycap">F15</code>
+    /// <kbd>F15</kbd>
     F15,
-    /// <code class="keycap">F16</code>
+    /// <kbd>F16</kbd>
     F16,
-    /// <code class="keycap">F17</code>
+    /// <kbd>F17</kbd>
     F17,
-    /// <code class="keycap">F18</code>
+    /// <kbd>F18</kbd>
     F18,
-    /// <code class="keycap">F19</code>
+    /// <kbd>F19</kbd>
     F19,
-    /// <code class="keycap">F20</code>
+    /// <kbd>F20</kbd>
     F20,
-    /// <code class="keycap">F21</code>
+    /// <kbd>F21</kbd>
     F21,
-    /// <code class="keycap">F22</code>
+    /// <kbd>F22</kbd>
     F22,
-    /// <code class="keycap">F23</code>
+    /// <kbd>F23</kbd>
     F23,
-    /// <code class="keycap">F24</code>
+    /// <kbd>F24</kbd>
     F24,
-    /// <code class="keycap">F25</code>
+    /// <kbd>F25</kbd>
     F25,
-    /// <code class="keycap">F26</code>
+    /// <kbd>F26</kbd>
     F26,
-    /// <code class="keycap">F27</code>
+    /// <kbd>F27</kbd>
     F27,
-    /// <code class="keycap">F28</code>
+    /// <kbd>F28</kbd>
     F28,
-    /// <code class="keycap">F29</code>
+    /// <kbd>F29</kbd>
     F29,
-    /// <code class="keycap">F30</code>
+    /// <kbd>F30</kbd>
     F30,
-    /// <code class="keycap">F31</code>
+    /// <kbd>F31</kbd>
     F31,
-    /// <code class="keycap">F32</code>
+    /// <kbd>F32</kbd>
     F32,
-    /// <code class="keycap">F33</code>
+    /// <kbd>F33</kbd>
     F33,
-    /// <code class="keycap">F34</code>
+    /// <kbd>F34</kbd>
     F34,
-    /// <code class="keycap">F35</code>
+    /// <kbd>F35</kbd>
     F35,
     /// Non-standard code value supported by Chromium.
     BrightnessDown,
