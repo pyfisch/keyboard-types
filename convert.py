@@ -42,7 +42,7 @@ def parse(text):
                 code.replace_with(f"[`{text}`][Code::{text}]")
             for code in typical_usage.find_all(class_='key'):
                 text = code.text.strip().strip('"')
-                code.replace_with(f"[`{text}`][Key::{text}]")
+                code.replace_with(f"[`{text}`][NamedKey::{text}]")
 
             comment = re.sub(r"[ \t][ \t]+", "\n", typical_usage.decode_contents())
 
@@ -106,15 +106,10 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
-pub enum Key {
-    /// A key string that corresponds to the character typed by the user,
-    /// taking into account the user’s current locale setting, modifier state,
-    /// and any system-level keyboard mapping overrides that are in effect.
-    Character(String),
-    """, file=file)
+pub enum NamedKey {""", file=file)
     display = parse(text)
 
     for i in range(1, 36):
@@ -130,64 +125,40 @@ pub enum Key {
 
     print("""
 
-impl Display for Key {
+impl Display for NamedKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Key::*;
-        match *self {
-            Character(ref s) => write!(f, "{}", s),
-    """, file=file)
+        use self::NamedKey::*;
+        match *self {""", file=file)
     print_display_entries(display, file)
     print("""
         }
     }
 }
 
-impl FromStr for Key {
-    type Err = UnrecognizedKeyError;
+impl FromStr for NamedKey {
+    type Err = UnrecognizedNamedKeyError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use crate::Key::*;
-        match s {
-            s if is_key_string(s) => Ok(Character(s.to_string())),""", file=file)
+        use crate::NamedKey::*;
+        match s {""", file=file)
     print_from_str_entries(display, file)
     print("""
-            _ => Err(UnrecognizedKeyError),
+            _ => Err(UnrecognizedNamedKeyError),
         }
     }
 }
 
 /// Parse from string error, returned when string does not match to any Key variant.
 #[derive(Clone, Debug)]
-pub struct UnrecognizedKeyError;
+pub struct UnrecognizedNamedKeyError;
 
-impl fmt::Display for UnrecognizedKeyError {
+impl fmt::Display for UnrecognizedNamedKeyError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Unrecognized key")
     }
 }
 
-impl Error for UnrecognizedKeyError {}
-
-/// Check if string can be used as a `Key::Character` _keystring_.
-///
-/// This check is simple and is meant to prevents common mistakes like mistyped keynames
-/// (e.g. `Ennter`) from being recognized as characters.
-fn is_key_string(s: &str) -> bool {
-    s.chars().all(|c| !c.is_control()) && s.chars().skip(1).all(|c| !c.is_ascii())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_is_key_string() {
-        assert!(is_key_string("A"));
-        assert!(!is_key_string("AA"));
-        assert!(!is_key_string("\t"));
-    }
-}
-    """, file=file)
+impl Error for UnrecognizedNamedKeyError {}""", file=file)
 
 
 def convert_code(text, file):
@@ -273,8 +244,7 @@ pub enum Code {""", file=file)
 impl Display for Code {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::Code::*;
-        match *self {
-    """, file=file)
+        match *self {""", file=file)
     print_display_entries(display, file)
     print("""
         }
@@ -304,13 +274,12 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
-impl Error for UnrecognizedCodeError {}
-    """, file=file)
+impl Error for UnrecognizedCodeError {}""", file=file)
 
 
 if __name__ == '__main__':
     input = requests.get('https://w3c.github.io/uievents-key/').text
-    with open('src/key.rs', 'w', encoding='utf-8') as output:
+    with open('src/named_key.rs', 'w', encoding='utf-8') as output:
         convert_key(input, output)
     input = requests.get('https://w3c.github.io/uievents-code/').text
     with open('src/code.rs', 'w', encoding='utf-8') as output:

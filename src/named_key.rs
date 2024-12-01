@@ -12,15 +12,10 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
-pub enum Key {
-    /// A key string that corresponds to the character typed by the user,
-    /// taking into account the user’s current locale setting, modifier state,
-    /// and any system-level keyboard mapping overrides that are in effect.
-    Character(String),
-
+pub enum NamedKey {
     /// This key value is used when an implementation is unable to
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
@@ -76,7 +71,7 @@ pub enum Key {
     ArrowUp,
     /// The End key, used with keyboard entry to go to the end of content (<code class="android">KEYCODE_MOVE_END</code>).
     End,
-    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br/> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
+    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br/> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][NamedKey::GoHome].
     Home,
     /// The Page Down key, to scroll down or display next page of content.
     PageDown,
@@ -130,10 +125,10 @@ pub enum Key {
     /// Open a help dialog or toggle display of help information. (<code class="appcommand"><code class="appcommand">APPCOMMAND_HELP</code></code>, <code class="android"><code class="android">KEYCODE_HELP</code></code>)
     Help,
     /// Pause the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <kbd>Pause</kbd> button on media controllers. Use [`MediaPause`][Key::MediaPause] instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Pause</kbd> button on media controllers. Use [`MediaPause`][NamedKey::MediaPause] instead.</p>
     Pause,
     /// Play or resume the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <kbd>Play</kbd> button on media controllers. Use [`MediaPlay`][Key::MediaPlay] instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Play</kbd> button on media controllers. Use [`MediaPlay`][NamedKey::MediaPlay] instead.</p>
     Play,
     /// The properties (Props) key.
     Props,
@@ -259,7 +254,7 @@ pub enum Key {
     /// Initiate or continue forward playback at faster than normal speed, or increase speed if already fast forwarding. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_FAST_FORWARD</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_FAST_FORWARD</code></code>)
     MediaFastForward,
     /// Pause the currently playing media. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_PAUSE</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_PAUSE</code></code>)
-    /// <p class="note" role="note">Media controller devices should use this value rather than [`Pause`][Key::Pause] for their pause keys.</p>
+    /// <p class="note" role="note">Media controller devices should use this value rather than [`Pause`][NamedKey::Pause] for their pause keys.</p>
     MediaPause,
     /// Initiate or continue media playback at normal speed, if not currently playing at normal speed. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_PLAY</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_PLAY</code></code>)
     MediaPlay,
@@ -522,7 +517,7 @@ pub enum Key {
     /// Lock or unlock current content or program. (<code class="vk">VK_LOCK</code>)
     Lock,
     /// Show a list of media applications: audio/video players and image viewers. (<code class="vk">VK_APPS</code>)
-    /// <p class="note" role="note">Do not confuse this key value with the Windows' <code class="vk"><code class="vk">VK_APPS</code></code> / <code class="vk"><code class="vk">VK_CONTEXT_MENU</code></code> key, which is encoded as [`ContextMenu`][Key::ContextMenu].</p>
+    /// <p class="note" role="note">Do not confuse this key value with the Windows' <code class="vk"><code class="vk">VK_APPS</code></code> / <code class="vk"><code class="vk">VK_CONTEXT_MENU</code></code> key, which is encoded as [`ContextMenu`][NamedKey::ContextMenu].</p>
     MediaApps,
     /// Audio track key. (<code class="android">KEYCODE_MEDIA_AUDIO_TRACK</code>)
     MediaAudioTrack,
@@ -671,12 +666,10 @@ pub enum Key {
 }
 
 
-impl Display for Key {
+impl Display for NamedKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Key::*;
+        use self::NamedKey::*;
         match *self {
-            Character(ref s) => write!(f, "{}", s),
-
             Unidentified => f.write_str("Unidentified"),
             Alt => f.write_str("Alt"),
             AltGraph => f.write_str("AltGraph"),
@@ -989,13 +982,12 @@ impl Display for Key {
     }
 }
 
-impl FromStr for Key {
-    type Err = UnrecognizedKeyError;
+impl FromStr for NamedKey {
+    type Err = UnrecognizedNamedKeyError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use crate::Key::*;
+        use crate::NamedKey::*;
         match s {
-            s if is_key_string(s) => Ok(Character(s.to_string())),
             "Unidentified" => Ok(Unidentified),
             "Alt" => Ok(Alt),
             "AltGraph" => Ok(AltGraph),
@@ -1304,39 +1296,19 @@ impl FromStr for Key {
             "F34" => Ok(F34),
             "F35" => Ok(F35),
 
-            _ => Err(UnrecognizedKeyError),
+            _ => Err(UnrecognizedNamedKeyError),
         }
     }
 }
 
 /// Parse from string error, returned when string does not match to any Key variant.
 #[derive(Clone, Debug)]
-pub struct UnrecognizedKeyError;
+pub struct UnrecognizedNamedKeyError;
 
-impl fmt::Display for UnrecognizedKeyError {
+impl fmt::Display for UnrecognizedNamedKeyError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Unrecognized key")
     }
 }
 
-impl Error for UnrecognizedKeyError {}
-
-/// Check if string can be used as a `Key::Character` _keystring_.
-///
-/// This check is simple and is meant to prevents common mistakes like mistyped keynames
-/// (e.g. `Ennter`) from being recognized as characters.
-fn is_key_string(s: &str) -> bool {
-    s.chars().all(|c| !c.is_control()) && s.chars().skip(1).all(|c| !c.is_ascii())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_is_key_string() {
-        assert!(is_key_string("A"));
-        assert!(!is_key_string("AA"));
-        assert!(!is_key_string("	"));
-    }
-}
+impl Error for UnrecognizedNamedKeyError {}
