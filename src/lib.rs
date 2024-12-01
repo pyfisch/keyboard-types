@@ -26,7 +26,7 @@ pub mod webdriver;
 use serde::{Deserialize, Serialize};
 
 /// Describes the state the key is in.
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
     /// Key is pressed.
@@ -40,7 +40,7 @@ pub enum KeyState {
 }
 
 /// Keyboard events are issued for all pressed and released keys.
-#[derive(Clone, Debug, Default, Eq, Hash, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct KeyboardEvent {
     /// Whether the key is pressed or released.
@@ -61,7 +61,7 @@ pub struct KeyboardEvent {
 }
 
 /// Describes the state of a composition session.
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum CompositionState {
     /// In JS: "compositionstart" event.
@@ -93,7 +93,7 @@ impl fmt::Display for CompositionState {
 /// A composition session is always started by a [`CompositionState::Start`]
 /// event followed my zero or more [`CompositionState::Update`] events
 /// and terminated by a single [`CompositionState::End`] event.
-#[derive(Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct CompositionEvent {
     /// Describes the event kind.
