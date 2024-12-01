@@ -17,15 +17,14 @@ particular [the section on keyboard events](https://w3c.github.io/uievents/#keys
 Updating Generated Code
 -----------------------
 
-The file `src/key.rs` and `src/code.rs` are derived from the two 
+The file `src/key.rs` and `src/code.rs` are derived from the two
 W3C working drafts
 
 * [UI Events KeyboardEvent key Values](https://w3c.github.io/uievents-key/) and
 * [UI Events KeyboardEvent code Values](https://w3c.github.io/uievents-code/)
 
-in the most recent version. A Python 3 script (requires `requests` library)
-downloads the files and updates the tables.
+in the most recent version. A Python 3 script (requires the `requests` and
+`beautifulsoup4` libraries) downloads the files and updates the tables.
 
 Manually check if any modifier keys were changed and update the
 `src/modifiers.rs` file if necessary.
-
