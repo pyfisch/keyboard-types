@@ -11,7 +11,8 @@ The naming and conventions follow the UI Events specification
 but this crate should be useful for anyone implementing keyboard
 input in a cross-platform way.
 
-See also: [UI Events Specification](https://w3c.github.io/uievents/)
+See also: [UI Events Specification](https://w3c.github.io/uievents/), and in
+particular [the section on keyboard events](https://w3c.github.io/uievents/#keys).
 
 Updating Generated Code
 -----------------------
