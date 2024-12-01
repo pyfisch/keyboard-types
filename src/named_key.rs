@@ -10,20 +10,15 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
-pub enum Key {
-    /// A key string that corresponds to the character typed by the user,
-    /// taking into account the user’s current locale setting, modifier state,
-    /// and any system-level keyboard mapping overrides that are in effect.
-    Character(String),
-    
+pub enum NamedKey {
     /// This key value is used when an implementation is unable to
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
     Unidentified,
-    /// The <kbd>Alt</kbd> (Alternative) key.<br> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br> This key value is also used for the Apple <kbd>Option</kbd> key.
+    /// The <kbd>Alt</kbd> (Alternative) key.<br/> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br/> This key value is also used for the Apple <kbd>Option</kbd> key.
     Alt,
     /// The Alternate Graphics (<kbd>AltGr</kbd> or <kbd>AltGraph</kbd>) key.
     /// This key is used enable the ISO Level 3 shift modifier (the standard <kbd>Shift</kbd> key is the level 2 modifier).
@@ -34,7 +29,7 @@ pub enum Key {
     CapsLock,
     /// The <kbd>Control</kbd> or <kbd>Ctrl</kbd> key, to enable control modifier function for interpreting concurrent or subsequent keyboard input.
     Control,
-    /// The Function switch <kbd>Fn</kbd> key.<br> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
+    /// The Function switch <kbd>Fn</kbd> key.<br/> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
     /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
     Fn,
     /// The Function-Lock (<kbd>FnLock</kbd> or <kbd>F-Lock</kbd>) key.
@@ -58,7 +53,7 @@ pub enum Key {
     Hyper,
     /// The <kbd>Super</kbd> key.
     Super,
-    /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
+    /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br/> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br/> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
     Enter,
     /// The Horizontal Tabulation <kbd>Tab</kbd> key.
     Tab,
@@ -72,7 +67,7 @@ pub enum Key {
     ArrowUp,
     /// The End key, used with keyboard entry to go to the end of content (<code class="android">KEYCODE_MOVE_END</code>).
     End,
-    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
+    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br/> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
     Home,
     /// The Page Down key, to scroll down or display next page of content.
     PageDown,
@@ -176,7 +171,7 @@ pub enum Key {
     /// The Convert key, to convert the current input method sequence.
     Convert,
     /// A dead key combining key. It may be any combining key from any keyboard layout. For example, on a
-    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
+    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br/> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
     Dead,
     /// The Final Mode <kbd>Final</kbd> key used on some Asian keyboards, to enable the final mode for IMEs.
     FinalMode,
@@ -667,12 +662,10 @@ pub enum Key {
 }
 
 
-impl Display for Key {
+impl Display for NamedKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        use self::Key::*;
+        use self::NamedKey::*;
         match *self {
-            Character(ref s) => write!(f, "{}", s),
-    
             Unidentified => f.write_str("Unidentified"),
             Alt => f.write_str("Alt"),
             AltGraph => f.write_str("AltGraph"),
@@ -985,13 +978,12 @@ impl Display for Key {
     }
 }
 
-impl FromStr for Key {
-    type Err = UnrecognizedKeyError;
+impl FromStr for NamedKey {
+    type Err = UnrecognizedNamedKeyError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        use crate::Key::*;
+        use crate::NamedKey::*;
         match s {
-            s if is_key_string(s) => Ok(Character(s.to_string())),
             "Unidentified" => Ok(Unidentified),
             "Alt" => Ok(Alt),
             "AltGraph" => Ok(AltGraph),
@@ -1300,40 +1292,19 @@ impl FromStr for Key {
             "F34" => Ok(F34),
             "F35" => Ok(F35),
 
-            _ => Err(UnrecognizedKeyError),
+            _ => Err(UnrecognizedNamedKeyError),
         }
     }
 }
 
 /// Parse from string error, returned when string does not match to any Key variant.
 #[derive(Clone, Debug)]
-pub struct UnrecognizedKeyError;
+pub struct UnrecognizedNamedKeyError;
 
-impl fmt::Display for UnrecognizedKeyError {
+impl fmt::Display for UnrecognizedNamedKeyError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "Unrecognized key")
     }
 }
 
-impl Error for UnrecognizedKeyError {}
-
-/// Check if string can be used as a `Key::Character` _keystring_.
-///
-/// This check is simple and is meant to prevents common mistakes like mistyped keynames
-/// (e.g. `Ennter`) from being recognized as characters.
-fn is_key_string(s: &str) -> bool {
-    s.chars().all(|c| !c.is_control()) && s.chars().skip(1).all(|c| !c.is_ascii())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_is_key_string() {
-        assert!(is_key_string("A"));
-        assert!(!is_key_string("AA"));
-        assert!(!is_key_string("	"));
-    }
-}
-    
+impl Error for UnrecognizedNamedKeyError {}

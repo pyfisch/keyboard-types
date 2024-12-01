@@ -45,7 +45,7 @@ use std::collections::HashSet;
 
 use unicode_segmentation::UnicodeSegmentation;
 
-use crate::first_char;
+use crate::{first_char, NamedKey};
 use crate::{Code, Key, KeyState, KeyboardEvent, Location, Modifiers};
 use crate::{CompositionEvent, CompositionState};
 
@@ -53,31 +53,31 @@ use crate::{CompositionEvent, CompositionState};
 // normalised (sic) as in british spelling
 fn normalised_key_value(raw_key: char) -> Key {
     match raw_key {
-        '\u{E000}' => Key::Unidentified,
-        '\u{E001}' => Key::Cancel,
-        '\u{E002}' => Key::Help,
-        '\u{E003}' => Key::Backspace,
-        '\u{E004}' => Key::Tab,
-        '\u{E005}' => Key::Clear,
+        '\u{E000}' => Key::Named(NamedKey::Unidentified),
+        '\u{E001}' => Key::Named(NamedKey::Cancel),
+        '\u{E002}' => Key::Named(NamedKey::Help),
+        '\u{E003}' => Key::Named(NamedKey::Backspace),
+        '\u{E004}' => Key::Named(NamedKey::Tab),
+        '\u{E005}' => Key::Named(NamedKey::Clear),
         // FIXME: spec says "Return"
-        '\u{E006}' => Key::Enter,
-        '\u{E007}' => Key::Enter,
-        '\u{E008}' => Key::Shift,
-        '\u{E009}' => Key::Control,
-        '\u{E00A}' => Key::Alt,
-        '\u{E00B}' => Key::Pause,
-        '\u{E00C}' => Key::Escape,
+        '\u{E006}' => Key::Named(NamedKey::Enter),
+        '\u{E007}' => Key::Named(NamedKey::Enter),
+        '\u{E008}' => Key::Named(NamedKey::Shift),
+        '\u{E009}' => Key::Named(NamedKey::Control),
+        '\u{E00A}' => Key::Named(NamedKey::Alt),
+        '\u{E00B}' => Key::Named(NamedKey::Pause),
+        '\u{E00C}' => Key::Named(NamedKey::Escape),
         '\u{E00D}' => Key::Character(" ".to_string()),
-        '\u{E00E}' => Key::PageUp,
-        '\u{E00F}' => Key::PageDown,
-        '\u{E010}' => Key::End,
-        '\u{E011}' => Key::Home,
-        '\u{E012}' => Key::ArrowLeft,
-        '\u{E013}' => Key::ArrowUp,
-        '\u{E014}' => Key::ArrowRight,
-        '\u{E015}' => Key::ArrowDown,
-        '\u{E016}' => Key::Insert,
-        '\u{E017}' => Key::Delete,
+        '\u{E00E}' => Key::Named(NamedKey::PageUp),
+        '\u{E00F}' => Key::Named(NamedKey::PageDown),
+        '\u{E010}' => Key::Named(NamedKey::End),
+        '\u{E011}' => Key::Named(NamedKey::Home),
+        '\u{E012}' => Key::Named(NamedKey::ArrowLeft),
+        '\u{E013}' => Key::Named(NamedKey::ArrowUp),
+        '\u{E014}' => Key::Named(NamedKey::ArrowRight),
+        '\u{E015}' => Key::Named(NamedKey::ArrowDown),
+        '\u{E016}' => Key::Named(NamedKey::Insert),
+        '\u{E017}' => Key::Named(NamedKey::Delete),
         '\u{E018}' => Key::Character(";".to_string()),
         '\u{E019}' => Key::Character("=".to_string()),
         '\u{E01A}' => Key::Character("0".to_string()),
@@ -96,34 +96,34 @@ fn normalised_key_value(raw_key: char) -> Key {
         '\u{E027}' => Key::Character("-".to_string()),
         '\u{E028}' => Key::Character(".".to_string()),
         '\u{E029}' => Key::Character("/".to_string()),
-        '\u{E031}' => Key::F1,
-        '\u{E032}' => Key::F2,
-        '\u{E033}' => Key::F3,
-        '\u{E034}' => Key::F4,
-        '\u{E035}' => Key::F5,
-        '\u{E036}' => Key::F6,
-        '\u{E037}' => Key::F7,
-        '\u{E038}' => Key::F8,
-        '\u{E039}' => Key::F9,
-        '\u{E03A}' => Key::F10,
-        '\u{E03B}' => Key::F11,
-        '\u{E03C}' => Key::F12,
-        '\u{E03D}' => Key::Meta,
-        '\u{E040}' => Key::ZenkakuHankaku,
-        '\u{E050}' => Key::Shift,
-        '\u{E051}' => Key::Control,
-        '\u{E052}' => Key::Alt,
-        '\u{E053}' => Key::Meta,
-        '\u{E054}' => Key::PageUp,
-        '\u{E055}' => Key::PageDown,
-        '\u{E056}' => Key::End,
-        '\u{E057}' => Key::Home,
-        '\u{E058}' => Key::ArrowLeft,
-        '\u{E059}' => Key::ArrowUp,
-        '\u{E05A}' => Key::ArrowRight,
-        '\u{E05B}' => Key::ArrowDown,
-        '\u{E05C}' => Key::Insert,
-        '\u{E05D}' => Key::Delete,
+        '\u{E031}' => Key::Named(NamedKey::F1),
+        '\u{E032}' => Key::Named(NamedKey::F2),
+        '\u{E033}' => Key::Named(NamedKey::F3),
+        '\u{E034}' => Key::Named(NamedKey::F4),
+        '\u{E035}' => Key::Named(NamedKey::F5),
+        '\u{E036}' => Key::Named(NamedKey::F6),
+        '\u{E037}' => Key::Named(NamedKey::F7),
+        '\u{E038}' => Key::Named(NamedKey::F8),
+        '\u{E039}' => Key::Named(NamedKey::F9),
+        '\u{E03A}' => Key::Named(NamedKey::F10),
+        '\u{E03B}' => Key::Named(NamedKey::F11),
+        '\u{E03C}' => Key::Named(NamedKey::F12),
+        '\u{E03D}' => Key::Named(NamedKey::Meta),
+        '\u{E040}' => Key::Named(NamedKey::ZenkakuHankaku),
+        '\u{E050}' => Key::Named(NamedKey::Shift),
+        '\u{E051}' => Key::Named(NamedKey::Control),
+        '\u{E052}' => Key::Named(NamedKey::Alt),
+        '\u{E053}' => Key::Named(NamedKey::Meta),
+        '\u{E054}' => Key::Named(NamedKey::PageUp),
+        '\u{E055}' => Key::Named(NamedKey::PageDown),
+        '\u{E056}' => Key::Named(NamedKey::End),
+        '\u{E057}' => Key::Named(NamedKey::Home),
+        '\u{E058}' => Key::Named(NamedKey::ArrowLeft),
+        '\u{E059}' => Key::Named(NamedKey::ArrowUp),
+        '\u{E05A}' => Key::Named(NamedKey::ArrowRight),
+        '\u{E05B}' => Key::Named(NamedKey::ArrowDown),
+        '\u{E05C}' => Key::Named(NamedKey::Insert),
+        '\u{E05D}' => Key::Named(NamedKey::Delete),
         _ => Key::Character(raw_key.to_string()),
     }
 }
@@ -293,10 +293,10 @@ fn key_location(raw_key: char) -> Location {
 
 fn get_modifier(key: &Key) -> Modifiers {
     match key {
-        Key::Alt => Modifiers::ALT,
-        Key::Shift => Modifiers::SHIFT,
-        Key::Control => Modifiers::CONTROL,
-        Key::Meta => Modifiers::META,
+        Key::Named(NamedKey::Alt) => Modifiers::ALT,
+        Key::Named(NamedKey::Shift) => Modifiers::SHIFT,
+        Key::Named(NamedKey::Control) => Modifiers::CONTROL,
+        Key::Named(NamedKey::Meta) => Modifiers::META,
         _ => Modifiers::empty(),
     }
 }
@@ -431,20 +431,22 @@ pub fn send_keys(text: &str) -> Vec<Event> {
         // values from <https://www.w3.org/TR/uievents-key/#keys-modifier>
         matches!(
             normalised_key_value(first_char(text)),
-            Key::Alt
-                | Key::AltGraph
-                | Key::CapsLock
-                | Key::Control
-                | Key::Fn
-                | Key::FnLock
-                | Key::Meta
-                | Key::NumLock
-                | Key::ScrollLock
-                | Key::Shift
-                | Key::Symbol
-                | Key::SymbolLock
-                | Key::Hyper
-                | Key::Super
+            Key::Named(
+                NamedKey::Alt
+                    | NamedKey::AltGraph
+                    | NamedKey::CapsLock
+                    | NamedKey::Control
+                    | NamedKey::Fn
+                    | NamedKey::FnLock
+                    | NamedKey::Meta
+                    | NamedKey::NumLock
+                    | NamedKey::ScrollLock
+                    | NamedKey::Shift
+                    | NamedKey::Symbol
+                    | NamedKey::SymbolLock
+                    | NamedKey::Hyper
+                    | NamedKey::Super
+            )
         )
     }
 
