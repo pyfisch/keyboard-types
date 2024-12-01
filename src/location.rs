@@ -1,6 +1,6 @@
 /// The location attribute contains an indication of the logical location
 /// of the key on the device.
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
+#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Location {
     /// The key activation MUST NOT be distinguished as the left or right

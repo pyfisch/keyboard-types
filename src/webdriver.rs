@@ -401,7 +401,7 @@ impl KeyInputState {
 /// Either a [`KeyboardEvent`] or a [`CompositionEvent`].
 ///
 /// Returned by the [`send_keys`] function.
-#[derive(Clone, Eq, PartialEq, Hash, Debug)]
+#[derive(Clone, Eq, PartialEq, Hash, Debug, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Event {
     Keyboard(KeyboardEvent),

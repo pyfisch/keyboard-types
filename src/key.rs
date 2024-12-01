@@ -10,7 +10,7 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[derive(Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Key {
