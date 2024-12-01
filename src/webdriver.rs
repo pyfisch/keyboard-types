@@ -424,6 +424,7 @@ impl From<CompositionEvent> for Event {
 ///
 /// Spec: <https://w3c.github.io/webdriver/#element-send-keys>
 pub fn send_keys(text: &str) -> Vec<Event> {
+    #[allow(deprecated)]
     fn is_modifier(text: &str) -> bool {
         if text.chars().count() != 1 {
             return false;
