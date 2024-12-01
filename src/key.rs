@@ -23,7 +23,7 @@ pub enum Key {
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
     Unidentified,
-    /// The <kbd>Alt</kbd> (Alternative) key.<br> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br> This key value is also used for the Apple <kbd>Option</kbd> key.
+    /// The <kbd>Alt</kbd> (Alternative) key.<br/> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br/> This key value is also used for the Apple <kbd>Option</kbd> key.
     Alt,
     /// The Alternate Graphics (<kbd>AltGr</kbd> or <kbd>AltGraph</kbd>) key.
     /// This key is used enable the ISO Level 3 shift modifier (the standard <kbd>Shift</kbd> key is the level 2 modifier).
@@ -34,7 +34,7 @@ pub enum Key {
     CapsLock,
     /// The <kbd>Control</kbd> or <kbd>Ctrl</kbd> key, to enable control modifier function for interpreting concurrent or subsequent keyboard input.
     Control,
-    /// The Function switch <kbd>Fn</kbd> key.<br> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
+    /// The Function switch <kbd>Fn</kbd> key.<br/> Activating this key simultaneously with another key changes that key’s value to an alternate character or function.
     /// This key is often handled directly in the keyboard hardware and does not usually generate key events.
     Fn,
     /// The Function-Lock (<kbd>FnLock</kbd> or <kbd>F-Lock</kbd>) key.
@@ -58,7 +58,7 @@ pub enum Key {
     Hyper,
     /// The <kbd>Super</kbd> key.
     Super,
-    /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
+    /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br/> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br/> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
     Enter,
     /// The Horizontal Tabulation <kbd>Tab</kbd> key.
     Tab,
@@ -72,7 +72,7 @@ pub enum Key {
     ArrowUp,
     /// The End key, used with keyboard entry to go to the end of content (<code class="android">KEYCODE_MOVE_END</code>).
     End,
-    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
+    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br/> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
     Home,
     /// The Page Down key, to scroll down or display next page of content.
     PageDown,
@@ -176,7 +176,7 @@ pub enum Key {
     /// The Convert key, to convert the current input method sequence.
     Convert,
     /// A dead key combining key. It may be any combining key from any keyboard layout. For example, on a
-    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
+    /// PC/AT French keyboard, using a French mapping and without any modifier activated, this is the key value <code class="unicode">U+0302</code> COMBINING CIRCUMFLEX ACCENT. In another layout this might be a different unicode combining key.<br/> For applications that need to differentiate between specific combining characters, the associated compositionupdate event’s data attribute provides the specific key value.
     Dead,
     /// The Final Mode <kbd>Final</kbd> key used on some Asian keyboards, to enable the final mode for IMEs.
     FinalMode,
