@@ -124,7 +124,7 @@ pub enum Code {
     KeyZ,
     /// <kbd>-_</kbd> on a US keyboard.
     Minus,
-    /// <kbd>.></kbd> on a US keyboard.
+    /// <kbd>.&gt;</kbd> on a US keyboard.
     Period,
     /// <kbd>'"</kbd> on a US keyboard.
     Quote,
@@ -166,9 +166,9 @@ pub enum Code {
     Convert,
     /// Japanese: <kbd>カタカナ/ひらがな/ローマ字</kbd> (<span class="unicode">katakana/hiragana/romaji</span>)
     KanaMode,
-    /// Korean: HangulMode <kbd>한/영</kbd> (<span class="unicode">han/yeong</span>)<br>Japanese (Mac keyboard): <kbd>かな</kbd> (<span class="unicode">kana</span>)
+    /// Korean: HangulMode <kbd>한/영</kbd> (<span class="unicode">han/yeong</span>)<br/>Japanese (Mac keyboard): <kbd>かな</kbd> (<span class="unicode">kana</span>)
     Lang1,
-    /// Korean: Hanja <kbd>한자</kbd> (<span class="unicode">hanja</span>)<br>Japanese (Mac keyboard): <kbd>英数</kbd> (<span class="unicode">eisu</span>)
+    /// Korean: Hanja <kbd>한자</kbd> (<span class="unicode">hanja</span>)<br/>Japanese (Mac keyboard): <kbd>英数</kbd> (<span class="unicode">eisu</span>)
     Lang2,
     /// Japanese (word-processing keyboard): Katakana
     Lang3,
@@ -204,27 +204,27 @@ pub enum Code {
     ArrowUp,
     /// On the Mac, the [`NumLock`][Code::NumLock] code should be used for the numpad <kbd>Clear</kbd> key.
     NumLock,
-    /// <kbd>0 Ins</kbd> on a keyboard<br><kbd>0</kbd> on a phone or remote control
+    /// <kbd>0 Ins</kbd> on a keyboard<br/><kbd>0</kbd> on a phone or remote control
     Numpad0,
-    /// <kbd>1 End</kbd> on a keyboard<br><kbd>1</kbd> or <kbd>1 QZ</kbd> on a phone or
+    /// <kbd>1 End</kbd> on a keyboard<br/><kbd>1</kbd> or <kbd>1 QZ</kbd> on a phone or
     /// remote control
     Numpad1,
-    /// <kbd>2 ↓</kbd> on a keyboard<br><kbd>2 ABC</kbd> on a phone or remote control
+    /// <kbd>2 ↓</kbd> on a keyboard<br/><kbd>2 ABC</kbd> on a phone or remote control
     Numpad2,
-    /// <kbd>3 PgDn</kbd> on a keyboard<br><kbd>3 DEF</kbd> on a phone or remote control
+    /// <kbd>3 PgDn</kbd> on a keyboard<br/><kbd>3 DEF</kbd> on a phone or remote control
     Numpad3,
-    /// <kbd>4 ←</kbd> on a keyboard<br><kbd>4 GHI</kbd> on a phone or remote control
+    /// <kbd>4 ←</kbd> on a keyboard<br/><kbd>4 GHI</kbd> on a phone or remote control
     Numpad4,
-    /// <kbd>5</kbd> on a keyboard<br><kbd>5 JKL</kbd> on a phone or remote control
+    /// <kbd>5</kbd> on a keyboard<br/><kbd>5 JKL</kbd> on a phone or remote control
     Numpad5,
-    /// <kbd>6 →</kbd> on a keyboard<br><kbd>6 MNO</kbd> on a phone or remote control
+    /// <kbd>6 →</kbd> on a keyboard<br/><kbd>6 MNO</kbd> on a phone or remote control
     Numpad6,
-    /// <kbd>7 Home</kbd> on a keyboard<br><kbd>7 PQRS</kbd> or <kbd>7 PRS</kbd> on a phone
+    /// <kbd>7 Home</kbd> on a keyboard<br/><kbd>7 PQRS</kbd> or <kbd>7 PRS</kbd> on a phone
     /// or remote control
     Numpad7,
-    /// <kbd>8 ↑</kbd> on a keyboard<br><kbd>8 TUV</kbd> on a phone or remote control
+    /// <kbd>8 ↑</kbd> on a keyboard<br/><kbd>8 TUV</kbd> on a phone or remote control
     Numpad8,
-    /// <kbd>9 PgUp</kbd> on a keyboard<br><kbd>9 WXYZ</kbd> or <kbd>9 WXY</kbd> on a phone
+    /// <kbd>9 PgUp</kbd> on a keyboard<br/><kbd>9 WXYZ</kbd> or <kbd>9 WXY</kbd> on a phone
     /// or remote control
     Numpad9,
     /// <kbd>+</kbd>
@@ -261,7 +261,7 @@ pub enum Code {
     /// <kbd>M-</kbd> Subtract current entry from the value stored in memory.
     NumpadMemorySubtract,
     /// <kbd>*</kbd> on a keyboard. For use with numpads that provide mathematical
-    /// operations (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd> and <kbd>/</kbd>).<br>Use [`NumpadStar`][Code::NumpadStar] for the <kbd>*</kbd> key on phones and remote controls.
+    /// operations (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd> and <kbd>/</kbd>).<br/>Use [`NumpadStar`][Code::NumpadStar] for the <kbd>*</kbd> key on phones and remote controls.
     NumpadMultiply,
     /// <kbd>(</kbd> Found on the Microsoft Natural Keyboard.
     NumpadParenLeft,
@@ -269,7 +269,7 @@ pub enum Code {
     NumpadParenRight,
     /// <kbd>*</kbd> on a phone or remote control device.
     /// This key is typically found below the <kbd>7</kbd> key and to the left of
-    /// the <kbd>0</kbd> key.<br>Use [`NumpadMultiply`][Code::NumpadMultiply] for the <kbd>*</kbd> key on
+    /// the <kbd>0</kbd> key.<br/>Use [`NumpadMultiply`][Code::NumpadMultiply] for the <kbd>*</kbd> key on
     /// numeric keypads.
     NumpadStar,
     /// <kbd>-</kbd>
@@ -298,8 +298,8 @@ pub enum Code {
     BrowserRefresh,
     BrowserSearch,
     BrowserStop,
-    /// <kbd>Eject</kbd> or <kbd>⏏</kbd>. This key is placed in the <a data-link-type="dfn" href="#function-section" id="ref-for-function-section①①">function
-    /// section</a> on some Apple keyboards.
+    /// <kbd>Eject</kbd> or <kbd>⏏</kbd>. This key is placed in the function
+    /// section on some Apple keyboards.
     Eject,
     /// Sometimes labelled <kbd>My Computer</kbd> on the keyboard
     LaunchApp1,
