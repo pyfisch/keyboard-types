@@ -72,7 +72,7 @@ pub enum Key {
     ArrowUp,
     /// The End key, used with keyboard entry to go to the end of content (<code class="android">KEYCODE_MOVE_END</code>).
     End,
-    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use <code class="key">"GoHome"</code>.
+    /// The Home key, used with keyboard entry, to go to start of content (<code class="android">KEYCODE_MOVE_HOME</code>).<br> For the mobile phone <kbd>Home</kbd> key (which goes to the phone’s main screen), use [`GoHome`][Key::GoHome].
     Home,
     /// The Page Down key, to scroll down or display next page of content.
     PageDown,
@@ -126,10 +126,10 @@ pub enum Key {
     /// Open a help dialog or toggle display of help information. (<code class="appcommand"><code class="appcommand">APPCOMMAND_HELP</code></code>, <code class="android"><code class="android">KEYCODE_HELP</code></code>)
     Help,
     /// Pause the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <kbd>Pause</kbd> button on media controllers. Use <code class="key">"MediaPause"</code> instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Pause</kbd> button on media controllers. Use [`MediaPause`][Key::MediaPause] instead.</p>
     Pause,
     /// Play or resume the current state or application (as appropriate).
-    /// <p class="note" role="note">Do not use this value for the <kbd>Play</kbd> button on media controllers. Use <code class="key">"MediaPlay"</code> instead.</p>
+    /// <p class="note" role="note">Do not use this value for the <kbd>Play</kbd> button on media controllers. Use [`MediaPlay`][Key::MediaPlay] instead.</p>
     Play,
     /// The properties (Props) key.
     Props,
@@ -255,7 +255,7 @@ pub enum Key {
     /// Initiate or continue forward playback at faster than normal speed, or increase speed if already fast forwarding. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_FAST_FORWARD</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_FAST_FORWARD</code></code>)
     MediaFastForward,
     /// Pause the currently playing media. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_PAUSE</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_PAUSE</code></code>)
-    /// <p class="note" role="note">Media controller devices should use this value rather than <code class="key">"Pause"</code> for their pause keys.</p>
+    /// <p class="note" role="note">Media controller devices should use this value rather than [`Pause`][Key::Pause] for their pause keys.</p>
     MediaPause,
     /// Initiate or continue media playback at normal speed, if not currently playing at normal speed. (<code class="appcommand"><code class="appcommand">APPCOMMAND_MEDIA_PLAY</code></code>, <code class="android"><code class="android">KEYCODE_MEDIA_PLAY</code></code>)
     MediaPlay,
@@ -518,7 +518,7 @@ pub enum Key {
     /// Lock or unlock current content or program. (<code class="vk">VK_LOCK</code>)
     Lock,
     /// Show a list of media applications: audio/video players and image viewers. (<code class="vk">VK_APPS</code>)
-    /// <p class="note" role="note">Do not confuse this key value with the Windows' <code class="vk"><code class="vk">VK_APPS</code></code> / <code class="vk"><code class="vk">VK_CONTEXT_MENU</code></code> key, which is encoded as <code class="key">"ContextMenu"</code>.</p>
+    /// <p class="note" role="note">Do not confuse this key value with the Windows' <code class="vk"><code class="vk">VK_APPS</code></code> / <code class="vk"><code class="vk">VK_CONTEXT_MENU</code></code> key, which is encoded as [`ContextMenu`][Key::ContextMenu].</p>
     MediaApps,
     /// Audio track key. (<code class="android">KEYCODE_MEDIA_AUDIO_TRACK</code>)
     MediaAudioTrack,

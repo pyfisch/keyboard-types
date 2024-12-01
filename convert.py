@@ -17,6 +17,9 @@ def parse(text):
                 continue
             # Use the semantic `<kbd>` element instead.
             line = re.sub(r"<code class=\"keycap\">(.*?)</code>", r"<kbd>\1</kbd>", line)
+            # Link to the relevant type.
+            line = re.sub(r"<code class=\"code\">\"(.*?)\"</code>", r"[`\1`][Code::\1]", line)
+            line = re.sub(r"<code class=\"key\">\"(.*?)\"</code>", r"[`\1`][Key::\1]", line)
             doc_comment += "    /// {}\n".format(line)
         display.append([match[0], doc_comment, []])
     return display

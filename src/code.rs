@@ -179,7 +179,7 @@ pub enum Code {
     NonConvert,
     /// <kbd>⌦</kbd>. The forward delete key.
     /// Note that on Apple keyboards, the key labelled <kbd>Delete</kbd> on the main part of
-    /// the keyboard should be encoded as <code class="code">"Backspace"</code>.
+    /// the keyboard should be encoded as [`Backspace`][Code::Backspace].
     Delete,
     /// <kbd>End</kbd> or <kbd>↘</kbd>
     End,
@@ -201,7 +201,7 @@ pub enum Code {
     ArrowRight,
     /// <kbd>↑</kbd>
     ArrowUp,
-    /// On the Mac, the <code class="code">"NumLock"</code> code should be used for the numpad <kbd>Clear</kbd> key.
+    /// On the Mac, the [`NumLock`][Code::NumLock] code should be used for the numpad <kbd>Clear</kbd> key.
     NumLock,
     /// <kbd>0 Ins</kbd> on a keyboard<br><kbd>0</kbd> on a phone or remote control
     Numpad0,
@@ -231,7 +231,7 @@ pub enum Code {
     /// Found on the Microsoft Natural Keyboard.
     NumpadBackspace,
     /// <kbd>C</kbd> or <kbd>AC</kbd> (All Clear). Also for use with numpads that have a <kbd>Clear</kbd> key that is separate from the <kbd>NumLock</kbd> key. On the Mac, the numpad <kbd>Clear</kbd> key should always
-    /// be encoded as <code class="code">"NumLock"</code>.
+    /// be encoded as [`NumLock`][Code::NumLock].
     NumpadClear,
     /// <kbd>CE</kbd> (Clear Entry)
     NumpadClearEntry,
@@ -260,7 +260,7 @@ pub enum Code {
     /// <kbd>M-</kbd> Subtract current entry from the value stored in memory.
     NumpadMemorySubtract,
     /// <kbd>*</kbd> on a keyboard. For use with numpads that provide mathematical
-    /// operations (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd> and <kbd>/</kbd>).<br>Use <code class="code">"NumpadStar"</code> for the <kbd>*</kbd> key on phones and remote controls.
+    /// operations (<kbd>+</kbd>, <kbd>-</kbd>, <kbd>*</kbd> and <kbd>/</kbd>).<br>Use [`NumpadStar`][Code::NumpadStar] for the <kbd>*</kbd> key on phones and remote controls.
     NumpadMultiply,
     /// <kbd>(</kbd> Found on the Microsoft Natural Keyboard.
     NumpadParenLeft,
@@ -268,7 +268,7 @@ pub enum Code {
     NumpadParenRight,
     /// <kbd>*</kbd> on a phone or remote control device.
     /// This key is typically found below the <kbd>7</kbd> key and to the left of
-    /// the <kbd>0</kbd> key.<br>Use <code class="code">"NumpadMultiply"</code> for the <kbd>*</kbd> key on
+    /// the <kbd>0</kbd> key.<br>Use [`NumpadMultiply`][Code::NumpadMultiply] for the <kbd>*</kbd> key on
     /// numeric keypads.
     NumpadStar,
     /// <kbd>-</kbd>
