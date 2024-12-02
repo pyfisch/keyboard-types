@@ -10,7 +10,7 @@
 //! # use keyboard_types::webdriver::*;
 //! let mut state = KeyInputState::new();
 //! let mut keyboard_event = state.dispatch_keydown('a');
-//! assert_eq!(keyboard_event.state, KeyState::Down);
+//! assert_eq!(keyboard_event.state, KeyState::Pressed);
 //! assert_eq!(keyboard_event.key, Key::Character("a".to_owned()));
 //! assert_eq!(keyboard_event.code, Code::KeyA);
 //!
@@ -336,7 +336,7 @@ impl KeyInputState {
         self.modifiers.insert(get_modifier(&key));
         self.pressed.insert(key.clone());
         KeyboardEvent {
-            state: KeyState::Down,
+            state: KeyState::Pressed,
             key,
             code,
             location,
@@ -361,7 +361,7 @@ impl KeyInputState {
         self.modifiers.remove(get_modifier(&key));
         self.pressed.remove(&key);
         Some(KeyboardEvent {
-            state: KeyState::Up,
+            state: KeyState::Released,
             key,
             code,
             location,

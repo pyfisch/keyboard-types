@@ -25,18 +25,52 @@ pub mod webdriver;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-/// Describes the state the key is in.
+/// Describes the state a key is in.
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
-    /// Key is pressed.
+    /// The key is pressed down.
     ///
-    /// In JS: "keydown" event firing.
-    Down,
-    /// Key is released.
+    /// Often emitted in a [keydown] event, see also [the MDN documentation][mdn] on that.
     ///
-    /// In JS: "keyup event".
-    Up,
+    /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+    Pressed,
+    /// The key is not pressed / was just released.
+    ///
+    /// Often emitted in a [keyup] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keyup]: https://w3c.github.io/uievents/#event-type-keyup
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+    Released,
+}
+
+impl KeyState {
+    /// The [type] name of the corresponding key event.
+    ///
+    /// This is either `"keydown"` or `"keyup"`.
+    ///
+    /// Note that a keyboard event could have come from [the legacy `"keypress"` event][keypress],
+    /// that is not handled by this method.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-keyboard-types
+    /// [keypress]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
+    pub const fn event_type(self) -> &'static str {
+        match self {
+            Self::Pressed => "keydown",
+            Self::Released => "keyup",
+        }
+    }
+
+    /// True if the key is pressed.
+    pub fn is_pressed(self) -> bool {
+        self == Self::Pressed
+    }
+
+    /// True if the key is released.
+    pub fn is_released(self) -> bool {
+        self == Self::Released
+    }
 }
 
 /// Keyboard events are issued for all pressed and released keys.
@@ -100,15 +134,6 @@ pub struct CompositionEvent {
     pub state: CompositionState,
     /// Current composition data. May be empty.
     pub data: String,
-}
-
-impl fmt::Display for KeyState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            KeyState::Down => f.write_str("keydown"),
-            KeyState::Up => f.write_str("keyup"),
-        }
-    }
 }
 
 impl Key {
@@ -178,7 +203,7 @@ impl Key {
 
 impl Default for KeyState {
     fn default() -> KeyState {
-        KeyState::Down
+        KeyState::Pressed
     }
 }
 
