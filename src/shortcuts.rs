@@ -53,7 +53,7 @@ impl<T> ShortcutMatcher<T> {
     /// # fn do_something() {}
     /// # fn forward_event() {}
     /// # let event = KeyboardEvent {
-    /// #     state: keyboard_types::KeyState::Down,
+    /// #     state: keyboard_types::KeyState::Pressed,
     /// #     key: Key::Enter,
     /// #     code: keyboard_types::Code::Enter,
     /// #     location: keyboard_types::Location::Standard,
@@ -85,7 +85,7 @@ impl<T> ShortcutMatcher<T> {
             return self;
         }
         if modifiers == self.modifiers && key.match_key(&self.key) {
-            if self.state == KeyState::Down {
+            if self.state == KeyState::Pressed {
                 self.value = Some(f());
             }
             self.matched = true;
@@ -105,7 +105,7 @@ impl<T> ShortcutMatcher<T> {
     /// # fn copy() {}
     /// # fn quit() {}
     /// # let event = KeyboardEvent {
-    /// #     state: keyboard_types::KeyState::Down,
+    /// #     state: keyboard_types::KeyState::Pressed,
     /// #     key: Key::Enter,
     /// #     code: keyboard_types::Code::Enter,
     /// #     location: keyboard_types::Location::Standard,

@@ -25,18 +25,24 @@ pub mod webdriver;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-/// Describes the state the key is in.
+/// Describes the state a key is in.
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
-    /// Key is pressed.
+    /// The key is pressed down.
     ///
-    /// In JS: "keydown" event firing.
-    Down,
-    /// Key is released.
+    /// Often emitted in a [keydown] event, see also [the MDN documentation][mdn] on that.
     ///
-    /// In JS: "keyup event".
-    Up,
+    /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+    Pressed,
+    /// The key is not pressed / was just released.
+    ///
+    /// Often emitted in a [keyup] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keyup]: https://w3c.github.io/uievents/#event-type-keyup
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
+    Released,
 }
 
 impl KeyState {
@@ -51,8 +57,8 @@ impl KeyState {
     /// [keypress]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
     pub const fn event_type(self) -> &'static str {
         match self {
-            Self::Down => "keydown",
-            Self::Up => "keyup",
+            Self::Pressed => "keydown",
+            Self::Released => "keyup",
         }
     }
 }
@@ -187,7 +193,7 @@ impl Key {
 
 impl Default for KeyState {
     fn default() -> KeyState {
-        KeyState::Down
+        KeyState::Pressed
     }
 }
 
