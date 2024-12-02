@@ -61,6 +61,16 @@ impl KeyState {
             Self::Released => "keyup",
         }
     }
+
+    /// True if the key is pressed.
+    pub fn is_pressed(self) -> bool {
+        self == Self::Pressed
+    }
+
+    /// True if the key is released.
+    pub fn is_released(self) -> bool {
+        self == Self::Released
+    }
 }
 
 /// Keyboard events are issued for all pressed and released keys.
