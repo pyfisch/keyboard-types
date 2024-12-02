@@ -75,12 +75,17 @@ pub enum CompositionState {
     End,
 }
 
-impl fmt::Display for CompositionState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl CompositionState {
+    /// The [type] name of the corresponding composition event.
+    ///
+    /// This is either `"compositionstart"`, `"compositionupdate"` or `"compositionend"`.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-composition-types
+    pub const fn event_type(self) -> &'static str {
         match self {
-            CompositionState::Start => f.write_str("compositionstart"),
-            CompositionState::Update => f.write_str("compositionupdate"),
-            CompositionState::End => f.write_str("compositionend"),
+            Self::Start => "compositionstart",
+            Self::Update => "compositionupdate",
+            Self::End => "compositionend",
         }
     }
 }
