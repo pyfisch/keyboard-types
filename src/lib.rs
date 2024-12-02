@@ -39,6 +39,24 @@ pub enum KeyState {
     Up,
 }
 
+impl KeyState {
+    /// The [type] name of the corresponding key event.
+    ///
+    /// This is either `"keydown"` or `"keyup"`.
+    ///
+    /// Note that a keyboard event could have come from [the legacy `"keypress"` event][keypress],
+    /// that is not handled by this method.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-keyboard-types
+    /// [keypress]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event
+    pub const fn event_type(self) -> &'static str {
+        match self {
+            Self::Down => "keydown",
+            Self::Up => "keyup",
+        }
+    }
+}
+
 /// Keyboard events are issued for all pressed and released keys.
 #[derive(Clone, Debug, Default, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -100,15 +118,6 @@ pub struct CompositionEvent {
     pub state: CompositionState,
     /// Current composition data. May be empty.
     pub data: String,
-}
-
-impl fmt::Display for KeyState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            KeyState::Down => f.write_str("keydown"),
-            KeyState::Up => f.write_str("keyup"),
-        }
-    }
 }
 
 impl Key {
