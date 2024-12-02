@@ -55,6 +55,16 @@ impl KeyState {
             Self::Up => "keyup",
         }
     }
+
+    /// True if the key is pressed down.
+    pub const fn is_down(self) -> bool {
+        matches!(self, Self::Down)
+    }
+
+    /// True if the key is released.
+    pub const fn is_up(self) -> bool {
+        matches!(self, Self::Up)
+    }
 }
 
 /// Keyboard events are issued for all pressed and released keys.
