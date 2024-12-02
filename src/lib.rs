@@ -64,23 +64,42 @@ pub struct KeyboardEvent {
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum CompositionState {
-    /// In JS: "compositionstart" event.
-    Start,
-    /// In JS: "compositionupdate" event.
-    Update,
-    /// In JS: "compositionend" event.
+    /// The [compositionstart] event.
     ///
-    /// In a text editor in this state the data
-    /// should be added to the input.
+    /// See also [the MDN documentation][mdn].
+    ///
+    /// [compositionstart]: https://w3c.github.io/uievents/#event-type-compositionstart
+    /// []: https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionstart_event
+    Start,
+    /// The [compositionupdate] event.
+    ///
+    /// See also [the MDN documentation][mdn].
+    ///
+    /// [compositionupdate]: https://w3c.github.io/uievents/#event-type-compositionupdate
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionupdate_event
+    Update,
+    /// The [compositionend] event.
+    ///
+    /// In a text editor, in this state the data should be added to the input.
+    ///
+    /// See also [the MDN documentation][mdn].
+    ///
+    /// [compositionend]: https://w3c.github.io/uievents/#event-type-compositionend
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/compositionstart_event
     End,
 }
 
-impl fmt::Display for CompositionState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl CompositionState {
+    /// The [type] name of the corresponding composition event.
+    ///
+    /// This is either `"compositionstart"`, `"compositionupdate"` or `"compositionend"`.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-composition-types
+    pub const fn event_type(self) -> &'static str {
         match self {
-            CompositionState::Start => f.write_str("compositionstart"),
-            CompositionState::Update => f.write_str("compositionupdate"),
-            CompositionState::End => f.write_str("compositionend"),
+            Self::Start => "compositionstart",
+            Self::Update => "compositionupdate",
+            Self::End => "compositionend",
         }
     }
 }
