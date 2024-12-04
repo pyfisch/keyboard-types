@@ -1,43 +1,74 @@
 import re
 import requests
+from bs4 import BeautifulSoup
 
 
 def parse(text):
+    # The document is not valid XML, so we need a more lenient parser than 'html.parser'
+    soup = BeautifulSoup(text, 'lxml')
     display = []
-    for match in re.findall(r"id=\".*?\">\"(.*?)\"</code>\n.*\n.*<td>(((.*?)\n?)+?)\s+(<tr>|</table>)", text):
-        # Skip F keys here
-        if re.match(r"^F\d+$", match[0]):
+    for table in soup.find_all('table'):
+        section_name = table.find_previous_sibling('h3').find(class_='content').text
+
+        # Skip duplicate table
+        if table['id'] == 'key-table-media-controller-dup':
             continue
-        doc = re.sub(r"[ \t][ \t]+", "\n", match[1])
-        doc = re.sub(r"<a .*?>(.*?)</a>", "\\1", doc)
-        doc_comment = ""
-        for line in doc.split('\n'):
-            line = line.strip()
-            if not line:
+
+        deprecated = table['id'] == 'key-table-modifier-legacy' or table['id'].startswith('table-key-code-legacy')
+
+        for row in table.find('tbody').find_all('tr'):
+            [name, _required, typical_usage] = row.find_all('td')
+
+            name = name.text.strip().strip('"')
+
+            # Skip F keys here
+            if re.match(r'^F\d+$', name):
                 continue
+
+            # Strip <a> tags
+            for a in typical_usage.find_all('a'):
+                a.replace_with(a.text)
+
             # Use the semantic `<kbd>` element instead.
-            line = re.sub(r"<code class=\"keycap\">(.*?)</code>", r"<kbd>\1</kbd>", line)
+            for keycap in typical_usage.find_all(class_='keycap'):
+                kbd = soup.new_tag("kbd")
+                kbd.string = keycap.text
+                keycap.replace_with(kbd)
+
             # Link to the relevant type.
-            line = re.sub(r"<code class=\"code\">\"(.*?)\"</code>", r"[`\1`][Code::\1]", line)
-            line = re.sub(r"<code class=\"key\">\"(.*?)\"</code>", r"[`\1`][Key::\1]", line)
-            doc_comment += "    /// {}\n".format(line)
-        display.append([match[0], doc_comment, []])
+            for code in typical_usage.find_all(class_='code'):
+                text = code.text.strip().strip('"')
+                code.replace_with(f"[`{text}`][Code::{text}]")
+            for code in typical_usage.find_all(class_='key'):
+                text = code.text.strip().strip('"')
+                code.replace_with(f"[`{text}`][Key::{text}]")
+
+            comment = re.sub(r"[ \t][ \t]+", "\n", typical_usage.decode_contents())
+
+            display.append([name, comment, deprecated, []])
     return display
 
 
 def emit_enum_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
-        print("{}    {},".format(doc_comment, key), file=file)
+    for [key, doc_comment, deprecated, alternatives] in display:
+        for line in doc_comment.split('\n'):
+            line = line.strip()
+            if len(line) == 0:
+                continue
+            print(f"    /// {line}", file=file)
+        if deprecated:
+            print("    #[deprecated = \"marked as legacy in the spec\"]", file=file)
+        print(f"    {key},", file=file)
 
 
 def print_display_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives] in display:
         print("            {0} => f.write_str(\"{0}\"),".format(
             key), file=file)
 
 
 def print_from_str_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives] in display:
         print("            \"{0}\"".format(key), file=file, end='')
         for alternative in alternatives:
             print(" | \"{0}\"".format(alternative), file=file, end='')
@@ -45,7 +76,7 @@ def print_from_str_entries(display, file):
 
 
 def add_alternative_for(display, key, alternative):
-    for [found_key, doc_comment, alternatives] in display:
+    for [found_key, doc_comment, deprecated, alternatives] in display:
         if found_key != key:
             continue
         alternatives.append(alternative)
@@ -55,6 +86,7 @@ def convert_key(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
+#![allow(deprecated)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -78,7 +110,8 @@ pub enum Key {
     for i in range(1, 36):
         display.append([
             'F{}'.format(i),
-            '    /// The F{0} key, a general purpose function key, as index {0}.\n'.format(i),
+            'The F{0} key, a general purpose function key, as index {0}.'.format(i),
+            False,
             []
         ])
 
@@ -151,6 +184,7 @@ def convert_code(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
+#![allow(deprecated)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -173,7 +207,8 @@ pub enum Code {""", file=file)
     for i in range(1, 36):
         display.append([
             'F{}'.format(i),
-            '    /// <kbd>F{}</kbd>\n'.format(i),
+            '<kbd>F{}</kbd>'.format(i),
+            False,
             []
         ])
 
@@ -203,7 +238,8 @@ pub enum Code {""", file=file)
     for chromium_only in chromium_key_codes:
         display.append([
             chromium_only,
-            '    /// Non-standard code value supported by Chromium.\n',
+            'Non-standard code value supported by Chromium.',
+            False,
             []
         ])
 
