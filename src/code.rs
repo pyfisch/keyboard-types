@@ -1,6 +1,7 @@
 
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
+#![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
