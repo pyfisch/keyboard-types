@@ -23,17 +23,23 @@ pub mod webdriver;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-/// Describes the state the key is in.
+/// Describes the state a key is in.
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
-    /// Key is pressed.
+    /// The key is pressed down.
     ///
-    /// In JS: "keydown" event firing.
+    /// Often emitted in a [keydown] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
     Down,
-    /// Key is released.
+    /// The key is not pressed / was just released.
     ///
-    /// In JS: "keyup event".
+    /// Often emitted in a [keyup] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keyup]: https://w3c.github.io/uievents/#event-type-keyup
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
     Up,
 }
 
