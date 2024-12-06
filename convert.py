@@ -55,6 +55,7 @@ def convert_key(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
+#![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -151,6 +152,7 @@ def convert_code(text, file):
     print("""
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
+#![allow(clippy::doc_markdown)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
