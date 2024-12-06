@@ -85,7 +85,7 @@ impl<T> ShortcutMatcher<T> {
             return self;
         }
         if modifiers == self.modifiers && key.match_key(&self.key) {
-            if self.state == KeyState::Down {
+            if self.state.is_pressed() {
                 self.value = Some(f());
             }
             self.matched = true;
