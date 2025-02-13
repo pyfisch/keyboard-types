@@ -455,6 +455,8 @@ pub enum Code {
     /// Non-standard code value supported by Chromium.
     PrivacyScreenToggle,
     /// Non-standard code value supported by Chromium.
+    KeyboardBacklightToggle,
+    /// Non-standard code value supported by Chromium.
     SelectTask,
     /// Non-standard code value supported by Chromium.
     ShowAllWindows,
@@ -680,6 +682,7 @@ impl Display for Code {
             MediaRewind => f.write_str("MediaRewind"),
             MicrophoneMuteToggle => f.write_str("MicrophoneMuteToggle"),
             PrivacyScreenToggle => f.write_str("PrivacyScreenToggle"),
+            KeyboardBacklightToggle => f.write_str("KeyboardBacklightToggle"),
             SelectTask => f.write_str("SelectTask"),
             ShowAllWindows => f.write_str("ShowAllWindows"),
             ZoomToggle => f.write_str("ZoomToggle"),
@@ -906,6 +909,7 @@ impl FromStr for Code {
             "MediaRewind" => Ok(MediaRewind),
             "MicrophoneMuteToggle" => Ok(MicrophoneMuteToggle),
             "PrivacyScreenToggle" => Ok(PrivacyScreenToggle),
+            "KeyboardBacklightToggle" => Ok(KeyboardBacklightToggle),
             "SelectTask" => Ok(SelectTask),
             "ShowAllWindows" => Ok(ShowAllWindows),
             "ZoomToggle" => Ok(ZoomToggle),

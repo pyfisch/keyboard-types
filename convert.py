@@ -224,6 +224,7 @@ pub enum Code {""", file=file)
         'MediaRewind',
         'MicrophoneMuteToggle',
         'PrivacyScreenToggle',
+        'KeyboardBacklightToggle',
         'SelectTask',
         'ShowAllWindows',
         'ZoomToggle',
