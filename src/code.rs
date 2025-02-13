@@ -20,6 +20,7 @@ use std::error::Error;
 #[non_exhaustive]
 pub enum Code {
     /// <kbd>`~</kbd> on a US keyboard. This is the <kbd>半角/全角/漢字</kbd> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
+    /// This is also called a backtick or grave.
     Backquote,
     /// Used for both the US <kbd>\|</kbd> (on the 101-key layout) and also for the key
     /// located between the <kbd>"</kbd> and <kbd>Enter</kbd> keys on row C of the 102-,
@@ -127,6 +128,7 @@ pub enum Code {
     /// <kbd>.&gt;</kbd> on a US keyboard.
     Period,
     /// <kbd>'"</kbd> on a US keyboard.
+    /// This is also called an apostrophe.
     Quote,
     /// <kbd>;:</kbd> on a US keyboard.
     Semicolon,

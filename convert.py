@@ -71,6 +71,14 @@ def print_from_str_entries(display, file):
         print(" => Ok({0}),".format(key), file=file)
 
 
+def add_comment_to(display, key, comment):
+    for (i, [found_key, doc_comment, alternatives]) in enumerate(display):
+        if found_key != key:
+            continue
+        doc_comment = doc_comment + "\n" + comment
+        display[i] = [found_key, doc_comment, alternatives]
+
+
 def add_alternative_for(display, key, alternative):
     for [found_key, doc_comment, alternatives] in display:
         if found_key != key:
@@ -235,6 +243,9 @@ pub enum Code {""", file=file)
             'Non-standard code value supported by Chromium.',
             []
         ])
+
+    add_comment_to(display, 'Backquote', 'This is also called a backtick or grave.')
+    add_comment_to(display, 'Quote', 'This is also called an apostrophe.')
 
     add_alternative_for(display, 'MetaLeft', 'OSLeft')
     add_alternative_for(display, 'MetaRight', 'OSRight')
