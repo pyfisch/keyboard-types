@@ -6,8 +6,6 @@
 
 #![warn(clippy::doc_markdown)]
 
-use std::fmt;
-
 pub use crate::code::{Code, UnrecognizedCodeError};
 pub use crate::key::{Key, UnrecognizedKeyError};
 pub use crate::location::Location;
@@ -37,6 +35,20 @@ pub enum KeyState {
     ///
     /// In JS: "keyup event".
     Up,
+}
+
+impl KeyState {
+    /// The [type] name of the corresponding key event.
+    ///
+    /// This is either `"keydown"` or `"keyup"`.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-keyboard-types
+    pub const fn event_type(self) -> &'static str {
+        match self {
+            Self::Down => "keydown",
+            Self::Up => "keyup",
+        }
+    }
 }
 
 /// Keyboard events are issued for all pressed and released keys.
@@ -119,15 +131,6 @@ pub struct CompositionEvent {
     pub state: CompositionState,
     /// Current composition data. May be empty.
     pub data: String,
-}
-
-impl fmt::Display for KeyState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            KeyState::Down => f.write_str("keydown"),
-            KeyState::Up => f.write_str("keyup"),
-        }
-    }
 }
 
 impl Key {
