@@ -471,7 +471,6 @@ impl Display for Code {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::Code::*;
         match *self {
-    
             Backquote => f.write_str("Backquote"),
             Backslash => f.write_str("Backslash"),
             BracketLeft => f.write_str("BracketLeft"),
@@ -932,4 +931,3 @@ impl fmt::Display for UnrecognizedCodeError {
 }
 
 impl Error for UnrecognizedCodeError {}
-    

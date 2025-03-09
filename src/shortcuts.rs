@@ -49,12 +49,12 @@ impl<T> ShortcutMatcher<T> {
     /// execute the provided function.
     ///
     /// ```rust
-    /// # use keyboard_types::{Key, KeyboardEvent, Modifiers, ShortcutMatcher};
+    /// # use keyboard_types::{Key, KeyboardEvent, Modifiers, NamedKey, ShortcutMatcher};
     /// # fn do_something() {}
     /// # fn forward_event() {}
     /// # let event = KeyboardEvent {
     /// #     state: keyboard_types::KeyState::Down,
-    /// #     key: Key::Enter,
+    /// #     key: Key::Named(NamedKey::Enter),
     /// #     code: keyboard_types::Code::Enter,
     /// #     location: keyboard_types::Location::Standard,
     /// #     modifiers: Modifiers::empty(),
@@ -65,10 +65,10 @@ impl<T> ShortcutMatcher<T> {
     /// // Shortcuts are tested in-order.
     /// ShortcutMatcher::from_event(event)
     /// // Do something if the Tab key is pressed.
-    /// .shortcut(Modifiers::empty(), Key::Tab, do_something)
+    /// .shortcut(Modifiers::empty(), Key::Named(NamedKey::Tab), do_something)
     /// // If Shift + Tab are pressed do something.
     /// // This is executed because the previous shortcut requires modifiers to be empty.
-    /// .shortcut(Modifiers::SHIFT, Key::Tab, do_something)
+    /// .shortcut(Modifiers::SHIFT, Key::Named(NamedKey::Tab), do_something)
     /// // Instead of named keys letters and other characters can be used.
     /// .shortcut(Modifiers::CONTROL, 'L', do_something)
     /// // Multiple modifiers are combined with bitwise OR (`|`) to form a new mask.
@@ -101,12 +101,12 @@ impl<T> ShortcutMatcher<T> {
     /// This is especially useful for platform specific shortcuts.
     ///
     /// ```rust
-    /// # use keyboard_types::{Key, KeyboardEvent, Modifiers, ShortcutMatcher};
+    /// # use keyboard_types::{Key, KeyboardEvent, Modifiers, NamedKey, ShortcutMatcher};
     /// # fn copy() {}
     /// # fn quit() {}
     /// # let event = KeyboardEvent {
     /// #     state: keyboard_types::KeyState::Down,
-    /// #     key: Key::Enter,
+    /// #     key: Key::Named(NamedKey::Enter),
     /// #     code: keyboard_types::Code::Enter,
     /// #     location: keyboard_types::Location::Standard,
     /// #     modifiers: Modifiers::empty(),
