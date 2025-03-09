@@ -6,8 +6,6 @@
 
 #![warn(clippy::doc_markdown)]
 
-use std::fmt;
-
 pub use crate::code::{Code, UnrecognizedCodeError};
 pub use crate::key::{Key, UnrecognizedKeyError};
 pub use crate::location::Location;
@@ -25,18 +23,48 @@ pub mod webdriver;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
-/// Describes the state the key is in.
+/// Describes the state a key is in.
 #[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
-    /// Key is pressed.
+    /// The key is pressed down.
     ///
-    /// In JS: "keydown" event firing.
+    /// Often emitted in a [keydown] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
     Down,
-    /// Key is released.
+    /// The key is not pressed / was just released.
     ///
-    /// In JS: "keyup event".
+    /// Often emitted in a [keyup] event, see also [the MDN documentation][mdn] on that.
+    ///
+    /// [keyup]: https://w3c.github.io/uievents/#event-type-keyup
+    /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
     Up,
+}
+
+impl KeyState {
+    /// The [type] name of the corresponding key event.
+    ///
+    /// This is either `"keydown"` or `"keyup"`.
+    ///
+    /// [type]: https://w3c.github.io/uievents/#events-keyboard-types
+    pub const fn event_type(self) -> &'static str {
+        match self {
+            Self::Down => "keydown",
+            Self::Up => "keyup",
+        }
+    }
+
+    /// True if the key is pressed down.
+    pub const fn is_down(self) -> bool {
+        matches!(self, Self::Down)
+    }
+
+    /// True if the key is released.
+    pub const fn is_up(self) -> bool {
+        matches!(self, Self::Up)
+    }
 }
 
 /// Keyboard events are issued for all pressed and released keys.
@@ -119,15 +147,6 @@ pub struct CompositionEvent {
     pub state: CompositionState,
     /// Current composition data. May be empty.
     pub data: String,
-}
-
-impl fmt::Display for KeyState {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            KeyState::Down => f.write_str("keydown"),
-            KeyState::Up => f.write_str("keyup"),
-        }
-    }
 }
 
 impl Key {
