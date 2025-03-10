@@ -375,7 +375,7 @@ impl KeyInputState {
         let mut actions: Vec<_> = undo_actions.drain().collect();
         actions.sort_unstable();
         for action in actions {
-            result.push(self.dispatch_keyup(action).unwrap().into())
+            result.push(self.dispatch_keyup(action).unwrap().into());
         }
         assert!(undo_actions.is_empty());
     }
