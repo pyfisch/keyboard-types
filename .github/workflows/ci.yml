@@ -33,3 +33,13 @@ jobs:
           components: clippy, rustfmt
       - run: cargo clippy --all-targets -- -D warnings
       - run: cargo fmt --check
+
+  check-docs:
+    name: Check the docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo doc --all-features --no-deps --document-private-items
+        env:
+          RUSTDOCFLAGS: '-D warnings'
