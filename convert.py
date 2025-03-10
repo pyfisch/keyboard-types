@@ -14,6 +14,9 @@ def parse(text):
         if table['id'] == 'key-table-media-controller-dup':
             continue
 
+        # Mark legacy modifier keys as deprecated.
+        deprecated = table['id'] == 'key-table-modifier-legacy' or table['id'] == 'table-key-code-legacy-modifier'
+
         for row in table.find('tbody').find_all('tr'):
             [name, _required, typical_usage] = row.find_all('td')
 
@@ -43,28 +46,30 @@ def parse(text):
 
             comment = re.sub(r"[ \t][ \t]+", "\n", typical_usage.decode_contents())
 
-            display.append([name, comment, []])
+            display.append([name, comment, deprecated, []])
     return display
 
 
 def emit_enum_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives] in display:
         for line in doc_comment.split('\n'):
             line = line.strip()
             if len(line) == 0:
                 continue
             print(f"    /// {line}", file=file)
+        if deprecated:
+            print("    #[deprecated = \"marked as legacy in the spec, use Meta instead\"]", file=file)
         print(f"    {key},", file=file)
 
 
 def print_display_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives] in display:
         print("            {0} => f.write_str(\"{0}\"),".format(
             key), file=file)
 
 
 def print_from_str_entries(display, file):
-    for [key, doc_comment, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives] in display:
         print("            \"{0}\"".format(key), file=file, end='')
         for alternative in alternatives:
             print(" | \"{0}\"".format(alternative), file=file, end='')
@@ -72,15 +77,15 @@ def print_from_str_entries(display, file):
 
 
 def add_comment_to(display, key, comment):
-    for (i, [found_key, doc_comment, alternatives]) in enumerate(display):
+    for (i, [found_key, doc_comment, deprecated, alternatives]) in enumerate(display):
         if found_key != key:
             continue
         doc_comment = doc_comment + "\n" + comment
-        display[i] = [found_key, doc_comment, alternatives]
+        display[i] = [found_key, doc_comment, deprecated, alternatives]
 
 
 def add_alternative_for(display, key, alternative):
-    for [found_key, doc_comment, alternatives] in display:
+    for [found_key, doc_comment, deprecated, alternatives] in display:
         if found_key != key:
             continue
         alternatives.append(alternative)
@@ -91,6 +96,7 @@ def convert_key(text, file):
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
 #![allow(clippy::doc_markdown)]
+#![allow(deprecated)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -115,6 +121,7 @@ pub enum Key {
         display.append([
             'F{}'.format(i),
             'The F{0} key, a general purpose function key, as index {0}.'.format(i),
+            False,
             []
         ])
 
@@ -188,6 +195,7 @@ def convert_code(text, file):
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
 #![allow(clippy::doc_markdown)]
+#![allow(deprecated)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -211,6 +219,7 @@ pub enum Code {""", file=file)
         display.append([
             'F{}'.format(i),
             '<kbd>F{}</kbd>'.format(i),
+            False,
             []
         ])
 
@@ -242,6 +251,7 @@ pub enum Code {""", file=file)
         display.append([
             chromium_only,
             'Non-standard code value supported by Chromium.',
+            False,
             []
         ])
 
