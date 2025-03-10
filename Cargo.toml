@@ -13,7 +13,7 @@ rust-version = "1.61"
 [features]
 default = []
 serde = ["dep:serde", "bitflags/serde"]
-webdriver = ["unicode-segmentation"]
+webdriver = ["dep:unicode-segmentation"]
 
 [dependencies]
 bitflags = "2"
