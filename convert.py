@@ -118,6 +118,8 @@ pub enum Key {
             []
         ])
 
+    add_comment_to(display, 'Meta', 'This is often what <kbd>Super</kbd> on Linux translates to.')
+
     emit_enum_entries(display, file)
     print("}", file=file)
 
@@ -247,6 +249,8 @@ pub enum Code {""", file=file)
 
     add_comment_to(display, 'Backquote', 'This is also called a backtick or grave.')
     add_comment_to(display, 'Quote', 'This is also called an apostrophe.')
+    add_comment_to(display, 'MetaLeft', 'This is often what the left <kbd>Super</kbd> on Linux translates to.')
+    add_comment_to(display, 'MetaRight', 'This is often what the right <kbd>Super</kbd> on Linux translates to.')
 
     add_alternative_for(display, 'MetaLeft', 'OSLeft')
     add_alternative_for(display, 'MetaRight', 'OSRight')
