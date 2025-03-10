@@ -153,8 +153,10 @@ pub enum Code {
     /// <kbd>Enter</kbd> or <kbd>↵</kbd>. Labelled <kbd>Return</kbd> on Apple keyboards.
     Enter,
     /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
+    /// This is often what the left <kbd>Super</kbd> on Linux translates to.
     MetaLeft,
     /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
+    /// This is often what the right <kbd>Super</kbd> on Linux translates to.
     MetaRight,
     /// <kbd>Shift</kbd> or <kbd>⇧</kbd>
     ShiftLeft,
