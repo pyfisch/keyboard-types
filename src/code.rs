@@ -2,6 +2,7 @@
 // AUTO GENERATED CODE - DO NOT EDIT
 #![cfg_attr(rustfmt, rustfmt_skip)]
 #![allow(clippy::doc_markdown)]
+#![allow(deprecated)]
 
 use std::fmt::{self, Display};
 use std::str::FromStr;
@@ -321,8 +322,11 @@ pub enum Code {
     AudioVolumeMute,
     AudioVolumeUp,
     WakeUp,
+    #[deprecated = "marked as legacy in the spec, use Meta instead"]
     Hyper,
+    #[deprecated = "marked as legacy in the spec, use Meta instead"]
     Super,
+    #[deprecated = "marked as legacy in the spec, use Meta instead"]
     Turbo,
     Abort,
     Resume,

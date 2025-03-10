@@ -25,7 +25,9 @@ bitflags::bitflags! {
         const SHIFT = 0x200;
         const SYMBOL = 0x400;
         const SYMBOL_LOCK = 0x800;
+        #[deprecated = "marked as legacy in the spec, use META instead"]
         const HYPER = 0x1000;
+        #[deprecated = "marked as legacy in the spec, use META instead"]
         const SUPER = 0x2000;
     }
 }
