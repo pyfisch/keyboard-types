@@ -16,9 +16,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.toolchain }}
-      # Default features
-      - run: cargo check --all-targets
-      - run: cargo test
+      # All features
+      - run: cargo check --all-targets --all-features
+      - run: cargo test --all-features
       # No default features
       - run: cargo check --all-targets --no-default-features
       - run: cargo test --no-default-features

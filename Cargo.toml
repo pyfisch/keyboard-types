@@ -11,7 +11,7 @@ edition = "2021"
 rust-version = "1.61"
 
 [features]
-default = ["serde", "webdriver"]
+default = []
 serde = ["dep:serde", "bitflags/serde"]
 webdriver = ["unicode-segmentation"]
 
