@@ -1,7 +1,7 @@
 /// The location attribute contains an indication of the physical location of the key on the device.
 ///
 /// Certain keys on the keyboard can have the same value, but are in different locations. For
-/// instance, the <kdb>Shift</kbd> key can be on the left or right side of the keyboard, or the
+/// instance, the <kbd>Shift</kbd> key can be on the left or right side of the keyboard, or the
 /// number keys can be above the letters or on the numpad. This enum allows differentiating them.
 ///
 /// See also [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location).
