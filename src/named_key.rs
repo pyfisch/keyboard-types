@@ -40,6 +40,7 @@ pub enum NamedKey {
     FnLock,
     /// The <kbd>Meta</kbd> key, to enable meta modifier function for interpreting concurrent or subsequent keyboard input.
     /// This key value is used for the <q>Windows Logo</q> key and the Apple <kbd>Command</kbd> or <kbd>⌘</kbd> key.
+    /// In Linux (XKB) terminology, this is often referred to as "Super".
     Meta,
     /// The <kbd>NumLock</kbd> or Number Lock key, to toggle numpad mode function for interpreting subsequent keyboard input.
     NumLock,
