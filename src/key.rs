@@ -672,7 +672,7 @@ impl Display for Key {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::Key::*;
         match *self {
-            Character(ref s) => write!(f, "{}", s),
+            Character(ref s) => write!(f, "{s}"),
 
             Unidentified => f.write_str("Unidentified"),
             Alt => f.write_str("Alt"),
