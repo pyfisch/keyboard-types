@@ -5,6 +5,7 @@
 //! input in a cross-platform way.
 
 #![warn(clippy::doc_markdown)]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
 use std::fmt;
 

@@ -11,11 +11,14 @@ edition = "2021"
 rust-version = "1.61"
 
 [features]
-default = ["serde", "webdriver"]
+default = []
 serde = ["dep:serde", "bitflags/serde"]
-webdriver = ["unicode-segmentation"]
+webdriver = ["dep:unicode-segmentation"]
 
 [dependencies]
 bitflags = "2"
 serde = { version = "1.0.0", optional = true, features = ["derive"] }
 unicode-segmentation = { version = "1.2.0", optional = true }
+
+[package.metadata.docs.rs]
+all-features = true
