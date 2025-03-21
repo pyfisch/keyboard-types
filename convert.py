@@ -98,8 +98,9 @@ def convert_key(text, file):
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
-use std::fmt::{self, Display};
-use std::str::FromStr;
+use core::fmt::{self, Display};
+use core::str::FromStr;
+#[cfg(feature = "std")]
 use std::error::Error;
 
 /// Key represents the meaning of a keypress.
@@ -160,6 +161,7 @@ impl fmt::Display for UnrecognizedNamedKeyError {
     }
 }
 
+#[cfg(feature = "std")]
 impl Error for UnrecognizedNamedKeyError {}""", file=file)
 
 
@@ -170,8 +172,9 @@ def convert_code(text, file):
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
-use std::fmt::{self, Display};
-use std::str::FromStr;
+use core::fmt::{self, Display};
+use core::str::FromStr;
+#[cfg(feature = "std")]
 use std::error::Error;
 
 /// Code is the physical position of a key.
@@ -278,6 +281,7 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
+#[cfg(feature = "std")]
 impl Error for UnrecognizedCodeError {}""", file=file)
 
 
