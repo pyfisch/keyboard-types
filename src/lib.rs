@@ -6,7 +6,11 @@
 
 #![warn(clippy::doc_markdown)]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
+#![cfg_attr(all(not(feature = "std"), not(test)), no_std)]
 
+extern crate alloc;
+
+use alloc::string::{String, ToString};
 use core::fmt;
 use core::str::FromStr;
 
