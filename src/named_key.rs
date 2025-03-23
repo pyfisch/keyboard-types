@@ -4,8 +4,9 @@
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
-use std::fmt::{self, Display};
-use std::str::FromStr;
+use core::fmt::{self, Display};
+use core::str::FromStr;
+#[cfg(feature = "std")]
 use std::error::Error;
 
 /// Key represents the meaning of a keypress.
@@ -1311,4 +1312,5 @@ impl fmt::Display for UnrecognizedNamedKeyError {
     }
 }
 
+#[cfg(feature = "std")]
 impl Error for UnrecognizedNamedKeyError {}
