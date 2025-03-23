@@ -12,13 +12,14 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum NamedKey {
     /// This key value is used when an implementation is unable to
     /// identify another key value, due to either hardware,
     /// platform, or software constraints.
+    #[default]
     Unidentified,
     /// The <kbd>Alt</kbd> (Alternative) key.<br/> This key enables the alternate modifier function for interpreting concurrent or subsequent keyboard input.<br/> This key value is also used for the Apple <kbd>Option</kbd> key.
     Alt,

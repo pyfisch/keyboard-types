@@ -28,7 +28,7 @@ pub mod webdriver;
 use serde::{Deserialize, Serialize};
 
 /// Describes the state a key is in.
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
     /// The key is pressed down.
@@ -37,6 +37,7 @@ pub enum KeyState {
     ///
     /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+    #[default]
     Down,
     /// The key is not pressed / was just released.
     ///
@@ -256,33 +257,9 @@ impl Key {
     }
 }
 
-impl Default for KeyState {
-    fn default() -> KeyState {
-        KeyState::Down
-    }
-}
-
 impl Default for Key {
     fn default() -> Self {
         Self::Named(NamedKey::default())
-    }
-}
-
-impl Default for NamedKey {
-    fn default() -> Self {
-        Self::Unidentified
-    }
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Code::Unidentified
-    }
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Location::Standard
     }
 }
 

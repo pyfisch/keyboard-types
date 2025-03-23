@@ -16,7 +16,7 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-code/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {
@@ -355,6 +355,7 @@ pub enum Code {
     Katakana,
     /// This value code should be used when no other
     /// value given in this specification is appropriate.
+    #[default]
     Unidentified,
     /// <kbd>F1</kbd>
     F1,
