@@ -59,6 +59,8 @@ def emit_enum_entries(display, file):
             print(f"    /// {line}", file=file)
         if deprecated:
             print("    #[deprecated = \"marked as legacy in the spec, use Meta instead\"]", file=file)
+        if key == "Unidentified":
+            print("    #[default]", file=file)
         print(f"    {key},", file=file)
 
 
@@ -98,16 +100,15 @@ def convert_key(text, file):
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
+use core::error::Error;
 use core::fmt::{self, Display};
 use core::str::FromStr;
-#[cfg(feature = "std")]
-use std::error::Error;
 
 /// Key represents the meaning of a keypress.
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum NamedKey {""", file=file)
@@ -161,7 +162,6 @@ impl fmt::Display for UnrecognizedNamedKeyError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedNamedKeyError {}""", file=file)
 
 
@@ -172,10 +172,9 @@ def convert_code(text, file):
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
+use core::error::Error;
 use core::fmt::{self, Display};
 use core::str::FromStr;
-#[cfg(feature = "std")]
-use std::error::Error;
 
 /// Code is the physical position of a key.
 ///
@@ -185,7 +184,7 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-code/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {""", file=file)
@@ -281,7 +280,6 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedCodeError {}""", file=file)
 
 

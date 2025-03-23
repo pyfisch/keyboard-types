@@ -4,10 +4,9 @@
 #![allow(clippy::doc_markdown)]
 #![allow(deprecated)]
 
+use core::error::Error;
 use core::fmt::{self, Display};
 use core::str::FromStr;
-#[cfg(feature = "std")]
-use std::error::Error;
 
 /// Code is the physical position of a key.
 ///
@@ -17,7 +16,7 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-code/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {
@@ -358,6 +357,7 @@ pub enum Code {
     Katakana,
     /// This value code should be used when no other
     /// value given in this specification is appropriate.
+    #[default]
     Unidentified,
     /// <kbd>F1</kbd>
     F1,
@@ -937,5 +937,4 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedCodeError {}
