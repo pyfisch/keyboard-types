@@ -43,3 +43,12 @@ jobs:
       - run: cargo doc --all-features --no-deps --document-private-items
         env:
           RUSTDOCFLAGS: '-D warnings'
+
+  # If this fails, consider changing your text or adding something to .typos.toml.
+  typos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: check typos
+        uses: crate-ci/typos@v1.30.2
