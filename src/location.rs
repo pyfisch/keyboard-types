@@ -5,7 +5,7 @@
 /// number keys can be above the letters or on the numpad. This enum allows differentiating them.
 ///
 /// See also [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location).
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Location {
     /// The key is in its "normal" location on the keyboard.
@@ -31,6 +31,7 @@ pub enum Location {
         env!("CARGO_PKG_VERSION"),
         "/source/docs/ATTRIBUTION.md",
     )]
+    #[default]
     Standard = 0x00,
 
     /// The key activated originated from the left key location (when there
