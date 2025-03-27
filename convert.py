@@ -120,6 +120,8 @@ pub enum NamedKey {""", file=file)
             []
         ])
 
+    add_comment_to(display, 'Meta', 'In Linux (XKB) terminology, this is often referred to as "Super".')
+
     emit_enum_entries(display, file)
     print("}", file=file)
 
@@ -228,6 +230,8 @@ pub enum Code {""", file=file)
 
     add_comment_to(display, 'Backquote', 'This is also called a backtick or grave.')
     add_comment_to(display, 'Quote', 'This is also called an apostrophe.')
+    add_comment_to(display, 'MetaLeft', 'In Linux (XKB) terminology, this is often referred to as the left "Super".')
+    add_comment_to(display, 'MetaRight', 'In Linux (XKB) terminology, this is often referred to as the right "Super".')
 
     add_alternative_for(display, 'MetaLeft', 'OSLeft')
     add_alternative_for(display, 'MetaRight', 'OSRight')
