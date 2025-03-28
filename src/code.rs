@@ -22,6 +22,8 @@ use std::error::Error;
 pub enum Code {
     /// <kbd>`~</kbd> on a US keyboard. This is the <kbd>半角/全角/漢字</kbd> (<span class="unicode">hankaku/zenkaku/kanji</span>) key on Japanese keyboards
     /// This is also called a backtick or grave.
+    #[doc(alias = "Backtick")]
+    #[doc(alias = "Grave")]
     Backquote,
     /// Used for both the US <kbd>\|</kbd> (on the 101-key layout) and also for the key
     /// located between the <kbd>"</kbd> and <kbd>Enter</kbd> keys on row C of the 102-,
@@ -130,6 +132,7 @@ pub enum Code {
     Period,
     /// <kbd>'"</kbd> on a US keyboard.
     /// This is also called an apostrophe.
+    #[doc(alias = "Apostrophe")]
     Quote,
     /// <kbd>;:</kbd> on a US keyboard.
     Semicolon,
@@ -152,10 +155,15 @@ pub enum Code {
     /// <kbd>Control</kbd> or <kbd>⌃</kbd>
     ControlRight,
     /// <kbd>Enter</kbd> or <kbd>↵</kbd>. Labelled <kbd>Return</kbd> on Apple keyboards.
+    #[doc(alias = "Return")]
     Enter,
     /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
+    #[doc(alias = "SuperLeft")]
+    #[doc(alias = "OSLeft")]
     MetaLeft,
     /// The Windows, <kbd>⌘</kbd>, <kbd>Command</kbd> or other OS symbol key.
+    #[doc(alias = "SuperRight")]
+    #[doc(alias = "OSRight")]
     MetaRight,
     /// <kbd>Shift</kbd> or <kbd>⇧</kbd>
     ShiftLeft,
@@ -310,6 +318,7 @@ pub enum Code {
     LaunchApp2,
     LaunchMail,
     MediaPlayPause,
+    #[doc(alias = "LaunchMediaPlayer")]
     MediaSelect,
     MediaStop,
     MediaTrackNext,
@@ -318,8 +327,11 @@ pub enum Code {
     /// replacing the <kbd>Eject</kbd> key.
     Power,
     Sleep,
+    #[doc(alias = "VolumeDown")]
     AudioVolumeDown,
+    #[doc(alias = "VolumeMute")]
     AudioVolumeMute,
+    #[doc(alias = "VolumeUp")]
     AudioVolumeUp,
     WakeUp,
     #[deprecated = "marked as legacy in the spec, use Meta instead"]
