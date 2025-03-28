@@ -1,6 +1,6 @@
 [package]
 name = "keyboard-types"
-version = "0.7.0"
+version = "0.8.0"
 authors = ["Pyfisch <pyfisch@posteo.org>"]
 description = "Contains types to define keyboard related events."
 readme = "README.md"
