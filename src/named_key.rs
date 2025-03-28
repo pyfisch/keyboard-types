@@ -42,6 +42,7 @@ pub enum NamedKey {
     /// The <kbd>Meta</kbd> key, to enable meta modifier function for interpreting concurrent or subsequent keyboard input.
     /// This key value is used for the <q>Windows Logo</q> key and the Apple <kbd>Command</kbd> or <kbd>⌘</kbd> key.
     /// In Linux (XKB) terminology, this is often referred to as "Super".
+    #[doc(alias = "Super")]
     Meta,
     /// The <kbd>NumLock</kbd> or Number Lock key, to toggle numpad mode function for interpreting subsequent keyboard input.
     NumLock,
@@ -60,6 +61,7 @@ pub enum NamedKey {
     #[deprecated = "marked as legacy in the spec, use Meta instead"]
     Super,
     /// The <kbd>Enter</kbd> or <kbd>↵</kbd> key, to activate current selection or accept current input.<br/> This key value is also used for the <kbd>Return</kbd> (Macintosh numpad) key.<br/> This key value is also used for the Android <code class="android">KEYCODE_DPAD_CENTER</code>.
+    #[doc(alias = "Return")]
     Enter,
     /// The Horizontal Tabulation <kbd>Tab</kbd> key.
     Tab,

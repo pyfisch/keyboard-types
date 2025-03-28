@@ -46,12 +46,12 @@ def parse(text):
 
             comment = re.sub(r"[ \t][ \t]+", "\n", typical_usage.decode_contents())
 
-            display.append([name, comment, deprecated, []])
+            display.append([name, comment, deprecated, [], []])
     return display
 
 
 def emit_enum_entries(display, file):
-    for [key, doc_comment, deprecated, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives, aliases] in display:
         for line in doc_comment.split('\n'):
             line = line.strip()
             if len(line) == 0:
@@ -59,17 +59,19 @@ def emit_enum_entries(display, file):
             print(f"    /// {line}", file=file)
         if deprecated:
             print("    #[deprecated = \"marked as legacy in the spec, use Meta instead\"]", file=file)
+        for alias in aliases:
+            print(f"    #[doc(alias = \"{alias}\")]", file=file)
         print(f"    {key},", file=file)
 
 
 def print_display_entries(display, file):
-    for [key, doc_comment, deprecated, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives, aliases] in display:
         print("            {0} => f.write_str(\"{0}\"),".format(
             key), file=file)
 
 
 def print_from_str_entries(display, file):
-    for [key, doc_comment, deprecated, alternatives] in display:
+    for [key, doc_comment, deprecated, alternatives, aliases] in display:
         print("            \"{0}\"".format(key), file=file, end='')
         for alternative in alternatives:
             print(" | \"{0}\"".format(alternative), file=file, end='')
@@ -77,18 +79,27 @@ def print_from_str_entries(display, file):
 
 
 def add_comment_to(display, key, comment):
-    for (i, [found_key, doc_comment, deprecated, alternatives]) in enumerate(display):
+    for (i, [found_key, doc_comment, deprecated, alternatives, aliases]) in enumerate(display):
         if found_key != key:
             continue
         doc_comment = doc_comment + "\n" + comment
-        display[i] = [found_key, doc_comment, deprecated, alternatives]
+        display[i] = [found_key, doc_comment, deprecated, alternatives, aliases]
+
+
+def add_alias_for(display, key, alias):
+    for [found_key, doc_comment, deprecated, alternatives, aliases] in display:
+        if found_key != key:
+            continue
+        aliases.append(alias)
 
 
 def add_alternative_for(display, key, alternative):
-    for [found_key, doc_comment, deprecated, alternatives] in display:
+    for [found_key, doc_comment, deprecated, alternatives, aliases] in display:
         if found_key != key:
             continue
         alternatives.append(alternative)
+        # Alternatives are also listed as aliases
+        aliases.append(alternative)
 
 
 def convert_key(text, file):
@@ -118,10 +129,14 @@ pub enum NamedKey {""", file=file)
             'F{}'.format(i),
             'The F{0} key, a general purpose function key, as index {0}.'.format(i),
             False,
-            []
+            [],
+            [],
         ])
 
     add_comment_to(display, 'Meta', 'In Linux (XKB) terminology, this is often referred to as "Super".')
+
+    add_alias_for(display, 'Meta', 'Super')
+    add_alias_for(display, 'Enter', 'Return')
 
     emit_enum_entries(display, file)
     print("}", file=file)
@@ -196,7 +211,8 @@ pub enum Code {""", file=file)
             'F{}'.format(i),
             '<kbd>F{}</kbd>'.format(i),
             False,
-            []
+            [],
+            [],
         ])
 
     chromium_key_codes = [
@@ -228,13 +244,21 @@ pub enum Code {""", file=file)
             chromium_only,
             'Non-standard code value supported by Chromium.',
             False,
-            []
+            [],
+            [],
         ])
 
     add_comment_to(display, 'Backquote', 'This is also called a backtick or grave.')
     add_comment_to(display, 'Quote', 'This is also called an apostrophe.')
     add_comment_to(display, 'MetaLeft', 'In Linux (XKB) terminology, this is often referred to as the left "Super".')
     add_comment_to(display, 'MetaRight', 'In Linux (XKB) terminology, this is often referred to as the right "Super".')
+
+    add_alias_for(display, 'Backquote', 'Backtick')
+    add_alias_for(display, 'Backquote', 'Grave')
+    add_alias_for(display, 'Quote', 'Apostrophe')
+    add_alias_for(display, 'MetaLeft', 'SuperLeft')
+    add_alias_for(display, 'MetaRight', 'SuperRight')
+    add_alias_for(display, 'Enter', 'Return')
 
     add_alternative_for(display, 'MetaLeft', 'OSLeft')
     add_alternative_for(display, 'MetaRight', 'OSRight')
