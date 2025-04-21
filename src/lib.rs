@@ -153,7 +153,7 @@ pub struct CompositionEvent {
     pub data: String,
 }
 
-/// The value recieved from the keypress.
+/// The value received from the keypress.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Key {
