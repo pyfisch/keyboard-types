@@ -14,6 +14,13 @@ input in a cross-platform way.
 See also: [UI Events Specification](https://w3c.github.io/uievents/), and in
 particular [the section on keyboard events](https://w3c.github.io/uievents/#keys).
 
+Minimum Support Rust Version (MSRV)
+-----------------------------------
+
+The minimum supported Rust version is 1.61, or 1.81 if the `"std"` Cargo
+feature is disabled. This is not defined by policy, and may change at any time
+in a patch release.
+
 Updating Generated Code
 -----------------------
 
