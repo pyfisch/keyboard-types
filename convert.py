@@ -100,6 +100,8 @@ def convert_key(text, file):
 
 use core::fmt::{self, Display};
 use core::str::FromStr;
+#[cfg(not(feature = "std"))]
+use core::error::Error;
 #[cfg(feature = "std")]
 use std::error::Error;
 
@@ -161,7 +163,6 @@ impl fmt::Display for UnrecognizedNamedKeyError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedNamedKeyError {}""", file=file)
 
 
@@ -174,6 +175,8 @@ def convert_code(text, file):
 
 use core::fmt::{self, Display};
 use core::str::FromStr;
+#[cfg(not(feature = "std"))]
+use core::error::Error;
 #[cfg(feature = "std")]
 use std::error::Error;
 
@@ -281,7 +284,6 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedCodeError {}""", file=file)
 
 

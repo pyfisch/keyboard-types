@@ -11,6 +11,7 @@ jobs:
         toolchain:
           - stable
           - "1.61"
+          - "1.81"
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@master
@@ -19,9 +20,11 @@ jobs:
       # All features
       - run: cargo check --all-targets --all-features
       - run: cargo test --all-features
-      # No default features
-      - run: cargo check --all-targets --no-default-features
-      - run: cargo test --no-default-features
+      # No default features. Only works on Rust 1.81
+      - if: matrix.toolchain != 1.61
+        run: cargo check --all-targets --no-default-features
+      - if: matrix.toolchain != 1.61
+        run: cargo test --no-default-features
 
   clippy-fmt:
     name: Run Clippy and format code

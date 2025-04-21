@@ -6,6 +6,8 @@
 
 use core::fmt::{self, Display};
 use core::str::FromStr;
+#[cfg(not(feature = "std"))]
+use core::error::Error;
 #[cfg(feature = "std")]
 use std::error::Error;
 
@@ -937,5 +939,4 @@ impl fmt::Display for UnrecognizedCodeError {
     }
 }
 
-#[cfg(feature = "std")]
 impl Error for UnrecognizedCodeError {}
