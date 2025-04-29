@@ -1307,7 +1307,7 @@ impl FromStr for NamedKey {
     }
 }
 
-/// Parse from string error, returned when string does not match to any Key variant.
+/// Parse from string error, returned when string does not match to any [`NamedKey`] variant.
 #[derive(Clone, Debug)]
 pub struct UnrecognizedNamedKeyError;
 

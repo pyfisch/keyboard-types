@@ -45,7 +45,7 @@ impl<T> ShortcutMatcher<T> {
 
     /// Test a keyboard shortcut.
     ///
-    /// If the modifiers are active and the key is pressed
+    /// If the modifiers are active and the key is pressed,
     /// execute the provided function.
     ///
     /// ```rust
