@@ -168,7 +168,7 @@ impl FromStr for NamedKey {
     }
 }
 
-/// Parse from string error, returned when string does not match to any Key variant.
+/// Parse from string error, returned when string does not match to any [`NamedKey`] variant.
 #[derive(Clone, Debug)]
 pub struct UnrecognizedNamedKeyError;
 
@@ -198,7 +198,7 @@ use std::error::Error;
 /// Code is the physical position of a key.
 ///
 /// The names are based on the US keyboard. If the key
-/// is not present on US keyboards a name from another
+/// is not present on US keyboards, a name from another
 /// layout is used.
 ///
 /// Specification:
@@ -298,7 +298,7 @@ impl FromStr for Code {
     }
 }
 
-/// Parse from string error, returned when string does not match to any Code variant.
+/// Parse from string error, returned when string does not match to any [`Code`] variant.
 #[derive(Clone, Debug)]
 pub struct UnrecognizedCodeError;
 

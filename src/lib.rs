@@ -149,7 +149,7 @@ impl CompositionState {
 /// dead key combinations and IMEs.
 ///
 /// A composition session is always started by a [`CompositionState::Start`]
-/// event followed my zero or more [`CompositionState::Update`] events
+/// event followed by zero or more [`CompositionState::Update`] events
 /// and terminated by a single [`CompositionState::End`] event.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -171,7 +171,7 @@ pub enum Key {
     Named(NamedKey),
 }
 
-/// Parse from string error, returned when string does not match to any Key variant.
+/// Parse from string error, returned when string does not match to any [`Key`] variant.
 #[derive(Clone, Debug)]
 pub struct UnrecognizedKeyError;
 
