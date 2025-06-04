@@ -373,46 +373,29 @@ impl KeyInputState {
             is_composing: false,
         })
     }
-
-    fn clear(&mut self, undo_actions: &mut HashSet<char>, result: &mut Vec<Event>) {
-        let mut actions: Vec<_> = undo_actions.drain().collect();
-        actions.sort_unstable();
-        for action in actions {
-            result.push(self.dispatch_keyup(action).unwrap().into());
-        }
-        assert!(undo_actions.is_empty());
-    }
-
-    fn dispatch_typeable(&mut self, text: &mut String, result: &mut Vec<Event>) {
-        for character in text.chars() {
-            let shifted = self.modifiers.contains(Modifiers::SHIFT);
-            if is_shifted_character(character) && !shifted {
-                // dispatch left shift down
-                result.push(self.dispatch_keydown('\u{E008}').into());
-            }
-            if !is_shifted_character(character) && shifted {
-                // dispatch left shift up
-                result.push(self.dispatch_keyup('\u{E008}').unwrap().into());
-            }
-            result.push(self.dispatch_keydown(character).into());
-            result.push(self.dispatch_keyup(character).unwrap().into());
-        }
-        text.clear();
-    }
 }
 
-/// Either a [`KeyboardEvent`] or a [`CompositionEvent`].
+/// Give user the key state and char of the key event.
+/// User must then send the key event through `dispatch_actions`
+#[derive(Clone, Eq, PartialEq, Hash, Debug, PartialOrd, Ord)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct KeyItem {
+    state: KeyState,
+    raw_char: char,
+}
+
+/// Either a [`KeyItem`] or a [`CompositionEvent`].
 ///
 /// Returned by the [`send_keys`] function.
 #[derive(Clone, Eq, PartialEq, Hash, Debug, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Event {
-    Keyboard(KeyboardEvent),
+    Keyboard(KeyItem),
     Composition(CompositionEvent),
 }
 
-impl From<KeyboardEvent> for Event {
-    fn from(v: KeyboardEvent) -> Event {
+impl From<KeyItem> for Event {
+    fn from(v: KeyItem) -> Event {
         Event::Keyboard(v)
     }
 }
@@ -459,25 +442,89 @@ pub fn send_keys(text: &str) -> Vec<Event> {
         text.chars().count() == 1
     }
 
+    fn clear(undo_actions: &mut HashSet<char>, result: &mut Vec<Event>, shifted: &mut bool) {
+        let mut actions: Vec<_> = undo_actions.drain().collect();
+        actions.sort_unstable();
+        for action in actions {
+            result.push(
+                KeyItem {
+                    state: KeyState::Up,
+                    raw_char: action,
+                }
+                .into(),
+            );
+        }
+        *shifted = false;
+        assert!(undo_actions.is_empty());
+    }
+
+    fn dispatch_typeable(text: &mut String, result: &mut Vec<Event>, shifted: &mut bool) {
+        for character in text.chars() {
+            if is_shifted_character(character) && !(*shifted) {
+                // dispatch left shift down
+                result.push(
+                    KeyItem {
+                        state: KeyState::Down,
+                        raw_char: '\u{E008}',
+                    }
+                    .into(),
+                );
+                *shifted = true;
+            }
+            if !is_shifted_character(character) && *shifted {
+                // dispatch left shift up
+                result.push(
+                    KeyItem {
+                        state: KeyState::Up,
+                        raw_char: '\u{E008}',
+                    }
+                    .into(),
+                );
+                *shifted = false;
+            }
+            result.push(
+                KeyItem {
+                    state: KeyState::Down,
+                    raw_char: character,
+                }
+                .into(),
+            );
+            result.push(
+                KeyItem {
+                    state: KeyState::Up,
+                    raw_char: character,
+                }
+                .into(),
+            );
+        }
+        text.clear();
+    }
+
     let mut result = Vec::new();
     let mut typeable_text = String::new();
-    let mut state = KeyInputState::new();
     let mut undo_actions = HashSet::new();
+    let mut shifted = false;
     for cluster in UnicodeSegmentation::graphemes(text, true) {
         match cluster {
             "\u{E000}" => {
-                state.dispatch_typeable(&mut typeable_text, &mut result);
-                state.clear(&mut undo_actions, &mut result);
+                dispatch_typeable(&mut typeable_text, &mut result, &mut shifted);
+                clear(&mut undo_actions, &mut result, &mut shifted);
             }
             s if is_modifier(s) => {
-                state.dispatch_typeable(&mut typeable_text, &mut result);
+                dispatch_typeable(&mut typeable_text, &mut result, &mut shifted);
                 let raw_modifier = first_char(s);
-                result.push(state.dispatch_keydown(raw_modifier).into());
+                result.push(
+                    KeyItem {
+                        state: KeyState::Down,
+                        raw_char: raw_modifier,
+                    }
+                    .into(),
+                );
                 undo_actions.insert(raw_modifier);
             }
             s if is_typeable(s) => typeable_text.push_str(s),
             s => {
-                state.dispatch_typeable(&mut typeable_text, &mut result);
+                dispatch_typeable(&mut typeable_text, &mut result, &mut shifted);
                 // FIXME: Spec says undefined instead of empty string
                 result.push(
                     CompositionEvent {
@@ -503,7 +550,7 @@ pub fn send_keys(text: &str) -> Vec<Event> {
             }
         }
     }
-    state.dispatch_typeable(&mut typeable_text, &mut result);
-    state.clear(&mut undo_actions, &mut result);
+    dispatch_typeable(&mut typeable_text, &mut result, &mut shifted);
+    clear(&mut undo_actions, &mut result, &mut shifted);
     result
 }
