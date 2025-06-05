@@ -198,6 +198,12 @@ impl FromStr for Key {
     }
 }
 
+impl From<NamedKey> for Key {
+    fn from(value: NamedKey) -> Self {
+        Self::Named(value)
+    }
+}
+
 impl Key {
     /// Determine a *charCode* value for a key with a character value.
     ///
@@ -318,5 +324,10 @@ mod test {
         assert!(is_key_string("A"));
         assert!(!is_key_string("AA"));
         assert!(!is_key_string("	"));
+    }
+
+    #[test]
+    fn into() {
+        assert_eq!(Key::Named(NamedKey::Enter), NamedKey::Enter.into());
     }
 }
